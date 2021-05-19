@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import HeaderB from '../components/Header-B';
@@ -16,26 +16,36 @@ import Button from '../components/forms/Button';
 import '../assets/styles/containers/Play.scss';
 import '../assets/styles/components/Carton.scss';
 import { Link } from 'react-router-dom';
+import Badges from '../components/display/Badges';
+import Icon from '../components/display/Icon';
 
-const App = ({ play, misCartones, catalogos }) => {
+const App = ({ user, history, play, misCartones, catalogos }) => {
 
-  // const props = { data: [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 'X', 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0]] };
+  if (!user.id) {
+    history.push('/');
+  };
+
+  const [first, setFirst] = useState(true);
+  useEffect(()=>{
+    if (first) {
+      setFirst(false);
+      document.querySelector('#react').scrollTo(0, 0);
+    }
+  }, []);
+
   const [pint, setPint] = useState([
     ...misCartones.map((e)=>{
       return e.play;
     }),
   ]);
 
-  // console.log(misCartones);
-  // console.log(pint[0][0] ? color2 : 'transparent');
-  // console.log(pint[0][1] ? color2 : 'transparent');
-
   const color1 = '#5F2EEA';
   const color2 = '#5F2EEA';
 
+  const [direction, setDirection] = useState(1);
   const serie = 2;
 
-  const key = 0;
+  const key = 2;
 
   const changeHandler = (r, o, item)=>{
     if (pint[item][r][o]) {
@@ -107,20 +117,49 @@ const App = ({ play, misCartones, catalogos }) => {
       return (
         <div className='play' >
           <HeaderB to='/' />
-          <div className='carton'>
-            <div className='carton__content'>
+          <div className='carton__title-content'>
+            <div>
               <h1 className='carton__title'>
                 {catalogos.filter((e)=>{
                   // console.log(e.serie === serie);
                   return e.serie === serie;
                 })[0].titulo}
               </h1>
+              <Badges>Serie en juego: {serie} </Badges>
+            </div>
+            <div
+              className='row'
+              onClick={()=>{
+                if (direction === 0) {
+                  setDirection(1);
+                } else {
+                  setDirection(0);
+                }
+              }}
+              style={{
+                transform: `rotate(${direction === 0 ? '-180' : '-90'}deg)`,
+              }}
+            >
+              <Icon type='row' />
+            </div>
+          </div>
+          <div className='carton'>
+            <div className='carton__content'>
               <div className='hidden-data'>
-                <div className='data'>
+                <div className='data' style={
+                  {
+                    width: `calc(100% * ${direction === 0 ? misCartones.filter((e)=>{return e.serie === serie;}).length : '1' })`,
+                    maxWidth: `calc(400px * ${misCartones.filter((e)=>{return e.serie === serie;}).length })`,
+                    flexWrap: `${direction === 0 ? 'nowrap' : 'wrap'}`,
+                  }}
+                >
                   {
                     misCartones.map((e, index)=>{
                       return (
-                        <div className='item' key={index} id={e.serie}>
+                        <div className='item' key={index} id={e.serie} style={{
+                          margin: direction === 0 ? '10px 10px' : '10px 10px',
+                        }}
+                        >
                           <table className='carton__table'>
                             <thead>
                               <tr>
@@ -419,6 +458,10 @@ const App = ({ play, misCartones, catalogos }) => {
                               </tr>
                             </tbody>
                           </table>
+                          <div className='foot'>
+                            <Button size='small'>Bingo!</Button>
+                            <Badges>Numero: {index} </Badges>
+                          </div>
                         </div>);
                     }).filter((e)=>{
                       // console.log(e);
@@ -428,10 +471,6 @@ const App = ({ play, misCartones, catalogos }) => {
                     })
                   }
                 </div>
-              </div>
-              <div className='foot'>
-
-                <Button size='medium'>Bingo!</Button>
               </div>
             </div>
           </div>
@@ -446,6 +485,7 @@ const mapStateToProps = (state)=>{
     misCartones: state.cartonesUser,
     catalogos: state.catalogos,
     play: state.play,
+    user: state.user,
   };
 };
 

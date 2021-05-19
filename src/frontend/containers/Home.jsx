@@ -1,27 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import Header from '../components/Header-A';
+// import Header from '../components/Header-A';
 import Footer from '../components/Footer';
-import Carrusel from '../components/Carrusel';
+// import Carrusel from '../components/Carrusel';
 import ButtonIcon from '../components/forms/ButtonIcon';
-import RegisterPanel from '../components/RegisterPanel';
+import Button from '../components/forms/Button';
+// import RegisterPanel from '../components/RegisterPanel';
 import { updateState } from '../actions';
 import { Link } from 'react-router-dom';
+import Icon from '../components/display/Icon';
+import Card from '../components/display/Card';
 
-import Img1 from '../assets/images/1.png';
+import Img1 from '../assets/images/B.png';
 
 import '../assets/styles/containers/menu.scss';
 const App = ({ user, updateState })=> {
-
+  const [first, setFirst] = useState(true);
+  useEffect(()=>{
+    if (first) {
+      setFirst(false);
+      document.querySelector('#react').scrollTo(0, 0);
+    }
+  }, []);
   const [menu, setMenu] = useState(false);
+  const [focusHeader, setFocusHeader] = useState(true);
+  let observer;
+  useEffect(()=>{
+    observer = new IntersectionObserver((entry, observer)=>{
+      if (entry[0].isIntersecting) {
+        setFocusHeader(true);
+      } else {
+        setFocusHeader(false);
+      }
+    });
+    observer.observe(document.querySelector('.headerHome'));
+  }, [observer]);
 
   const menuHandler = ()=>{
     if (menu) {
       setMenu(false);
+      setFocusHeader(true);
     } else {
       setMenu(true);
+      setFocusHeader(true);
     }
+  };
+
+  const clickHandler = ()=>{
+    document.querySelector('#react').scrollTo(0, document.querySelector('header').offsetHeight);
   };
 
   const logoutHandler = ()=>{
@@ -32,15 +59,20 @@ const App = ({ user, updateState })=> {
     document.cookie = 'token=';
     updateState();
     setMenu(false);
+    setFocusHeader(true);
   };
 
   return (
     <>
-      <Header pag='/' p={()=>{setMenu(false);}} menu={menuHandler}/>
       {
         menu ?
           <div className='menu'>
-            <h1>Menu</h1>
+            <div>
+              <h1>Bingoloteando</h1>
+              <div onClick={menuHandler}>
+                <Icon width='30' height='30' />
+              </div>
+            </div>
             <ul>
               {
                 user.id ?
@@ -116,6 +148,13 @@ const App = ({ user, updateState })=> {
                       </div>
                     </li>
                     <li>
+                      Comprar
+                      <div style={{ transform: 'rotate(180deg)' }}>
+                        <Link to='/catalogo'>
+                          <ButtonIcon size='small' typebutton='subtle' />
+                        </Link>
+                      </div></li>
+                    <li>
                       Ayuda
                       <div style={{ transform: 'rotate(180deg)' }}>
                         <Link to='/help'>
@@ -128,18 +167,107 @@ const App = ({ user, updateState })=> {
           </div> :
           <>
             {
-              !user.id && <RegisterPanel />
+              focusHeader ?
+                <>
+                  <div className='contentLibre-off'> </div>
+                </> :
+                <>
+                  <div className='contentLibreHome'>
+                    <h1>Bingoloteando</h1>
+                    <div className='lastIcon' onClick={menuHandler}>
+                      <Icon type='list' width='24' height='24'/>
+                    </div>
+                  </div>
+                </>
             }
-            <Carrusel
-              image={[
-                { img: Img1, title: '¿A qué causa estoy apoyando ?', sub: 'Enterate!', btnText: 'Aquí!', redirect: '/' },
-                { img: Img1, title: '¿Necesitas ayuda?', sub: 'Estamos aquí para ayudarte...', btnText: 'Ayuda!', redirect: '/help' },
-                { img: Img1, title: 'Compra un carton.', sub: 'Compra tus cartones', btnText: 'Comprar', redirect: '/catalogo' },
-              ]}
-            />
+            <header className='headerHome'>
+              <div className='contentHeaderHome'>
+                <div className='banner'> </div>
+                <div className='content'>
+                  <h1>Bingoloteando</h1>
+                  <div className='lastIcon' onClick={menuHandler}>
+                    <Icon type='list' width='24' height='24'/>
+                  </div>
+                </div>
+                <div className='info'>
+                  <h1>Titulo Evento</h1>
+                  <p>Apoyemos a esta causa o algo así</p>
+                  <Card>
+                    <div className='circule' >
+                      <div>
+                        <div>
+                          <img src={Img1}/>
+                        </div>
+                      </div>
+                    </div>
+                    {
+                      user.id ?
+                        <>
+                          <div className='contentItem'>
+                            <Link to='/catalogo'>
+                              <div className='itemHome'>
+                                <div>
+                                  <Icon type='plass' width='30' height='30'/>
+                                </div>
+                                <p>Comprar cartones</p>
+                              </div>
+                            </Link>
+                            <Link to='cartones'>
+                              <div className='itemHome'>
+                                <div>
+                                  <Icon type='eye' width='35' height='35'/>
+                                </div>
+                                <p>Ver mis cartones</p>
+                              </div>
+                            </Link>
+                            <Link to='ordenes'>
+                              <div className='itemHome'>
+                                <div>
+                                  <Icon type='trolley' width='35' height='35'/>
+                                </div>
+                                <p>Mis  Pedidos</p>
+                              </div>
+                            </Link>
+                            <Link to='help'>
+                              <div className='itemHome'>
+                                <div>
+                                  <Icon type='help' width='35' height='35'/>
+                                </div>
+                                <p>Ayuda</p>
+                              </div>
+                            </Link>
+                          </div>
+
+                          <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', position: 'initial !important', margin: '15px' }}>
+                            <Icon type='forward' width='45' height='45'/>
+                          </div>
+                        </> :
+                        <>
+                          <p>Para comprar tus cartones y poder jugar debes crear primero una cuenta.</p>
+                          <div>
+                            <Link to='/sign-up'>
+                              <Button>Register</Button>
+                            </Link>
+                            <Link to='/sign-in'>
+                              <Button typebutton='secondary'>Ingresar</Button>
+                            </Link>
+                          </div>
+
+                          <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', position: 'initial !important', margin: '15px' }}>
+                            <Icon type='forward' width='45' height='45'/>
+                          </div>
+                        </>
+                    }
+                  </Card>
+                </div>
+              </div>
+            </header>
+
+            <h1>hola mundo</h1>
+
+            <Footer/>
           </>
       }
-      <Footer/>
     </>
   );
 };

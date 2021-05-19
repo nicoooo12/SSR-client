@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import HeaderB from '../components/Header-B';
@@ -11,12 +11,18 @@ import { Link } from 'react-router-dom';
 import '../assets/styles/containers/Ordenes.scss';
 
 const App = ({ user, history, enProgreso, terminadas, catalogo })=> {
-
+  const [first, setFirst] = useState(true);
+  useEffect(()=>{
+    if (first) {
+      setFirst(false);
+      document.querySelector('#react').scrollTo(0, 0);
+    }
+  }, []);
   if (!user.id) {
     history.push('/');
   }
 
-  console.log(enProgreso, terminadas);
+  //console.log(enProgreso, terminadas);
 
   return (
     <>
@@ -84,12 +90,12 @@ const App = ({ user, history, enProgreso, terminadas, catalogo })=> {
       }
       {
         terminadas[0] ?
-          <div style={enProgreso.user ? { top: '800px', position: 'absolute' } : {}}>
+          <div className='contentCardsPedidos' style={enProgreso.user ? { top: '800px', position: 'absolute' } : {}}>
             <Titulo title='Mis ordenes' />
             {
               terminadas.map((e, index)=>{
                 return (
-                  <div key={index} className='card'>
+                  <div key={index} className='cardPedidos'>
                     <h1>Pedido<br/> finalizado</h1>
                     <table className='bank__table'>
                       <thead>

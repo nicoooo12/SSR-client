@@ -84,7 +84,7 @@ const setResponse = (html, preloadedState, nonce) => {
     <script id="preloadedState" nonce=${nonce}>
       window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
     </script>
-    <script src="bundle.js" type="text/javascript"></script>
+    <script script src="bundle.js" type="text/javascript"></script>
   </body>
   </html>
   `);
@@ -201,7 +201,7 @@ const renderApp = async (req, res) => {
 
 require('./router/auth')(app);
 require('./router/api')(app);
-require('./sockets')(io);
+require('./sockets')(app, io);
 app.get('*', renderApp);
 server.listen(config.port, () => {
   console.log(`Server listening on port ${config.port} in ${config.dev ? 'development' : 'production'} mode`);

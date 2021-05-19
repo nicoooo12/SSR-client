@@ -82,7 +82,7 @@
     position: absolute;
     top: 0px;
     margin: 0;
-    left: 200px;
+    left: 253px;
     -moz-user-select: none; 
     -webkit-user-select: none;
     -ms-user-select: none;
@@ -208,6 +208,9 @@
 .input{
   &>input{
     width: 270px;
+  }
+  &>div{
+    left: 200px;
   }
 }
 

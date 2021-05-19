@@ -1,78 +1,57 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import Button from '../components/forms/Button';
-import { Link } from 'react-router-dom';
+// import Button from '../components/forms/Button';
+// import { Link } from 'react-router-dom';
 
 import '../assets/styles/components/Carrusel.scss';
 
 const App = ({ image })=> {
 
-  const [posCarrusel, setPosCarrusel] = useState(0);
-  const [active, setActive] = useState(false);
-  const [leftCarrusel, setLeftCarrusel] = useState('0');
-  const [title, setTitle] = useState(image[posCarrusel].title);
-  const [sub, setSub] = useState(image[posCarrusel].sub);
-  const [btn, setBtn] = useState(image[posCarrusel].btnText);
-  const [redirect, setRedirect] = useState(image[posCarrusel].redirect);
-  const handleNextCarrusel = () =>{
-    if (!image[posCarrusel + 1]) {
-      setPosCarrusel(0);
-      setLeftCarrusel(leftCarrusel - document.querySelector(`#carruselItem-${image.length - 2 }`).offsetWidth);
-      setTitle(image[posCarrusel].title);
-      setSub(image[posCarrusel].sub);
-      setBtn(image[posCarrusel].btnText);
-      setRedirect(image[posCarrusel].redirect);
-      setActive(false);
-    } else if (posCarrusel === 0) {
-      setPosCarrusel(1);
-      setLeftCarrusel(-((document.querySelector('#carruselItem-0').offsetWidth / 2) - (document.querySelector('.carrusel__img').offsetWidth / 2)));
-      setTitle(image[posCarrusel].title);
-      setSub(image[posCarrusel].sub);
-      setBtn(image[posCarrusel].btnText);
-      setRedirect(image[posCarrusel].redirect);
-      setActive(false);
-    } else {
-      setPosCarrusel(posCarrusel + 1);
-      setLeftCarrusel(leftCarrusel - document.querySelector(`#carruselItem-${posCarrusel + 1 }`).offsetWidth);
-      setTitle(image[posCarrusel].title);
-      setSub(image[posCarrusel].sub);
-      setBtn(image[posCarrusel].btnText);
-      setRedirect(image[posCarrusel].redirect);
-      setActive(false);
-    }
-  };
-
-  if (!active & ((typeof document !== 'undefined'))) {
-    // console.log('iwi');
-    setActive(true);
-    setTimeout(handleNextCarrusel, 4000);
-  }
-
   return (
     <>
-      <div className='carrusel' >
-        <div className='carrusel__img'>
-          <div style={{ left: `${leftCarrusel}px` }}>
-            {
-              image.map((e, index)=>{
-                return (
-                  <div key={index} className='carrusel__Img-item' id={`carruselItem-${index}`}>
-                    <img src={e.img} />
-                  </div>
-                );
-              })
-            }
+      <div id='carouselExampleCaptions' className='carousel slide' data-bs-ride='carousel'>
+        <div className='carousel-indicators'>
+          {
+            image.map((e, index)=>{
+              return (
+                <>
+                  <button key={index} type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide-to={index} className={index === 0 ? 'active' : ''} aria-current={index === 0 ? 'true' : ''} aria-label={`Slide ${index}`} />
+                </>);
+            })
+          }
+        </div>
+        <div className='carousel-inner'>
+          <div className='carousel-item active'>
+            <img src={image[0].img} className='d-block w-100' alt='...' />
+            <div className='carousel-caption d-none d-md-block'>
+              <h5>First slide label</h5>
+              <p>Some representative placeholder content for the first slide.</p>
+              {/* <Button>hola</Button> */}
+            </div>
+          </div>
+          <div className='carousel-item'>
+            <img src={image[0].img} className='d-block w-100' alt='...' />
+            <div className='carousel-caption d-none d-md-block'>
+              <h5>Second slide label</h5>
+              <p>Some representative placeholder content for the second slide.</p>
+            </div>
+          </div>
+          <div className='carousel-item'>
+            <img src={image[0].img} className='d-block w-100' alt='...' />
+            <div className='carousel-caption d-none d-md-block'>
+              <h5>Third slide label</h5>
+              <p>Some representative placeholder content for the third slide.</p>
+            </div>
           </div>
         </div>
-        <div className='carrusel__foot'>
-          <h1>{ title}</h1>
-          <div>
-            <p>{ sub }</p>
-            <Link to={redirect}>
-              <Button size='small'>{ btn }</Button>
-            </Link>
-          </div>
-        </div>
+        <button className='carousel-control-prev' type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide='prev'>
+          <span className='carousel-control-prev-icon' aria-hidden='true' />
+          <span className='visually-hidden'>Previous</span>
+        </button>
+        <button className='carousel-control-next' type='button' data-bs-target='#carouselExampleCaptions' data-bs-slide='next'>
+          <span className='carousel-control-next-icon' aria-hidden='true' />
+          <span className='visually-hidden'>Next</span>
+        </button>
       </div>
     </>
   );

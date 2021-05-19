@@ -46,10 +46,10 @@
   // height: 64px;
   border-radius: 40px;
   color: $greyscale_off-white;
-  background: $primary_default;
+  background: $primary_dark;
   outline: none;
   &:hover{
-    background: $primary_dark;
+    background: $primary_default;
   }
   &:focus{
     box-shadow : 0 0 0 8px $primary_light;
@@ -67,12 +67,12 @@
   // width: 200px;
   // height: 64px;
   border-radius: 40px;
-  color: $primary_default;
-  border: solid 2px $primary_default;
+  color: $primary_dark;
+  border: solid 2px $primary_dark;
   background: rgba(0, 0, 0, 0);
   outline: none;
   &:hover{
-    color: $primary_dark;
+    color: $primary_default;
     background: rgba(0, 0, 0, 0.05);
   }
   &:focus{
@@ -84,12 +84,12 @@
 }
 %btn-subtle{
   border-radius: 40px;
-  color: $primary_default;
+  color: $primary_dark;
   border: solid 2px $greyscale_line;
   background: rgba(0, 0, 0, 0);
   outline: none;
   &:hover{
-    color: $primary_dark;
+    color: $primary_default;
   }
   &:focus{
     border-radius: 40px;
@@ -119,10 +119,10 @@
   height: auto !important;
   border-radius: 40px;
   background: rgba(0, 0, 0, 0);
-  color: $primary_default;
+  color: $primary_dark;
   &:hover{
     border-radius: 40px;
-    color: $primary_dark;
+    color: $primary_default;
     background: rgba(0, 0, 0, 0);
   }
   &:focus{

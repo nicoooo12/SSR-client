@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import Icon from './display/Icon';
 import IncrementStepper from './forms/IncrementStepper';
 import Button from './forms/Button';
-import '../assets/styles/components/Carrito.scss';
 import { addItemToCarrito, removeItemToCarrito, desactiveCarrito, setRedirect } from '../actions';
 
+import '../assets/styles/components/Carrito.scss';
 const App = ({ carrito, addItemToCarrito, removeItemToCarrito, desactiveCarrito, history, user, setRedirect })=> {
 
   let totalCarrito = 0;

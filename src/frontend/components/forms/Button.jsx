@@ -3,11 +3,15 @@ import '../../assets/styles/components/forms/Button.scss';
 
 const App = ({ children, size, type = 'button', typebutton, state = '', onClick, disabled = false })=> {
 
-  const [login, setLogin] = useState(state);
+  const [loading, setLoading] = useState(state);
+
+  const ok = ()=>{
+    setLoading(state);
+  };
 
   const onClickHandle = ()=>{
-    setLogin('loading');
-    onClick();
+    setLoading('loading');
+    onClick(ok);
   };
 
   return (
@@ -20,7 +24,7 @@ const App = ({ children, size, type = 'button', typebutton, state = '', onClick,
       sizebutton={size ? size : 'large'}
     >
       {
-        login === 'loading' ? <div className='loading-spinner' /> : children
+        loading === 'loading' ? <div className='loading-spinner' /> : children
       }
     </button>
   );

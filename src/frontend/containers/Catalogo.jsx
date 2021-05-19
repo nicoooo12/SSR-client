@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import Header from '../components/Header-carrito';
@@ -13,6 +13,13 @@ import Carrito from '../components/Carrito';
 // import { Link } from 'react-router-dom';
 
 const App = ({ catalogos, carrito, history })=> {
+  const [first, setFirst] = useState(true);
+  useEffect(()=>{
+    if (first) {
+      setFirst(false);
+      document.querySelector('#react').scrollTo(0, 0);
+    }
+  }, []);
 
   const clickHandler = ()=>{
     document.querySelector('#react').scrollTo(0, document.querySelector('header').offsetHeight);

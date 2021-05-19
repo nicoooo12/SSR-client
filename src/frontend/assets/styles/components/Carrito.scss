@@ -5,6 +5,7 @@
   display: inline-block;
   position: absolute;
   width: 100%;
+  width: 90%;
   height: calc(100% - 60px);;
   // z-index: 100000;
   top: 60px;
@@ -48,6 +49,7 @@
   caption-side: bottom;
   border-collapse: collapse;
   width: calc(100% - 10px);
+  max-width: 600px;
   &>thead{
     width: 100%;
     vertical-align: bottom;
@@ -120,10 +122,10 @@
   // height: 64px;
   border-radius: 40px;
   color: $greyscale_off-white;
-  background: $primary_default;
+  background: $primary_dark;
   outline: none;
   &:hover{
-    background: $primary_dark;
+    background: $primary_default;
   }
   &:focus{
     box-shadow : 0 0 0 8px $primary_light;
@@ -141,10 +143,10 @@
   outline: none;  
   border-radius: 40px;
   background: rgba(0, 0, 0, 0);
-  color: $primary_default;
+  color: $primary_dark;
   &:hover{
     border-radius: 40px;
-    color: $primary_dark;
+    color: $primary_default;
     background: rgba(0, 0, 0, 0);
   }
   &:focus{
@@ -166,6 +168,39 @@
   }
 }  
 
+.carrito__table{
+  &>tbody{
+    &>tr>td{
+      padding: .5rem .5rem;
+      &.td__precio{
+        text-align: end;
+      }
+      &.td__title{
+        text-align: start;
+      }
+      &.td__button{
+        padding: 0px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        &>.buttonGroup{
+          min-width: 100px;
+          padding: 0px;
+          margin: 10px 0;
+        }
+      }
+    }
+    &>tr>td{
+      padding: .5rem .5rem;
+    }
+    &>tr>td>.buttonGroup{
+      height: auto;
+      width: auto;
+    }
+  }
+}
+
 @media (max-width: $mediaWidth1){
  .carrito__factura{
   left: 0;
@@ -182,6 +217,9 @@
 }
 
 @media (max-width: $mediaWidthMobileS){
+  .carrito{
+    width: 100%;
+  }
   .carrito__table{
     &>tbody{
       &>tr>td{
@@ -194,6 +232,9 @@
         }
         &.td__button{
           padding: 0px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
           text-align: center;
           &>.buttonGroup{
             padding: 0px;

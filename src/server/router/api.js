@@ -67,7 +67,12 @@ module.exports = function (app) {
 
     const newState = {
       'user': user,
-      'cartonesUser': cartones,
+      'cartonesUser': cartones[0] ? cartones.map((e)=>{
+        return {
+          ...e,
+          play: [[false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false]],
+        };
+      }) : [],
       'ordenes': {
         enProgreso: myInProgressOrden,
         terminadas: myEndsOrden,

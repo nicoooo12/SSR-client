@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import Header from '../components/Header';
@@ -17,7 +17,13 @@ import Auth from './SignIn';
 import '../assets/styles/containers/Compra.scss';
 
 const App = ({ misOrdenes, history, createCanvasOrden, createOrden, user, carrito, setStatusCarrito, statusNextCarrito, setRedirect })=> {
-
+  const [first, setFirst] = useState(true);
+  useEffect(()=>{
+    if (first) {
+      setFirst(false);
+      document.querySelector('#react').scrollTo(0, 0);
+    }
+  }, []);
   const inputImg = useRef('');
   const canvasImg = useRef('');
   const Img = useRef('');
@@ -29,6 +35,8 @@ const App = ({ misOrdenes, history, createCanvasOrden, createOrden, user, carrit
       statusNextCarrito();
     }
   };
+
+  console.log(misOrdenes);
 
   const startPay = ()=>{
     if (!misOrdenes.user) {
@@ -188,7 +196,7 @@ const App = ({ misOrdenes, history, createCanvasOrden, createOrden, user, carrit
               <>
                 <img ref={Img} />
                 <div>
-                  <Icon type='upLoad' />
+                  <Icon type='upLoad' height='40' width='40' />
                   Subir Archivo
                 </div>
               </>

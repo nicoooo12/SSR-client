@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import HeaderB from '../components/Header-B';
@@ -9,6 +9,13 @@ import Button from '../components/forms/Button';
 import { Link } from 'react-router-dom';
 
 const App = ({ user, history, cartones, catalogo })=> {
+  const [first, setFirst] = useState(true);
+  useEffect(()=>{
+    if (first) {
+      setFirst(false);
+      document.querySelector('#react').scrollTo(0, 0);
+    }
+  }, []);
 
   if (!user.id) {
     history.push('/');
@@ -33,11 +40,19 @@ const App = ({ user, history, cartones, catalogo })=> {
         cartones[0] ?
           <>
             <Titulo title='Mis cartones' />
-            {
-              cartones.map((e, index)=>{
-                return <Carton key={index} title={catalogo.filter((o)=>{return o.serie === e.serie;})[0].titulo} data={e.data} serie={e.serie} />;
-              })
-            }
+            <div style={{
+              display: 'flex',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+            }}
+            >
+              {
+                cartones.map((e, index)=>{
+                  return <Carton key={index} title={catalogo.filter((o)=>{return o.serie === e.serie;})[0].titulo} data={e.data} serie={e.serie} />;
+                })
+              }
+            </div>
           </> :
           <></>
       }

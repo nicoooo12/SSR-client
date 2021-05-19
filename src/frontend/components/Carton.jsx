@@ -41,9 +41,9 @@ const App = (props)=> {
                 <tr>
                   <td>{props.data[0][2]}</td>
                   <td>{props.data[1][2]}</td>
-                  <td>X</td>
                   <td>{props.data[2][2]}</td>
                   <td>{props.data[3][2]}</td>
+                  <td>{props.data[4][2]}</td>
                 </tr>
                 <tr>
                   <td>{props.data[0][3]}</td>

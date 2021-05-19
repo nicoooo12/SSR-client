@@ -1,8 +1,17 @@
 @import '../Index.scss';
 
 
-.card{
+.contentCardsPedidos{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.cardPedidos{
   margin-bottom: 40px;
+  width: 100%;
+  max-width: 400px;
   &>h1{
     text-align: center;
     @extend %Typography-text-DSB;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { singIn, setRedirect } from '../actions';
@@ -14,6 +14,13 @@ import Button from '../components/forms/Button';
 import '../assets/styles/containers/signIn-up.scss';
 
 const App = ({ singIn, history, redirect, setRedirect, notRedirect, socket })=> {
+  const [first, setFirst] = useState(true);
+  useEffect(()=>{
+    if (first) {
+      setFirst(false);
+      document.querySelector('#react').scrollTo(0, 0);
+    }
+  }, []);
 
   // console.log(redirect);
 
@@ -31,6 +38,9 @@ const App = ({ singIn, history, redirect, setRedirect, notRedirect, socket })=> 
     });
   };
   // console.log(history);
+  const clickHandler = (ok) =>{
+    ok();
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -67,7 +77,7 @@ const App = ({ singIn, history, redirect, setRedirect, notRedirect, socket })=> 
         <p>
           No tienes cuenta ? Crear una <Button onClick={()=>{history.push('/sign-up');}} typebutton='text' >Aquí</Button>
         </p>
-        <Button type='submit' >Iniciar sesión</Button>
+        <Button type='submit' onClick={clickHandler} >Iniciar sesión</Button>
       </form>
       <br/>
       {/* <Footer/> */}

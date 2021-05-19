@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { singUp, setRedirect } from '../actions';
@@ -14,6 +14,13 @@ import Button from '../components/forms/Button';
 import '../assets/styles/containers/signIn-up.scss';
 
 const App = ({ singUp, history, redirect, setRedirect })=> {
+  const [first, setFirst] = useState(true);
+  useEffect(()=>{
+    if (first) {
+      setFirst(false);
+      document.querySelector('#react').scrollTo(0, 0);
+    }
+  }, []);
 
   const [form, setValues] = useState({
     email: '',
@@ -28,6 +35,10 @@ const App = ({ singUp, history, redirect, setRedirect })=> {
       ...form,
       [event.target.name]: event.target.value,
     });
+  };
+
+  const clickHandler = (ok) =>{
+    ok();
   };
 
   const handleSubmit = (event) => {
@@ -68,7 +79,7 @@ const App = ({ singUp, history, redirect, setRedirect })=> {
         <p>
           Ya tienes cuenta ? Ingresa <Button onClick={()=>{history.push('/sign-in');}} typebutton='text' >Aquí</Button>
         </p>
-        <Button type='submit' >Iniciar sesión</Button>
+        <Button type='submit' onClick={clickHandler}>Iniciar sesión</Button>
       </form>
       {/* <Footer/> */}
     </>

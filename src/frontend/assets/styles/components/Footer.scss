@@ -52,10 +52,10 @@ footer{
   outline: none;  
   border-radius: 40px;
   background: rgba(0, 0, 0, 0);
-  color: $primary_default;
+  color: $primary_dark;
   &:hover{
     border-radius: 40px;
-    color: $primary_dark;
+    color: $primary_default;
     background: rgba(0, 0, 0, 0);
   }
   &:focus{

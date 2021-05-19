@@ -16,13 +16,17 @@ import { io } from 'socket.io-client';
 import { connect } from 'react-redux';
 import { updateState } from '../actions';
 
-const socket = io();
 const App = ({ isLogged, updateState }) => {
-
-  socket.emit('holaMundo', isLogged);
+  const socket = io({ query: { id: isLogged ? isLogged : false } });
   socket.on('change', ()=>{
-    console.log('[changes in the State]');
+    console.log('[changes in the State of socket]');
     updateState();
+    socket.emit('ok');
+  });
+  socket.on(isLogged ? isLogged : 'change-noSignIn', ()=>{
+    console.log('[changes in the State of socket]');
+    updateState();
+    socket.emit('ok');
   });
 
   return (
