@@ -26,6 +26,9 @@ module.exports = function (app, socket) {
       console.log(io);
       // console.log('ok');
     });
+    io.on('connectPlay', ()=>{
+      socket.to(io.id).emit('connected', 1, 2);
+    });
   });
 
 };

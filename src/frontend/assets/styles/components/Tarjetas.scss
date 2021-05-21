@@ -26,12 +26,13 @@
   margin-bottom: 5px;
   display: flex;
   // justify-content: space-around;
+  color: $greyscale_label;
   align-items: center;
   @extend %Typography-text-LL;
 }
 
 .tarjeta__title{
-  @extend %Typography-text-DMB;
+  @extend %Typography-text-DSB;
   margin-bottom: 10px;
 }
 .tarjeta__subTitle{

@@ -8,4 +8,8 @@ module.exports = {
   sessionSecret: process.env.SESSION_SECRET,
   socketUser: process.env.USER_SOCKET,
   socketPassword: process.env.PASSWORD_SOCKET,
+  pagoNumeroCuenta: process.env.PAGO_NUMERO_CUENTA,
+  pagoRut: process.env.PAGO_RUT,
+  pagoTitular: process.env.PAGO_TITULAR,
+  pagoBanco: process.env.PAGO_BANCO,
 };

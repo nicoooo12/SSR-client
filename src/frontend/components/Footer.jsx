@@ -25,13 +25,13 @@ const App = ()=> {
                 </button>
               </Link>
             </li> */}
-            <li>
+            {/* <li>
               <Link to='/'>
                 <button tabIndex='-1'>
                   Evento
                 </button>
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>

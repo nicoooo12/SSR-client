@@ -17,7 +17,7 @@ import { connect } from 'react-redux';
 import { updateState } from '../actions';
 
 const App = ({ isLogged, updateState }) => {
-  const socket = io({ query: { id: isLogged ? isLogged : false } });
+  const socket = io();
   socket.on('change', ()=>{
     console.log('[changes in the State of socket]');
     updateState();
@@ -38,7 +38,7 @@ const App = ({ isLogged, updateState }) => {
         <Route exact path='/compra' component={Compra} />
         <Route exact path='/ordenes' component={Ordenes} />
         <Route exact path='/cartones' component={Cartones} />
-        <Route exact path='/play' component={Play} />
+        <Route exact path='/play' render={(props) => <Play socket={socket} {...props} />} />
         <Route exact path='/sign-in' render={(props) => <SignIn socket={socket} {...props} />}/>
         <Route exact path='/sign-up' component={SignUp} />
         <Route exact path='/help' component={Ayuda} />

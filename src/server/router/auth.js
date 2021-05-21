@@ -84,6 +84,7 @@ module.exports = function (app) {
       } = err;
       res.status(statusCode);
       res.json(withErrorStack(payload, err.stack));
-    });
+    },
+  );
 
 };

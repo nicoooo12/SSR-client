@@ -143,14 +143,18 @@ export const createOrden = (compra, totalPago) => {
 
 export const createCanvasOrden = (data, fnCallBack, fnErrorCallback) => {
   return (dispatch) => {
+    console.log('[data actions]', data);
     axios({
       url: '/api/createCanvas',
       method: 'post',
-      data: { data: data },
+      // headers: {
+      //   'Content-Type': 'multipart/form-data',
+      // },
+      data: { data },
     })
       .then(({ data }) => {
         console.log('[CreateCanvas]', data.data);
-        console.log(data);
+        // console.log(data);
         dispatch(updateState());
         fnCallBack();
       })

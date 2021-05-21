@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../../assets/styles/components/forms/Button.scss';
 
-const App = ({ children, size, type = 'button', typebutton, state = '', onClick, disabled = false })=> {
+const App = ({ children, size, type = 'button', typebutton, state = '', onClick, disabled = false, autoLogin = true })=> {
 
   const [loading, setLoading] = useState(state);
 
@@ -10,7 +10,9 @@ const App = ({ children, size, type = 'button', typebutton, state = '', onClick,
   };
 
   const onClickHandle = ()=>{
-    setLoading('loading');
+    if (autoLogin) {
+      setLoading('loading');
+    }
     onClick(ok);
   };
 

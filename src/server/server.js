@@ -173,7 +173,13 @@ const renderApp = async (req, res) => {
     'catalogos': catalogo,
     'play': {
       estado: 0,
-      serieJuego: 0,
+      serieJuego: 1,
+    },
+    'infoPago': {
+      numeroCuenta: config.pagoNumeroCuenta,
+      rut: config.pagoRut,
+      titular: config.pagoTitular,
+      banco: config.pagoBanco,
     },
     'carrito': {
       active: false,
@@ -201,7 +207,7 @@ const renderApp = async (req, res) => {
 
 require('./router/auth')(app);
 require('./router/api')(app);
-require('./sockets')(app, io);
+require('./router/sockets')(app, io);
 app.get('*', renderApp);
 server.listen(config.port, () => {
   console.log(`Server listening on port ${config.port} in ${config.dev ? 'development' : 'production'} mode`);

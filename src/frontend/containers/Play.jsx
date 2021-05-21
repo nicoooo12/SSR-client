@@ -19,15 +19,40 @@ import { Link } from 'react-router-dom';
 import Badges from '../components/display/Badges';
 import Icon from '../components/display/Icon';
 
-const App = ({ user, history, play, misCartones, catalogos }) => {
+const App = ({ user, history, play, misCartones, catalogos, socket }) => {
 
   if (!user.id) {
     history.push('/');
   };
 
+  const [key, setKey] = useState(play.estado);
+  const [serie, setSerie] = useState(play.serieJuego);
+
+  const [catalogoJuego, setCatalogoJuego] = useState(catalogos.filter((e)=>e.serie === serie)[0]);
+  const [color1, setColor1] = useState(catalogoJuego.color);
+  const [color2, setColor2] = useState(catalogoJuego.color);
+
   const [first, setFirst] = useState(true);
   useEffect(()=>{
+
+    socket.on('connected', (estado, serie)=>{
+      setKey(estado);
+      setSerie(serie);
+      setCatalogoJuego(catalogos.filter((e)=>e.serie === serie)[0]);
+      setColor1(catalogoJuego.color);
+      setColor2(catalogoJuego.color);
+    });
+
+    socket.on('Play', (estado, serie)=>{
+      setKey(estado);
+      setSerie(serie);
+      setCatalogoJuego(catalogos.filter((e)=>e.serie === serie)[0]);
+      setColor1(catalogoJuego.color);
+      setColor2(catalogoJuego.color);
+    });
+
     if (first) {
+      socket.emit('connectPlay');
       setFirst(false);
       document.querySelector('#react').scrollTo(0, 0);
     }
@@ -39,13 +64,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
     }),
   ]);
 
-  const color1 = '#5F2EEA';
-  const color2 = '#5F2EEA';
-
   const [direction, setDirection] = useState(1);
-  const serie = 2;
-
-  const key = 2;
 
   const changeHandler = (r, o, item)=>{
     if (pint[item][r][o]) {
@@ -162,7 +181,10 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                         >
                           <table className='carton__table'>
                             <thead>
-                              <tr>
+                              <tr style={{
+                                border: `${color1} solid`,
+                              }}
+                              >
                                 <th style={{ background: color1 }}>B</th>
                                 <th style={{ background: color1 }}>I</th>
                                 <th style={{ background: color1 }}>N</th>
@@ -175,6 +197,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][0][0] ? color2 : 'transparent'}`,
                                       color: `${pint[index][0][0] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -186,6 +209,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][1][0] ? color2 : 'transparent'}`,
                                       color: `${pint[index][1][0] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -197,6 +221,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][2][0] ? color2 : 'transparent'}`,
                                       color: `${pint[index][2][0] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -208,6 +233,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][3][0] ? color2 : 'transparent'}`,
                                       color: `${pint[index][3][0] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -219,6 +245,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][4][0] ? color2 : 'transparent'}`,
                                       color: `${pint[index][4][0] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -232,6 +259,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][0][1] ? color2 : 'transparent'}`,
                                       color: `${pint[index][0][1] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -243,6 +271,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][1][1] ? color2 : 'transparent'}`,
                                       color: `${pint[index][1][1] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -254,6 +283,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][2][1] ? color2 : 'transparent'}`,
                                       color: `${pint[index][2][1] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -265,6 +295,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][3][1] ? color2 : 'transparent'}`,
                                       color: `${pint[index][3][1] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -276,6 +307,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][4][1] ? color2 : 'transparent'}`,
                                       color: `${pint[index][4][1] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -289,6 +321,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][0][2] ? color2 : 'transparent'}`,
                                       color: `${pint[index][0][2] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -300,6 +333,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][1][2] ? color2 : 'transparent'}`,
                                       color: `${pint[index][1][2] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -311,6 +345,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][2][2] ? color2 : 'transparent'}`,
                                       color: `${pint[index][2][2] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -322,6 +357,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][3][2] ? color2 : 'transparent'}`,
                                       color: `${pint[index][3][2] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -333,6 +369,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][4][2] ? color2 : 'transparent'}`,
                                       color: `${pint[index][4][2] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -346,6 +383,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][0][3] ? color2 : 'transparent'}`,
                                       color: `${pint[index][0][3] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -357,6 +395,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][1][3] ? color2 : 'transparent'}`,
                                       color: `${pint[index][1][3] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -368,6 +407,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][2][3] ? color2 : 'transparent'}`,
                                       color: `${pint[index][2][3] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -379,6 +419,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][3][3] ? color2 : 'transparent'}`,
                                       color: `${pint[index][3][3] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -390,6 +431,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][4][3] ? color2 : 'transparent'}`,
                                       color: `${pint[index][4][3] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -403,6 +445,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][0][4] ? color2 : 'transparent'}`,
                                       color: `${pint[index][0][4] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -414,6 +457,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][1][4] ? color2 : 'transparent'}`,
                                       color: `${pint[index][1][4] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -425,6 +469,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][2][4] ? color2 : 'transparent'}`,
                                       color: `${pint[index][2][4] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -436,6 +481,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][3][4] ? color2 : 'transparent'}`,
                                       color: `${pint[index][3][4] ? '#FCFCFC' : '#14142B'}`,
                                     }
@@ -447,6 +493,7 @@ const App = ({ user, history, play, misCartones, catalogos }) => {
                                 <td
                                   style={
                                     {
+                                      border: `${color1} solid`,
                                       background: `${pint[index][4][4] ? color2 : 'transparent'}`,
                                       color: `${pint[index][4][4] ? '#FCFCFC' : '#14142B'}`,
                                     }
