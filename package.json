@@ -2,21 +2,24 @@
   "name": "ssr",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/server/index.js",
   "scripts": {
     "build": "NODE_ENV=production webpack-cli --config webpack.config.js",
     "start": "NODE_ENV=production node src/server/index",
     "dev": "nodemon src/server/index"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
+  "engines": {
+    "node": "14.17.x"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.13.10",
+    "@babel/plugin-transform-runtime": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "@babel/preset-react": "^7.12.13",
+    "@babel/register": "^7.13.8",
     "@hapi/boom": "^9.1.2",
     "@socket.io/admin-ui": "^0.1.1",
     "asset-require-hook": "^1.2.0",
@@ -42,11 +45,6 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.10",
-    "@babel/plugin-transform-runtime": "^7.13.10",
-    "@babel/preset-env": "^7.13.10",
-    "@babel/preset-react": "^7.12.13",
-    "@babel/register": "^7.13.8",
     "@commitlint/cli": "^12.0.1",
     "@commitlint/config-conventional": "^12.0.1",
     "babel-loader": "^8.2.2",
