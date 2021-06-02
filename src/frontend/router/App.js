@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Home from '@containers/Home';
-import Pruebas from '@containers/Pruebas';
+// import Pruebas from '@containers/Pruebas';
 import Catalogo from '@containers/Catalogo';
 import Compra from '@containers/Compra';
 import Cartones from '@containers/Cartones';
@@ -15,6 +15,7 @@ import Ayuda from '@containers/Ayuda';
 import { io } from 'socket.io-client';
 import { connect } from 'react-redux';
 import { updateState } from '../actions';
+import '../assets/styles/App.scss';
 
 const App = ({ isLogged, updateState }) => {
   const socket = io();
@@ -33,7 +34,7 @@ const App = ({ isLogged, updateState }) => {
     <BrowserRouter>
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route exact path='/pruebas' component={Pruebas} />
+        {/* <Route exact path='/pruebas' component={Pruebas} /> */}
         <Route exact path='/catalogo' component={Catalogo} />
         <Route exact path='/compra' component={Compra} />
         <Route exact path='/ordenes' component={Ordenes} />

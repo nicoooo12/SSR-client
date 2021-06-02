@@ -116,7 +116,7 @@ export const singIn = ({ email, password }, fnCallback, fnErrorCallback) => {
 
 export const createOrden = (compra, totalPago) => {
   return (dispatch) => {
-    console.log(compra, totalPago);
+    // console.log(compra, totalPago);
     axios({
       url: '/api/createOrden',
       method: 'post',
@@ -144,16 +144,18 @@ export const createOrden = (compra, totalPago) => {
 export const createCanvasOrden = (data, fnCallBack, fnErrorCallback) => {
   return (dispatch) => {
     console.log('[data actions]', data);
+    const token = document.cookie.split(' ')[3].slice(6);
     axios({
-      url: '/api/createCanvas',
+      url: 'http://localhost:3000/api/images/upload',
       method: 'post',
-      // headers: {
-      //   'Content-Type': 'multipart/form-data',
-      // },
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
       data: { data },
     })
       .then(({ data }) => {
-        console.log('[CreateCanvas]', data.data);
+        console.log('[CreateCanvas]', data);
         // console.log(data);
         dispatch(updateState());
         fnCallBack();

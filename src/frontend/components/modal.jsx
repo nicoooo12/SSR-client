@@ -5,7 +5,7 @@ import '../assets/styles/components/modal.scss';
 const App = ({ children, btn })=> {
 
   const modal = useRef('');
-  console.log(modal);
+  // console.log(modal);
   const clickHandler = () => {
     modal.current.style.display = 'flex';
   };

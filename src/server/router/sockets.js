@@ -26,8 +26,64 @@ module.exports = function (app, socket) {
       console.log(io);
       // console.log('ok');
     });
+    io.on('admin', ()=>{
+      io.join('admin');
+    });
+    io.on('soyBingo', ()=>{
+      io.join('bingo');
+    });
     io.on('connectPlay', ()=>{
-      socket.to(io.id).emit('connected', 1, 2);
+      socket.to('admin').emit('connectPlay', io.id);
+      // socket.to(io.id).emit('connected', 1, 2);
+    });
+    io.on('connecting', (id, estado, serie)=>{
+      socket.to(id).emit('connected', estado, serie);
+    });
+    io.on('play', (estado, serie)=>{
+      socket.emit('Play', estado, serie);
+    });
+    io.on('Bingo', (user, data, number) => {
+      socket.to('admin').emit('play', user, data, number, io.id);
+    });
+
+    io.on('Lanzar', (e) => {
+      socket.to('bingo').emit('lanzar', e);
+    });
+    io.on('Init', (e) => {
+      socket.to('bingo').emit('init', e);
+    });
+    io.on('End', () => {
+      socket.to('bingo').emit('end');
+    });
+    io.on('Reset', () => {
+      socket.to('bingo').emit('reset');
+    });
+    io.on('BingoS', (user) => {
+      socket.to('bingo').emit('bingo', user);
+    });
+    io.on('BingoReject', () => {
+      socket.to('bingo').emit('bingoReject');
+    });
+    io.on('BingoGanador', (user) => {
+      socket.to('bingo').emit('bingoGanador', user);
+    });
+    io.on('Lanzado', (serie, num) => {
+      socket.to('admin').emit('lanzado', serie, num);
+    });
+    io.on('Re-count', () => {
+      socket.to('bingo').emit('re-count');
+    });
+    io.on('Reject', (id) => {
+      socket.to(id).to('bingo').emit('reject', id);
+    });
+    io.on('GetState', () => {
+      socket.to('bingo').emit('getState');
+    });
+    io.on('ReturnGetState', (data) => {
+      socket.to('admin').emit('returnGetState', data);
+    });
+    io.on('SendState', (data)=>{
+      socket.to('bingo').emit('sendState', data);
     });
   });
 

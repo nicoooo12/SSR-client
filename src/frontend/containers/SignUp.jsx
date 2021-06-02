@@ -50,10 +50,10 @@ const App = ({ singUp, history, redirect, setRedirect })=> {
         history.push('/');
       }
     }, (err)=>{
-      console.log(err.request);
-      console.log(JSON.parse(err.request.response));
+      // console.log(err.request);
+      // console.log(JSON.parse(err.request.response));
       const req = JSON.parse(err.request.response);
-      console.log(err.request.status, req.message, req.message === 'busy account');
+      // console.log(err.request.status, req.message, req.message === 'busy account');
       switch (err.request.status) {
         case 400:
           req.message === 'busy account' ?

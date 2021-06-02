@@ -11,7 +11,6 @@ import Button from '../components/forms/Button';
 // import Jugar from '../components/Jugar';
 // import Carton from '../components/Carton';
 // import '../assets/styles/App.scss';
-// import { changeColorPlay } from '../actions';
 
 import '../assets/styles/containers/Play.scss';
 import '../assets/styles/components/Carton.scss';
@@ -34,8 +33,9 @@ const App = ({ user, history, play, misCartones, catalogos, socket }) => {
 
   const [first, setFirst] = useState(true);
   useEffect(()=>{
-
+    socket.removeAllListeners();
     socket.on('connected', (estado, serie)=>{
+      console.log(estado, serie);
       setKey(estado);
       setSerie(serie);
       setCatalogoJuego(catalogos.filter((e)=>e.serie === serie)[0]);
@@ -170,6 +170,7 @@ const App = ({ user, history, play, misCartones, catalogos, socket }) => {
                     width: `calc(100% * ${direction === 0 ? misCartones.filter((e)=>{return e.serie === serie;}).length : '1' })`,
                     maxWidth: `calc(400px * ${misCartones.filter((e)=>{return e.serie === serie;}).length })`,
                     flexWrap: `${direction === 0 ? 'nowrap' : 'wrap'}`,
+                    justifyContent: `${direction === 0 ? 'space-between' : 'center'}`,
                   }}
                 >
                   {
@@ -506,7 +507,7 @@ const App = ({ user, history, play, misCartones, catalogos, socket }) => {
                             </tbody>
                           </table>
                           <div className='foot'>
-                            <Button size='small'>Bingo!</Button>
+                            <Button size='small' onClick={()=>{socket.emit('Bingo', user.name, e.data, index);}} >Bingo!</Button>
                             <Badges>Numero: {index} </Badges>
                           </div>
                         </div>);

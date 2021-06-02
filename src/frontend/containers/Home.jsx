@@ -15,11 +15,11 @@ import Card from '../components/display/Card';
 
 import Img1 from '../assets/images/B.png';
 
-import _1 from '../assets/images/1_1.png';
-import _2 from '../assets/images/2_1.png';
-import _3 from '../assets/images/3_1.png';
-import _4 from '../assets/images/4_1.png';
-import _5 from '../assets/images/5_1.png';
+import _1 from '../assets/images/1.png';
+import _2 from '../assets/images/2.png';
+import _3 from '../assets/images/3.png';
+import _4 from '../assets/images/4.png';
+import _5 from '../assets/images/5.png';
 
 import '../assets/styles/containers/menu.scss';
 import '../assets/styles/containers/Home.scss';
@@ -60,7 +60,6 @@ const App = ({ user, updateState })=> {
   };
 
   const logoutHandler = ()=>{
-    console.log('oli');
     document.cookie = 'email=';
     document.cookie = 'name=';
     document.cookie = 'id=';

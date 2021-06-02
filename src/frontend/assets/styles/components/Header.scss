@@ -410,6 +410,7 @@ header{
               height: 150px;
               &>p{
                 top: 0;
+                line-height: 24px;
                 @extend %Typography-text-LM;
                 color: $greyscale_title-active;  
               }
