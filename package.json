@@ -50,6 +50,7 @@
     "uuid": "^8.3.2",
     "webpack": "^5.24.4",
     "babel-loader": "^8.2.2",
+    "dotenv": "^8.2.0",
     "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
@@ -58,7 +59,6 @@
     "compression-webpack-plugin": "^8.0.0",
     "copy-webpack-plugin": "^8.0.0",
     "css-loader": "^5.1.2",
-    "dotenv": "^8.2.0",
     "eslint": "^7.22.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.1.0",
