@@ -1,18 +1,22 @@
 {
-  "name": "ssr",
-  "version": "1.0.0",
-  "description": "",
-  "main": "./src/server/index.js",
+  "name": "bingoloteando-ssr-client",
+  "version": "0.0.1",
+  "description": "app para realizar bingos benéficos",
+  "main": "src/server/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicoooo12/SSR-client"
+  },
   "scripts": {
     "build": "NODE_ENV=production webpack-cli --config webpack.config.js",
-    "start": "NODE_ENV=production node src/server/index",
+    "start": "NODE_ENV=production node src/server/index.js",
     "dev": "nodemon src/server/index"
   },
   "engines": {
     "node": "14.17.x"
   },
   "keywords": [],
-  "author": "",
+  "author": "Nicolás Flores <nicoflores.dev@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.13.10",
@@ -48,7 +52,7 @@
     "@commitlint/cli": "^12.0.1",
     "@commitlint/config-conventional": "^12.0.1",
     "babel-loader": "^8.2.2",
-    "compression-webpack-plugin": "^7.1.2",
+    "compression-webpack-plugin": "^3.1.0",
     "copy-webpack-plugin": "^8.0.0",
     "css-loader": "^5.1.2",
     "dotenv": "^8.2.0",
