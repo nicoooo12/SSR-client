@@ -60,11 +60,13 @@ module.exports = function (app) {
         headers: { Authorization: `Bearer ${token}` },
         url: `${config.apiUrl}/api/orden/my`,
       });
-      myInProgressOrden = dataOrden.data[0];
+      myInProgressOrden = dataOrden.data[0] ? dataOrden.data[0] : {};
     } catch (error) {
       // console.log(error);
       myInProgressOrden = {};
     }
+
+    console.log(myInProgressOrden);
 
     const newState = {
       'user': user,

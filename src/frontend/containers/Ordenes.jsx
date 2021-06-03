@@ -22,12 +22,10 @@ const App = ({ user, history, enProgreso, terminadas, catalogo })=> {
     history.push('/');
   }
 
-  //console.log(enProgreso, terminadas);
-
   return (
     <>
       {
-        enProgreso & !enProgreso.user ?
+        !enProgreso['user'] ?
           terminadas[0] ?
             <HeaderB/> :
             <Header title='Mis ordenes' to='/'>
