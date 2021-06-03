@@ -27,7 +27,7 @@ const App = ({ user, history, enProgreso, terminadas, catalogo })=> {
   return (
     <>
       {
-        !enProgreso.user ?
+        enProgreso & !enProgreso.user ?
           terminadas[0] ?
             <HeaderB/> :
             <Header title='Mis ordenes' to='/'>
