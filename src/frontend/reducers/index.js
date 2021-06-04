@@ -61,13 +61,15 @@ const reducer = (state, action) => {
 
     case 'LOGIN_REQUEST':
     case 'REGISTER_REQUEST':
-    case 'LOGOUT_REQUEST':
-      console.log('logIn');
       return {
         ...state,
         user: action.payload,
       };
-
+    case 'LOGOUT_REQUEST':
+      return {
+        ...state,
+        user: {},
+      };
     case 'UPDATE_STATE':
       console.log('update');
       return {

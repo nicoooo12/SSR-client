@@ -7,9 +7,9 @@ import Ordenes from '../containers/Ordenes';
 import Play from '../containers/Play';
 import SignIn from '../containers/SignIn';
 import SignUp from '../containers/SignUp';
+import Contacto from '../containers/Contacto';
 import Ayuda from '../containers/Ayuda';
-// import Styles from '../containers/Styles';
-// import Notfound from '../containers/Notfound';
+import Notfound from '../containers/Notfound';
 
 const routers = (isLogged)=>{
   return [
@@ -60,13 +60,18 @@ const routers = (isLogged)=>{
     },
     {
       exact: true,
+      path: '/contacto',
+      component: Contacto,
+    },
+    {
+      exact: true,
       path: '/help',
       component: Ayuda,
     },
-  // {
-  //   exact: false,
-  //   component: Notfound,
-  // },
+    {
+      exact: false,
+      component: Notfound,
+    },
   ];
 };
 

@@ -18,13 +18,13 @@ const App = ()=> {
                 </button>
               </Link>
             </li>
-            {/* <li>
-              <Link to='/'>
+            <li>
+              <Link to='/contacto'>
                 <button tabIndex='-1'>
                   Contacto
                 </button>
               </Link>
-            </li> */}
+            </li>
             {/* <li>
               <Link to='/'>
                 <button tabIndex='-1'>

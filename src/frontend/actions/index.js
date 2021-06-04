@@ -132,7 +132,7 @@ export const createOrden = (compra, totalPago) => {
     })// {email, password}
       .then(({ data }) => {
         console.log('[create orden]', data.data);
-        dispatch(updateStateReducer(data.data));
+        dispatch(updateState());
       })
       .catch((error) => {
         console.log(error);

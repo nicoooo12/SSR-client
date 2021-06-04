@@ -15,10 +15,10 @@ import Auth from './SignIn';
 // import Tarjeta from '../components/Tarjetas';
 // import Carrito from '../components/Carrito';
 // import Carrito from '../components/Carrito';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../assets/styles/containers/Compra.scss';
 
-const App = ({ infoPago, misOrdenes, history, createCanvasOrden, createOrden, user, carrito, setStatusCarrito, statusNextCarrito, setRedirect })=> {
+const App = ({ infoPago, misOrdenes, history, createOrden, user, carrito, setStatusCarrito, statusNextCarrito, setRedirect })=> {
   const [first, setFirst] = useState(true);
   useEffect(()=>{
     if (first) {
@@ -64,11 +64,21 @@ const App = ({ infoPago, misOrdenes, history, createCanvasOrden, createOrden, us
       if (!carrito.data[0]) {
         history.push('/catalogo');
       }
-      contentHeader = (<>
-        <h1>Pago con Transferencia.</h1>
-        <p>Para realizar el pago deberá realizar una transferencia electrónica (Datos de la transacción se presentarán a continuación) y posteriormente mandarnos un comprobante de esta transacción. Sus cartones sólo serán liberados una vez que nos envíe este comprobante.</p>
-        <Button onClick={statusNextCarrito}>Iniciar Pago</Button>
-      </>);
+      if (!misOrdenes['user']) {
+        contentHeader = (<>
+          <h1>Pago con Transferencia.</h1>
+          <p>Para realizar el pago deberá realizar una transferencia electrónica (Datos de la transacción se presentarán a continuación) y posteriormente mandarnos un comprobante de esta transacción. Sus cartones sólo serán liberados una vez que nos envíe este comprobante.</p>
+          <Button onClick={statusNextCarrito}>Iniciar Pago</Button>
+        </>);
+      } else {
+        contentHeader = (<>
+          <h1>Ya Tienes una compra en progreso.</h1>
+          <p>Ups! Ya tienes una compra en progreso, Espera a que esta termine para poder iniciar otra.</p>
+          <Link>
+            <Button>Volver</Button>
+          </Link>
+        </>);
+      }
       break;
     case 1:
       contentHeader = (<>
@@ -117,13 +127,20 @@ const App = ({ infoPago, misOrdenes, history, createCanvasOrden, createOrden, us
       contentHeader = (<>
         <h1>Subir<br/>Comprobante.</h1>
         <div className='subirArchivo'>
-          <a href={`https://docs.google.com/forms/d/e/1FAIpQLScjQezMOW9VhCldbPmnxNNqUqkDuEskgmOfm_1pzf3NVoyiLA/viewform?entry.1086376657=${misOrdenes.code}`} target='_blank' rel='noopener noreferrer'>
-            <Icon type='upLoad' height='40' width='40' />
-            Subir Archivo
-          </a>
+          {
+            misOrdenes['code'] ?
+              <a href={`https://docs.google.com/forms/d/e/1FAIpQLScjQezMOW9VhCldbPmnxNNqUqkDuEskgmOfm_1pzf3NVoyiLA/viewform?entry.1086376657=${misOrdenes.code}`} target='_blank' rel='noopener noreferrer'>
+                <Icon type='upLoad' height='40' width='40' />
+                Subir Archivo
+              </a> : <>Espera un momento<br/>Estamos procesado tu compra.</>
+          }
         </div>
         <p>
-          Tu código es: {misOrdenes.code}
+          {
+            misOrdenes['code'] ?
+              <>Tu código de compra es: {misOrdenes.code}</> :
+              <>Cargando ...</>
+          }
         </p>
         <Pageination content={['Datos bancarios.', 'Subir Comprobante.']} btn={true} pag={1} nextHandler={nextHandler} end={endHandler} />
       </>);

@@ -43,6 +43,7 @@ const App = ({ singIn, history, redirect, setRedirect, notRedirect, socket })=> 
   };
 
   const handleSubmit = (event) => {
+    setErrComponent('');
     event.preventDefault();
     singIn(form, (user)=>{
       socket.emit('holaMundo', user.id);
@@ -54,6 +55,7 @@ const App = ({ singIn, history, redirect, setRedirect, notRedirect, socket })=> 
         }
       }
     }, (err)=>{
+      document.querySelector('#react').scrollTo(0, 0);
       // console.log(err.request.status);
       switch (err.request.status) {
         case 401:

@@ -27,7 +27,7 @@ const App = ({ title, subTitle, precio, serie, premios, addItemToCarrito, remove
         </div>
         <p className='tarjeta__subTitle'>{subTitle}</p>
         <div className='tarjeta__componentsGroup'>
-          <Button disabledButton={!!carrito.state >= 1} idHandler={serie} setStartCount={carrito.data.filter((e)=>{return e.serie === serie;})[0] ? carrito.data.filter((e)=>{return e.serie === serie;})[0].cantidad : 0} handlerAdd={addCarritoHandle} handlerSubtract={subtractCarritoHandle} />
+          <Button idHandler={serie} setStartCount={carrito.data.filter((e)=>{return e.serie === serie;})[0] ? carrito.data.filter((e)=>{return e.serie === serie;})[0].cantidad : 0} handlerAdd={addCarritoHandle} handlerSubtract={subtractCarritoHandle} />
           <Badges>{'$' + precio + ' CLP'}</Badges>
         </div>
       </div>

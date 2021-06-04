@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 // import { desactiveCarrito } from '../';
 // import { Link } from 'react-router-dom';
@@ -8,7 +8,7 @@ import Button from './forms/Button';
 import { addItemToCarrito, removeItemToCarrito, desactiveCarrito, setRedirect } from '../actions';
 
 import '../assets/styles/components/Carrito.scss';
-const App = ({ carrito, addItemToCarrito, removeItemToCarrito, desactiveCarrito, history, user, setRedirect })=> {
+const App = ({ carrito, compras, addItemToCarrito, removeItemToCarrito, desactiveCarrito, history, user, setRedirect })=> {
 
   let totalCarrito = 0;
   let totalPrecio = 0;
@@ -16,12 +16,22 @@ const App = ({ carrito, addItemToCarrito, removeItemToCarrito, desactiveCarrito,
     totalCarrito += (element.cantidad);
     totalPrecio += (element.precio * element.cantidad);
   });
-
-  const initPayHandler = ()=>{
-    if (!user.email) {
-      setRedirect('/compra');
+  const [err, setErro] = useState('');
+  useEffect(()=>{
+    if (compras['user']) {
+      setErro(<h1 className='errH1' >Ya tienes una orden en progreso, espera a que esta termine para iniciar otra.</h1>);
     }
-    history.push('/compra');
+  }, [compras]);
+  const initPayHandler = ()=>{
+    if (!user['email']) {
+      history.push('/sign-in');
+    } else {
+      if (compras['user']) {
+        history.push('/ordenes');
+      } else {
+        history.push('/compra');
+      }
+    }
   };
 
   const addCarritoHandle = (id, cantidad)=>{
@@ -43,9 +53,14 @@ const App = ({ carrito, addItemToCarrito, removeItemToCarrito, desactiveCarrito,
           <Icon width='30' height='30' />
         </div>
       </div>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        {
+          err
+        }
+      </div>
       <div className='carrito__body'>
         {
-          carrito.data[0] ?
+          !compras['user'] ?
             <table className='carrito__table'>
               <thead>
                 <tr>
@@ -80,14 +95,13 @@ const App = ({ carrito, addItemToCarrito, removeItemToCarrito, desactiveCarrito,
               </tfoot>
             </table> :
             <>
-              <h1>Compra en progreso!</h1>
             </>
         }
       </div>
       <div className='carrito__footer'>
         {
-          carrito.state >= 1 ?
-            <Button onClick={initPayHandler} >Continuar pagando {carrito.data[0] ? `$${totalPrecio}` : ''}</Button> :
+          compras['user'] ?
+            <Button onClick={initPayHandler} >Ver Compra</Button> :
             <Button onClick={initPayHandler} >Pagar ${totalPrecio}</Button>
         }
       </div>
@@ -100,6 +114,7 @@ const mapStateToProps = (state) => {
   return {
     carrito: state.carrito,
     user: state.user,
+    compras: state.ordenes.enProgreso,
   };
 };
 

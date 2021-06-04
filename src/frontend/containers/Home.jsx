@@ -8,7 +8,7 @@ import ButtonIcon from '../components/forms/ButtonIcon';
 import Button from '../components/forms/Button';
 import Modal from '../components/modal';
 // import RegisterPanel from '../components/RegisterPanel';
-import { updateState } from '../actions';
+import { updateState, logoutRequest } from '../actions';
 import { Link } from 'react-router-dom';
 import Icon from '../components/display/Icon';
 import Card from '../components/display/Card';
@@ -23,7 +23,7 @@ import _5 from '../assets/images/5.png';
 
 import '../assets/styles/containers/menu.scss';
 import '../assets/styles/containers/Home.scss';
-const App = ({ user, updateState })=> {
+const App = ({ user, updateState, logoutRequest })=> {
   const [first, setFirst] = useState(true);
   useEffect(()=>{
     if (first) {
@@ -64,6 +64,7 @@ const App = ({ user, updateState })=> {
     document.cookie = 'name=';
     document.cookie = 'id=';
     document.cookie = 'token=';
+    logoutRequest();
     updateState();
     setMenu(false);
     setFocusHeader(true);
@@ -309,7 +310,7 @@ const App = ({ user, updateState })=> {
             </div>
 
             <div className='banner-img' >
-              <img src={_4} alt='' className='img' />
+              <img src={_5} alt='' className='img' />
               <Modal btn='Donar aquí!' >
                 <h1>Has tu donaciones</h1>
                 <p>
@@ -320,7 +321,7 @@ const App = ({ user, updateState })=> {
             </div>
 
             <div className='banner-img' >
-              <img src={_5} alt='' className='img' />
+              <img src={_4} alt='' className='img' />
               <Link to='help'>
                 <Button autoLogin={false} > Ayuda!</Button>
               </Link>
@@ -340,6 +341,7 @@ const mapSateToProps = (state)=>{
 
 const mapDispatchToProps = {
   updateState,
+  logoutRequest,
 };
 
 export default connect(mapSateToProps, mapDispatchToProps)(App);

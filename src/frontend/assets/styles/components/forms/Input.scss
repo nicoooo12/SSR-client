@@ -1,6 +1,7 @@
 @import '../../Index.scss';
 
 .input{
+  transition: 1s all;
   @extend %input-text;
   position: relative;
   margin: 10px;
@@ -8,8 +9,33 @@
   // height: 64px;
   @extend %Typography-text-TS;
 }
-
-
+.input-error{
+  transition: 1s all;
+  &>p{
+    color: $error_dark!important;
+  }
+  @extend %input-text;
+  @extend %input-text-error;
+  position: relative;
+  margin: 10px;
+  width: 325px;
+  
+  // height: 64px;
+  @extend %Typography-text-TS;
+}
+.input-success{
+  transition: 1s all;
+  @extend %input-text;
+  @extend %input-text-success;
+  position: relative;
+  margin: 10px;
+  width: 325px;
+  // height: 64px;
+  @extend %Typography-text-TS;
+  &>p{
+    color: $success_dark;
+  }
+}
 // .input-text,
 // .input-text-success,
 // .input-text-error{
@@ -19,7 +45,7 @@
 //   @extend %Typography-text-TS;
 // }
 %input-text {
-  
+
   &>input {
     display: block;
     width: 325px;
@@ -55,7 +81,7 @@
       color: $greyscale_label;
     }
     &:not(:placeholder-shown)~div{
-      display: block  
+      display: block;
     }
   }
 
@@ -201,12 +227,16 @@
   font-weight: 400;
   position: relative;
   margin: 5px 2px 5px 5px;
+  width: 325px;
 }
 
 @media (max-width: $mediaWidth1){
 
 .input{
   &>input{
+    width: 270px;
+  }
+  &>p{
     width: 270px;
   }
   &>div{

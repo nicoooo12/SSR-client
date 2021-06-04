@@ -38,7 +38,7 @@ const App = ({ user, history, enProgreso, terminadas, catalogo })=> {
               </Link>
             </Header> :
           <Header title='Mis ordenes' to='/'>
-            <h1>Pedido<br/> en progreso</h1>
+            <h1>Compra<br/> en progreso</h1>
             <table className='bank__table'>
               <thead>
                 <tr>
@@ -63,6 +63,10 @@ const App = ({ user, history, enProgreso, terminadas, catalogo })=> {
                 </tr>
               </tbody>
               <tfoot>
+                <tr>
+                  <td className='td__start'>Código de orden:</td>
+                  <td className='td__end'>{enProgreso.code}</td>
+                </tr>
                 <tr>
                   <td className='td__start'>Pago total:</td>
                   <td className='td__end'>${enProgreso.totalPago}</td>
@@ -89,12 +93,12 @@ const App = ({ user, history, enProgreso, terminadas, catalogo })=> {
       {
         terminadas[0] ?
           <div className='contentCardsPedidos' style={enProgreso.user ? { top: '800px', position: 'absolute' } : {}}>
-            <Titulo title='Mis ordenes' />
+            <Titulo title='Mis compras' />
             {
               terminadas.map((e, index)=>{
                 return (
                   <div key={index} className='cardPedidos'>
-                    <h1>Pedido<br/> finalizado</h1>
+                    <h1>Compra<br/> finalizada</h1>
                     <table className='bank__table'>
                       <thead>
                         <tr>
