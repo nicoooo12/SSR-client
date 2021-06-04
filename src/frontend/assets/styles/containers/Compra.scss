@@ -57,11 +57,11 @@
 .errH1{
   transition: all 2s;
   text-align: center;
-  background: $error_bg;
+  background: $greyscale_line;
   border-radius: 15px;
   padding: 10px;
   width: 80%;
-  border: 3px solid $error_default;
+  border: 3px solid $greyscale_placeholder;
   @extend %Typography-text-TS;
 }
 

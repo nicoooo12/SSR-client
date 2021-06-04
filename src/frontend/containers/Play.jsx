@@ -524,6 +524,8 @@ const App = ({ user, history, play, misCartones, catalogos, socket }) => {
           </div>
         </div>
       );
+    default:
+      return <>Error</>;
   }
 
 };
