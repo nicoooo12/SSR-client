@@ -6,6 +6,8 @@ footer{
   background-color: $greyscale_title-active;
   align-self: flex-end;
   display: flex;
+  position: relative;
+  top: 30px;
   align-items: center;
   justify-content: space-around;
   color: $greyscale_label;

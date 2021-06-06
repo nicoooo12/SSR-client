@@ -9,7 +9,7 @@ const App = ()=> {
       <Header/>
       <div>
         <h1>Contacto</h1>
-        <table className='bank__table'>
+        <table className='contacto'>
           <thead>
             <tr>
               <th className='th__start'> </th>

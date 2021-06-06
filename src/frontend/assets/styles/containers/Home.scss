@@ -6,6 +6,8 @@
   align-content: center;
   align-items: center;
   margin: 10px 50px;
+  top: 70px;
+  position: relative;
   &>.img{
     width: 100%;
     height: auto;
@@ -23,7 +25,7 @@
     }
     position: relative;
     /* right: 37.5%; */
-    top: -100px;
+    top: -90px;
     // width: 120px;
     // height: 35px;
     background: black;

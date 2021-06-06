@@ -1,5 +1,4 @@
 import Home from '../containers/Home';
-import Pruebas from '../containers/Pruebas';
 import Catalogo from '../containers/Catalogo';
 import Compra from '../containers/Compra';
 import Cartones from '../containers/Cartones';
@@ -17,11 +16,6 @@ const routers = (isLogged)=>{
       exact: true,
       path: '/',
       component: Home,
-    },
-    {
-      exact: true,
-      path: '/pruebas',
-      component: Pruebas,
     },
     {
       exact: true,

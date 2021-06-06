@@ -3,6 +3,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: ['./src/frontend/index.js'],
@@ -12,7 +13,6 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/',
   },
-
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
@@ -59,6 +59,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new CompressionPlugin({
       test: /\.js$|\.css$/,
       filename: '[name].gz',
@@ -70,5 +71,8 @@ module.exports = {
   optimization: {
     minimize: true,
     minimizer: [new TerserPlugin()],
+  },
+  performance: {
+    hints: false,
   },
 };

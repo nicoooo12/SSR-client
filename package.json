@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "NODE_ENV=production webpack-cli --config webpack.config.js",
-    "start": "node src/server/index.js",
+    "start": "NODE_ENV=production node src/server/index.js",
     "dev": "nodemon src/server/index"
   },
   "engines": {
@@ -28,7 +28,10 @@
     "@socket.io/admin-ui": "^0.1.1",
     "asset-require-hook": "^1.2.0",
     "axios": "^0.21.1",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
     "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "helmet": "^4.4.1",
@@ -39,19 +42,17 @@
     "passport-http": "^0.3.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-redux": "^7.2.2",
     "react-hot-loader": "^4.13.0",
+    "react-redux": "^7.2.2",
     "react-router": "^5.2.0",
     "react-router-config": "^5.1.1",
+    "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "socket.io": "^4.1.1",
     "socket.io-client": "^4.1.1",
     "uuid": "^8.3.2",
-    "webpack": "^5.24.4",
-    "babel-loader": "^8.2.2",
-    "dotenv": "^8.2.0",
-    "react-router-dom": "^5.2.0"
+    "webpack": "^5.24.4"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.0.1",
