@@ -507,7 +507,7 @@ const App = ({ user, history, play, misCartones, catalogos, socket }) => {
                             </tbody>
                           </table>
                           <div className='foot'>
-                            <Button size='small' onClick={()=>{socket.emit('Bingo', user.name, e.data, index);}} >Bingo!</Button>
+                            <Button size='small' onClick={(o)=>{socket.emit('Bingo', user.name, e.data, index); socket.on('bingoReject', (e)=>{if (e === index) {o();}});}} >Bingo!</Button>
                             <Badges>Numero: {index} </Badges>
                           </div>
                         </div>);

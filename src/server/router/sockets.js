@@ -49,8 +49,8 @@ module.exports = function (app, socket) {
     io.on('Lanzar', (e) => {
       socket.to('bingo').emit('lanzar', e);
     });
-    io.on('Init', (e) => {
-      socket.to('bingo').emit('init', e);
+    io.on('Init', (e, o) => {
+      socket.to('bingo').emit('init', e, o);
     });
     io.on('End', () => {
       socket.to('bingo').emit('end');
@@ -61,7 +61,8 @@ module.exports = function (app, socket) {
     io.on('BingoS', (user) => {
       socket.to('bingo').emit('bingo', user);
     });
-    io.on('BingoReject', () => {
+    io.on('BingoReject', (e, n) => {
+      socket.to(e).emit('bingoReject', n);
       socket.to('bingo').emit('bingoReject');
     });
     io.on('BingoGanador', (user) => {
