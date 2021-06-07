@@ -3,19 +3,11 @@ import { connect } from 'react-redux';
 
 import Header from '../components/Header';
 import Pageination from '../components/forms/Pageination';
-import { statusNextCarrito, setStatusCarrito, setRedirect, createOrden, createCanvasOrden } from '../actions';
+import { statusNextCarrito, setStatusCarrito, setRedirect, createOrden } from '../actions';
 import Button from '../components/forms/Button';
 import Icon from '../components/display/Icon';
-import Footer from '../components/Footer';
 
-// import config from '../../../config';
-// import MainContent from '../components/MainContent';
-// import Title from '../components/Title';
 import Auth from './SignIn';
-// import Tarjeta from '../components/Tarjetas';
-// import Carrito from '../components/Carrito';
-// import Carrito from '../components/Carrito';
-import { Link } from 'react-router-dom';
 import '../assets/styles/containers/Compra.scss';
 
 const App = ({ infoPago, misOrdenes, history, createOrden, user, carrito, setStatusCarrito, statusNextCarrito, setRedirect })=> {
@@ -71,13 +63,7 @@ const App = ({ infoPago, misOrdenes, history, createOrden, user, carrito, setSta
           <Button onClick={statusNextCarrito}>Iniciar Pago</Button>
         </>);
       } else {
-        contentHeader = (<>
-          <h1>Ya Tienes una compra en progreso.</h1>
-          <p>Ups! Ya tienes una compra en progreso, Espera a que esta termine para poder iniciar otra.</p>
-          <Link>
-            <Button>Volver</Button>
-          </Link>
-        </>);
+        nextHandler();
       }
       break;
     case 1:
@@ -162,7 +148,6 @@ const App = ({ infoPago, misOrdenes, history, createOrden, user, carrito, setSta
             <Header title='Pagar' to='catalogo' >
               {contentHeader}
             </Header>
-            <Footer/>
           </div>
       }
     </>
@@ -185,7 +170,6 @@ const mapDispatchToProps = {
   statusNextCarrito,
   setStatusCarrito,
   setRedirect,
-  createCanvasOrden,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

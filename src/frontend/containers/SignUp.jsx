@@ -101,7 +101,6 @@ const App = ({ singUp, history, redirect, setRedirect })=> {
         // console.log(err.request.status, req.message, req.message === 'busy account');
         switch (err.request.status) {
           case 400:
-            console.log(req);
             if (req.message === 'busy account') {
               setErrComponent(<h1>Esta cuenta ya esta ocupada, por favor intenta otra.</h1>);
               inputEmail.current.className = 'input-error';

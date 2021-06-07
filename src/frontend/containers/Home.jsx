@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-// import Header from '../components/Header-A';
 import Footer from '../components/Footer';
-// import Carrusel from '../components/Carrusel';
 import ButtonIcon from '../components/forms/ButtonIcon';
 import Button from '../components/forms/Button';
 import Modal from '../components/modal';
-// import RegisterPanel from '../components/RegisterPanel';
 import { updateState, logoutRequest } from '../actions';
 import { Link } from 'react-router-dom';
 import Icon from '../components/display/Icon';
 import Card from '../components/display/Card';
+import varsBingo from '../varsBingo';
 
 import Img1 from '../assets/images/B.png';
-
 import _1 from '../assets/images/1.png';
 import _2 from '../assets/images/2.png';
 import _3 from '../assets/images/3.png';
@@ -23,6 +20,7 @@ import _5 from '../assets/images/5.png';
 
 import '../assets/styles/containers/menu.scss';
 import '../assets/styles/containers/Home.scss';
+
 const App = ({ user, updateState, logoutRequest })=> {
   const [first, setFirst] = useState(true);
   useEffect(()=>{
@@ -32,19 +30,6 @@ const App = ({ user, updateState, logoutRequest })=> {
     }
   }, []);
   const [menu, setMenu] = useState(false);
-  const [focusHeader, setFocusHeader] = useState(true);
-  let observer;
-  useEffect(()=>{
-    observer = new IntersectionObserver((entry, observer)=>{
-      if (entry[0].isIntersecting) {
-        setFocusHeader(true);
-      } else {
-        setFocusHeader(false);
-      }
-    });
-    observer.observe(document.querySelector('.headerHome'));
-  }, [observer]);
-
   const menuHandler = ()=>{
     if (menu) {
       setMenu(false);
@@ -156,13 +141,6 @@ const App = ({ user, updateState, logoutRequest })=> {
                       </div>
                     </li>
                     <li>
-                      Comprar
-                      <div style={{ transform: 'rotate(180deg)' }}>
-                        <Link to='/catalogo'>
-                          <ButtonIcon size='small' typebutton='subtle' />
-                        </Link>
-                      </div></li>
-                    <li>
                       Ayuda
                       <div style={{ transform: 'rotate(180deg)' }}>
                         <Link to='/help'>
@@ -174,20 +152,6 @@ const App = ({ user, updateState, logoutRequest })=> {
             </ul>
           </div> :
           <>
-            {
-              focusHeader ?
-                <>
-                  <div className='contentLibre-off'> </div>
-                </> :
-                <>
-                  <div className='contentLibreHome'>
-                    <h1>Bingoloteando</h1>
-                    <div className='lastIcon' onClick={menuHandler}>
-                      <Icon type='list' width='24' height='24'/>
-                    </div>
-                  </div>
-                </>
-            }
             <header className='headerHome'>
               <div className='contentHeaderHome'>
                 <div className='banner'> </div>
@@ -198,8 +162,8 @@ const App = ({ user, updateState, logoutRequest })=> {
                   </div>
                 </div>
                 <div className='info'>
-                  <h1>Titulo Evento</h1>
-                  <p>Apoyemos a esta causa o algo así</p>
+                  <h1>{varsBingo.title}</h1>
+                  <p>{varsBingo.subTitle}</p>
                   <Card>
                     <div className='circule' >
                       <div>
@@ -251,7 +215,7 @@ const App = ({ user, updateState, logoutRequest })=> {
                           </div>
                         </> :
                         <>
-                          <p>Para comprar tus cartones y poder jugar debes crear primero una cuenta.</p>
+                          <p>Para comprar tus cartones y poder jugar debes primero tener una cuenta.</p>
                           <div>
                             <Link to='/sign-up'>
                               <Button>Register</Button>
@@ -261,7 +225,7 @@ const App = ({ user, updateState, logoutRequest })=> {
                             </Link>
                           </div>
 
-                          <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', position: 'initial !important', margin: '15px' }}>
+                          <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', margin: '15px' }}>
                             <Icon type='forward' width='45' height='45'/>
                           </div>
                         </>
@@ -284,7 +248,7 @@ const App = ({ user, updateState, logoutRequest })=> {
             </div>
 
             <div className='banner-img' >
-              <img src={_2} alt='' className='img' />
+              <img src={_3} alt='' className='img' />
               <Modal btn='Más información' >
                 <h1>Bingo!</h1>
                 <p>
@@ -299,7 +263,7 @@ const App = ({ user, updateState, logoutRequest })=> {
             </div>
 
             <div className='banner-img' >
-              <img src={_3} alt='' className='img' />
+              <img src={_2} alt='' className='img' />
               <Modal btn='Ir ver' >
                 <h1>Premios</h1>
                 <p>

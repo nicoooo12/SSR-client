@@ -266,7 +266,7 @@ header{
 }
 
 .headerHome{
-
+  top:0;
   &>.contentHeaderHome{
     &>.banner{
       position:absolute;
@@ -339,7 +339,7 @@ header{
         // height: 420px;
         animation: upHeader .85s cubic-bezier(0, 0, 0.2, 1);
         position: relative;
-        top: 40px;
+        //top: 40px;
         margin-top: 135px;
         // left: 2.5%;
         width: 100%;
@@ -348,29 +348,29 @@ header{
         text-align: center;
         text-align: -webkit-center;
         &>.circule{
-          top: -110px;
+          top: -90px;
           position: relative;
           background: $greyscale_inputBG;
-          width: 180px;
-          height: 180px;
+          width: 170px;
+          height: 170px;
           border-radius: 100%;
           &>div{
             top: 5px;
             position: relative;
             background: linear-gradient(114.44deg, #EB0055 0%, #FFFA80 100%);
-            width: 170px;
-            height: 170px;
+            width: 160px;
+            height: 160px;
             border-radius: 100%;
             &>div{
-              top: 10px;
+              top: 7.5px;
               position: relative;
               background: $greyscale_inputBG;
-              width: 150px;
-              height: 150px;
+              width: 145px;
+              height: 145px;
               border-radius: 100%;
               overflow: hidden;
               &>img{
-                top: 2.5px;
+                top: 0px;
                 // top: 5px;
                 position: relative;
                 width: 145px;
@@ -380,7 +380,7 @@ header{
           }
         }
         &>p{
-          top: -100px;
+          top: -40px;
           position: relative;
           color: $greyscale_title-active;
           margin-bottom: 50px;
@@ -393,6 +393,7 @@ header{
           display: flex;
           width: 100%;
           flex-wrap: wrap;
+          top: -70px;
           justify-content: center;;
           &>a{
             text-decoration: none;
@@ -418,7 +419,7 @@ header{
           }
         }
         &>div{
-          top: -100px;
+          top: -50px;
           position: relative;
         }
       }

@@ -48,13 +48,8 @@ const App = ({ isLogged, updateState }) => {
     </BrowserRouter>);
 };
 
-const mapStateToProps = (state) => {
-  return {
-  };
-};
-
 const mapDispatchToProps = {
   updateState,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);

@@ -35,7 +35,6 @@ const App = ({ user, history, play, misCartones, catalogos, socket }) => {
   useEffect(()=>{
     socket.removeAllListeners();
     socket.on('connected', (estado, serie)=>{
-      console.log(estado, serie);
       setKey(estado);
       setSerie(serie);
       setCatalogoJuego(catalogos.filter((e)=>e.serie === serie)[0]);
