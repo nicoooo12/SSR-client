@@ -45,7 +45,9 @@ module.exports = function (app, socket) {
     io.on('Bingo', (user, data, number) => {
       socket.to('admin').emit('play', user, data, number, io.id);
     });
-
+    io.on('ResetAllBingo', ()=>{
+      socket.emit('resetAllBingo');
+    });
     io.on('Lanzar', (e) => {
       socket.to('bingo').emit('lanzar', e);
     });
