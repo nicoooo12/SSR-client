@@ -7,10 +7,11 @@ import Header from '../components/Header';
 import Titulo from '../components/Title';
 import Button from '../components/forms/Button';
 import { Link } from 'react-router-dom';
+import { setStatusCarrito } from '../actions';
 
 import '../assets/styles/containers/Ordenes.scss';
 
-const App = ({ user, history, enProgreso, terminadas, catalogo })=> {
+const App = ({ setStatusCarrito, user, history, enProgreso, terminadas, catalogo })=> {
   const [first, setFirst] = useState(true);
   useEffect(()=>{
     if (first) {
@@ -21,6 +22,11 @@ const App = ({ user, history, enProgreso, terminadas, catalogo })=> {
   if (!user.id) {
     history.push('/');
   }
+
+  const addImgHandler = () => {
+    setStatusCarrito(2);
+    history('/compra');
+  };
 
   return (
     <>
@@ -73,7 +79,7 @@ const App = ({ user, history, enProgreso, terminadas, catalogo })=> {
                 </tr>
                 <tr>
                   <td className='td__start'>Comprobante:</td>
-                  <td className='td__end'>{enProgreso.canvasUrl ? 'si' : <Link to='/compra'><Button size='small' >Agregar</Button></Link>}</td>
+                  <td className='td__end'>{enProgreso.canvasUrl ? 'si' : <><Button size='small' onClick={addImgHandler}>Agregar</Button></>}</td>
                 </tr>
                 <tr>
                   <td className='td__start'>Estado:</td>
@@ -157,7 +163,7 @@ const mapSateToProps = (state)=>{
 };
 
 const mapDispatchToProps = {
-  // updateState,
+  setStatusCarrito,
 };
 
 export default connect(mapSateToProps, mapDispatchToProps)(App);
