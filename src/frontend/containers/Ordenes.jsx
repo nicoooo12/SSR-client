@@ -25,7 +25,7 @@ const App = ({ setStatusCarrito, user, history, enProgreso, terminadas, catalogo
 
   const addImgHandler = () => {
     setStatusCarrito(2);
-    history('/compra');
+    history.push('/compra');
   };
 
   return (
