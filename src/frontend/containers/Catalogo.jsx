@@ -11,8 +11,9 @@ import Tarjeta from '../components/Tarjetas';
 import Carrito from '../components/Carrito';
 // import Carrito from '../components/Carrito';
 // import { Link } from 'react-router-dom';
+import Spiner from '../components/spiner';
 
-const App = ({ catalogos, carrito, history })=> {
+const App = ({ catalogos, load, carrito, history })=> {
   const [first, setFirst] = useState(true);
   useEffect(()=>{
     if (first) {
@@ -39,19 +40,27 @@ const App = ({ catalogos, carrito, history })=> {
           !carrito.active ?
             <>
               <Title title='Catalogo'/>
-              {catalogos.map(
-                (item, index)=>
-                  (
-                    <Tarjeta
-                      key={index}
-                      title={item.titulo}
-                      subTitle={item.subTitulo}
-                      precio={item.precio}
-                      serie={item.serie}
-                      premios={item.premios.map((e, i)=>i === 0 ? `${e.nombre} ` : `~ ${e.nombre}`)}
-                    />
-                  ),
-              )}
+              {
+                load ?
+                  <>{catalogos.map(
+                    (item, index)=>
+                      (
+                        <Tarjeta
+                          key={index}
+                          title={item.titulo}
+                          subTitle={item.subTitulo}
+                          precio={item.precio}
+                          serie={item.serie}
+                          premios={item.premios.map((e, i)=>i === 0 ? `${e.nombre} ` : `~ ${e.nombre}`)}
+                        />
+                      ),
+                  )}</> :
+                  <>
+                    <div style={{ width: '100%', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+                      <Spiner />
+                    </div>
+                  </>
+              }
             </> :
             <Carrito history={history}/>
         }
@@ -69,6 +78,7 @@ const mapDispatchToProps = (state)=>{
   return {
     carrito: state.carrito,
     catalogos: state.catalogos,
+    load: state.load,
   };
 };
 

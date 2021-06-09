@@ -113,3 +113,9 @@
   //   @extend %Typography-text-LL
   // }
 }
+
+@media (max-width: $mediaWidthMobileS){
+  .bank__table{
+    font-size: 13px;
+  }
+}

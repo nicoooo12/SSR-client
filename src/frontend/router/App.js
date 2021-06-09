@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Home from '@containers/Home';
@@ -14,21 +14,24 @@ import Contacto from '@containers/Contacto';
 import Notfound from '@containers/Notfound';
 import { io } from 'socket.io-client';
 import { connect } from 'react-redux';
-import { updateState } from '../actions';
+import { updateState, initialState } from '../actions';
 import '../assets/styles/App.scss';
 
-const App = ({ isLogged, updateState }) => {
+const App = ({ isLogged, updateState, initialState }) => {
   const socket = io();
-  socket.on('change', ()=>{
-    console.log('[changes in the State of socket]');
-    updateState();
-    socket.emit('ok');
-  });
-  socket.on(isLogged ? isLogged : 'change-noSignIn', ()=>{
-    console.log('[changes in the State of socket]');
-    updateState();
-    socket.emit('ok');
-  });
+  useEffect(()=>{
+    socket.on('change', ()=>{
+      console.log('[changes in the State of socket]');
+      updateState();
+      socket.emit('ok');
+    });
+    socket.on(isLogged ? isLogged : 'change-noSignIn', ()=>{
+      console.log('[changes in the State of socket]');
+      updateState();
+      socket.emit('ok');
+    });
+    initialState();
+  }, []);
 
   return (
     <BrowserRouter>
@@ -50,6 +53,7 @@ const App = ({ isLogged, updateState }) => {
 
 const mapDispatchToProps = {
   updateState,
+  initialState,
 };
 
 export default connect(null, mapDispatchToProps)(App);

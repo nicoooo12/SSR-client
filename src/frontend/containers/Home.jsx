@@ -4,24 +4,19 @@ import { connect } from 'react-redux';
 import Footer from '../components/Footer';
 import ButtonIcon from '../components/forms/ButtonIcon';
 import Button from '../components/forms/Button';
-import Modal from '../components/modal';
 import { updateState, logoutRequest } from '../actions';
 import { Link } from 'react-router-dom';
 import Icon from '../components/display/Icon';
 import Card from '../components/display/Card';
+import Spiner from '../components/spiner';
 import varsBingo from '../varsBingo';
 
 import Img1 from '../assets/images/B.png';
-import _1 from '../assets/images/1.png';
-import _2 from '../assets/images/2.png';
-import _3 from '../assets/images/3.png';
-import _4 from '../assets/images/4.png';
-import _5 from '../assets/images/5.png';
 
 import '../assets/styles/containers/menu.scss';
 import '../assets/styles/containers/Home.scss';
 
-const App = ({ user, updateState, logoutRequest })=> {
+const App = ({ load, pedidos, play, user, updateState, logoutRequest })=> {
   const [first, setFirst] = useState(true);
   useEffect(()=>{
     if (first) {
@@ -102,7 +97,7 @@ const App = ({ user, updateState, logoutRequest })=> {
                       </div>
                     </li>
                     <li>
-                      Mis ordenes
+                      Mis pedidos
                       <div style={{ transform: 'rotate(180deg)' }}>
                         <Link to='/ordenes'>
                           <ButtonIcon size='small' typebutton='subtle' />
@@ -165,39 +160,96 @@ const App = ({ user, updateState, logoutRequest })=> {
                   <h1>{varsBingo.title}</h1>
                   <p>{varsBingo.subTitle}</p>
                   <Card>
-                    <div className='circule' >
-                      <div>
-                        <div>
-                          <img src={Img1}/>
+                    <Link to={play.estado !== 0 ? '/play' : ''}>
+                      <div className='circule' >
+                        <div style={{ background: play.estado !== 0 ? 'linear-gradient(114.44deg, #EB0055 0%, #FFFA80 100%)' : 'transparent' }}>
+                          <div>
+                            <img src={Img1}/>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                     {
-                      user.id ?
+                      load ?
+                        <>
+                          {
+                            user.id ?
+                              <>
+                                <div className='contentItem'>
+                                  <Link to='/catalogo'>
+                                    <div className='itemHome'>
+                                      <div>
+                                        <Icon type='plass' width='30' height='30'/>
+                                      </div>
+                                      <p>Comprar cartones</p>
+                                    </div>
+                                  </Link>
+                                  <Link to='cartones'>
+                                    <div className='itemHome'>
+                                      <div>
+                                        <Icon type='eye' width='35' height='35'/>
+                                      </div>
+                                      <p>Ver mis cartones</p>
+                                    </div>
+                                  </Link>
+                                  <Link to='ordenes'>
+                                    <div className='itemHome'>
+                                      <div>
+                                        <Icon type='trolley' width='35' height='35'/>
+                                        {
+                                          pedidos['_id'] &&
+                                          <div className='bubble' style={{ transition: 'all 1s', fontSize: '15px', position: 'absolute', display: 'flex', justifyContent: 'center', alignItems: 'center', top: '15px', left: '80px', width: '30px', height: '30px', borderRadius: '100%', border: 'solid #FCFCFC 3px', background: '#F4B740', color: '#FCFCFC' }}>1</div>
+                                        }
+                                      </div>
+                                      <p>Mis  Pedidos</p>
+                                    </div>
+                                  </Link>
+                                  <Link to='help'>
+                                    <div className='itemHome'>
+                                      <div>
+                                        <Icon type='help' width='35' height='35'/>
+                                      </div>
+                                      <p>Ayuda</p>
+                                    </div>
+                                  </Link>
+                                </div>
+
+                                <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', position: 'initial !important', margin: '15px', width: '52px' }}>
+                                  <Icon type='forward' width='45' height='45'/>
+                                </div>
+                              </> :
+                              <>
+                                <p>Para comprar tus cartones y poder jugar debes primero tener una cuenta.</p>
+                                <div>
+                                  <Link to='/sign-up'>
+                                    <Button>Register</Button>
+                                  </Link>
+                                  <Link to='/sign-in'>
+                                    <Button typebutton='secondary'>Ingresar</Button>
+                                  </Link>
+                                </div>
+
+                                <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', margin: '15px', width: '52px' }}>
+                                  <Icon type='forward' width='45' height='45'/>
+                                </div>
+                              </>
+                          }
+                        </> :
                         <>
                           <div className='contentItem'>
-                            <Link to='/catalogo'>
+                            <Link to=''>
                               <div className='itemHome'>
-                                <div>
-                                  <Icon type='plass' width='30' height='30'/>
-                                </div>
-                                <p>Comprar cartones</p>
+                                <Spiner />
                               </div>
                             </Link>
-                            <Link to='cartones'>
+                            <Link to=''>
                               <div className='itemHome'>
-                                <div>
-                                  <Icon type='eye' width='35' height='35'/>
-                                </div>
-                                <p>Ver mis cartones</p>
+                                <Spiner />
                               </div>
                             </Link>
-                            <Link to='ordenes'>
+                            <Link to=''>
                               <div className='itemHome'>
-                                <div>
-                                  <Icon type='trolley' width='35' height='35'/>
-                                </div>
-                                <p>Mis  Pedidos</p>
+                                <Spiner />
                               </div>
                             </Link>
                             <Link to='help'>
@@ -209,23 +261,7 @@ const App = ({ user, updateState, logoutRequest })=> {
                               </div>
                             </Link>
                           </div>
-
-                          <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', position: 'initial !important', margin: '15px' }}>
-                            <Icon type='forward' width='45' height='45'/>
-                          </div>
-                        </> :
-                        <>
-                          <p>Para comprar tus cartones y poder jugar debes primero tener una cuenta.</p>
-                          <div>
-                            <Link to='/sign-up'>
-                              <Button>Register</Button>
-                            </Link>
-                            <Link to='/sign-in'>
-                              <Button typebutton='secondary'>Ingresar</Button>
-                            </Link>
-                          </div>
-
-                          <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', margin: '15px' }}>
+                          <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', margin: '15px', width: '52px' }}>
                             <Icon type='forward' width='45' height='45'/>
                           </div>
                         </>
@@ -234,62 +270,7 @@ const App = ({ user, updateState, logoutRequest })=> {
                 </div>
               </div>
             </header>
-
-            <div className='banner-img' >
-              <img src={_1} alt='' className='img' />
-              <Modal btn='Más información'>
-                <h1>Ayuda a Isabelita</h1>
-                <p>
-                Isabelita es una niña pequeña. Hace un par de meses, a Isabelita se le detectó un tumor en su cabeza. El tumor en cuestión es pequeño, más la locación dificulta el estudio del mismo y por ende su tratamiento.
-                En este momento, se precisa hacer un tratamiento progresivo ara disminuir el tamaño del tumor sin perjudicar el crecimiento de Isabel, posteriormente se podría realizar una operación para extraer el tumor, todo depende de como progrese la condición. Como podrán suponer, el tratamiento no es nada barato, y de hecho solo la biopsia ha costado como mínimo quince millones de pesos, por lo dificultoso que es acceder al lugar donde se localiza el tumor, por ende se sobreentiende lo caro que será todo el proceso.<br/>
-                Como generación y comunidad Saint Paul´s, hemos organizado este bingo en pos de recaudar fondos para el tratamiento y todos los gastos relacionados. nuestra esperanza y corazones estarán con isabelita.
-                </p>
-              </Modal>
-            </div>
-
-            <div className='banner-img' >
-              <img src={_3} alt='' className='img' />
-              <Modal btn='Más información' >
-                <h1>Bingo!</h1>
-                <p>
-                Usted podrá comprar varios cartones, los cuales podrá jugar tanto en papel si decide imprimir el carton, o en la pantalla, pero para que el administrador del juego pueda verificar si ha ganado o no, debe debe siempre ir rellenando los espacios en la pantalla y presione un botón cunado crea que a ganado...<br/>
-                Para comprar los bingos simplemente agregalos al carro y posterior mente haya a terminar la compra, realice la transferencia, envié el comprobante y luego de que sea revisado se liberará el cartón de bingo para usted.<br/>
-                Habrá un total de seis bingos, el juego tendrá un animador de principió a fin para aligerar y entretener el ambiente.
-                </p>
-                <Link to='catalogo'>
-                  <Button>Ir a comprar!</Button>
-                </Link>
-              </Modal>
-            </div>
-
-            <div className='banner-img' >
-              <img src={_2} alt='' className='img' />
-              <Modal btn='Ir ver' >
-                <h1>Premios</h1>
-                <p>
-                Existen varios premios, lo más grandes obviamente se darán por cartón completo, pero también se entregarán premios menores por linea, o también por actividades interactivas como mini-concursos, que se planean hacer mientras se esté realizando el bingo.<br/>
-                Si es que le gustaría donar premios lo agradeceríamos, y si lo desea de hecho por favor contactarse con &quot;ayudabingoisabel@gmail.com&quot;, pero resultaría más beneficioso para la causa que done directamente.
-                </p>
-              </Modal>
-            </div>
-
-            <div className='banner-img' >
-              <img src={_5} alt='' className='img' />
-              <Modal btn='Donar aquí!' >
-                <h1>Has tu donaciones</h1>
-                <p>
-                Comprar los cartones no es la única forma de ayudar en esta noble causa, existen otras maneras de colaborar: Donar es una excelente opción. Si lo prefiere puedes colaborar de forma directa, ¡Cualquier cantidad sirve!
-                Ayudar en esta causa significará un gran aporte para Isabelita y su familia. Si de verdad lo quiere realice una transferencia a la cuenta (información pendiente).
-                </p>
-              </Modal>
-            </div>
-
-            <div className='banner-img' >
-              <img src={_4} alt='' className='img' />
-              <Link to='help'>
-                <Button autoLogin={false} > Ayuda!</Button>
-              </Link>
-            </div>
+            <varsBingo.home />
             <Footer/>
           </>
       }
@@ -300,6 +281,9 @@ const App = ({ user, updateState, logoutRequest })=> {
 const mapSateToProps = (state)=>{
   return {
     user: state.user,
+    pedidos: state.ordenes.enProgreso,
+    play: state.play,
+    load: state.load,
   };
 };
 

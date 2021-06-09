@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../components/Header-B';
 import Footer from '../components/Footer';
+import varsBingo from '../varsBingo';
 
 const App = ()=> {
 
@@ -9,7 +10,7 @@ const App = ()=> {
       <Header/>
       <div>
         <h1>Contacto</h1>
-        <table className='contacto'>
+        <table className='bank__table'>
           <thead>
             <tr>
               <th className='th__start'> </th>
@@ -17,14 +18,16 @@ const App = ()=> {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className='td__start'>Equipo técnico:</td>
-              <td className='td__end'>nicoflores.dev@gmail.com</td>
-            </tr>
-            <tr>
-              <td className='td__start'>Equipo organizador:</td>
-              <td className='td__end'>ayudabingoisabel@gmail.com</td>
-            </tr>
+            {
+              varsBingo.contacto.map((e, index)=>{
+                return (
+                  <tr key={index}>
+                    <td className='td__start'>{e[0]}</td>
+                    <td className='td__end'>{e[1]}</td>
+                  </tr>
+                );
+              })
+            }
           </tbody>
         </table>
       </div>

@@ -28,8 +28,8 @@ const App = ({ user, history, play, misCartones, catalogos, socket }) => {
   const [serie, setSerie] = useState(play.serieJuego);
 
   const [catalogoJuego, setCatalogoJuego] = useState(catalogos.filter((e)=>e.serie === serie)[0]);
-  const [color1, setColor1] = useState(catalogoJuego.color);
-  const [color2, setColor2] = useState(catalogoJuego.color);
+  const [color1, setColor1] = useState('');
+  const [color2, setColor2] = useState('');
 
   const [first, setFirst] = useState(true);
   useEffect(()=>{

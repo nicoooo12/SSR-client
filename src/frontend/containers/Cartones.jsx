@@ -49,7 +49,7 @@ const App = ({ user, history, cartones, catalogo })=> {
             >
               {
                 cartones.map((e, index)=>{
-                  return <Carton key={index} title={catalogo.filter((o)=>{return o.serie === e.serie;})[0].titulo} data={e.data} serie={e.serie} />;
+                  return <Carton key={index} color={catalogo.filter((o)=>{return o.serie === e.serie;})[0].color} title={catalogo.filter((o)=>{return o.serie === e.serie;})[0].titulo} data={e.data} serie={e.serie} />;
                 })
               }
             </div>

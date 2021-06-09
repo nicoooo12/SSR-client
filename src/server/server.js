@@ -13,7 +13,7 @@ import reducer from '../frontend/reducers';
 import serverRoutes from '../frontend/router/serverRouter';
 
 const { v4: uuidv4 } = require('uuid');
-const axios = require('axios');
+// const axios = require('axios');
 const passport = require('passport');
 // const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -94,101 +94,116 @@ const setResponse = (html, preloadedState, nonce) => {
 
 const renderApp = async (req, res) => {
 
-  const { token, email, name, id } = req.cookies;
+  // const { token, email, name, id } = req.cookies;
 
-  let catalogo;
-  try {
-    const { data } = await axios({
-      method: 'get',
-      url: `${config.apiUrl}/api/catalogos`,
-    });
-    catalogo = data.data;
-  } catch (error) {
+  // let catalogo;
+  // try {
+  //   const { data } = await axios({
+  //     method: 'get',
+  //     url: `${config.apiUrl}/api/catalogos`,
+  //   });
+  //   catalogo = data.data;
+  // } catch (error) {
 
-  }
-  let cartones;
-  try {
-    const { data: dataCartones } = await axios({
-      method: 'get',
-      headers: { Authorization: `Bearer ${token}` },
-      url: `${config.apiUrl}/api/cartones/mys`,
-    });
-    cartones = dataCartones.data;
-    // myOrden = dataOrden.data.estado;
-  } catch (error) {
-    cartones = [];
-  }
+  // }
+  // let cartones;
+  // try {
+  //   const { data: dataCartones } = await axios({
+  //     method: 'get',
+  //     headers: { Authorization: `Bearer ${token}` },
+  //     url: `${config.apiUrl}/api/cartones/mys`,
+  //   });
+  //   cartones = dataCartones.data;
+  //   // myOrden = dataOrden.data.estado;
+  // } catch (error) {
+  //   cartones = [];
+  // }
 
-  let user;
-  try {
-    await axios({
-      method: 'get',
-      headers: { Authorization: `Bearer ${token}` },
-      url: `${config.apiUrl}/api/auth/isauth`,
-    });
+  // let user;
+  // try {
+  //   await axios({
+  //     method: 'get',
+  //     headers: { Authorization: `Bearer ${token}` },
+  //     url: `${config.apiUrl}/api/auth/isauth`,
+  //   });
 
-    user = {
-      name,
-      email,
-      id,
-    };
-  } catch (error) {
-    user = {};
-  }
+  //   user = {
+  //     name,
+  //     email,
+  //     id,
+  //   };
+  // } catch (error) {
+  //   user = {};
+  // }
 
-  let myEndsOrden;
-  try {
-    const { data: dataOrden } = await axios({
-      method: 'get',
-      headers: { Authorization: `Bearer ${token}` },
-      url: `${config.apiUrl}/api/orden/terminadas/my`,
-    });
-    myEndsOrden = dataOrden.data;
-  } catch (error) {
-    myEndsOrden = [];
-  }
-  let myInProgressOrden;
-  try {
-    const { data: dataOrden } = await axios({
-      method: 'get',
-      headers: { Authorization: `Bearer ${token}` },
-      url: `${config.apiUrl}/api/orden/my`,
-    });
-    myInProgressOrden = dataOrden.data[0] ? dataOrden.data[0] : {};
-  } catch (error) {
-    myInProgressOrden = {};
-  }
+  // let myEndsOrden;
+  // try {
+  //   const { data: dataOrden } = await axios({
+  //     method: 'get',
+  //     headers: { Authorization: `Bearer ${token}` },
+  //     url: `${config.apiUrl}/api/orden/terminadas/my`,
+  //   });
+  //   myEndsOrden = dataOrden.data;
+  // } catch (error) {
+  //   myEndsOrden = [];
+  // }
+  // let myInProgressOrden;
+  // try {
+  //   const { data: dataOrden } = await axios({
+  //     method: 'get',
+  //     headers: { Authorization: `Bearer ${token}` },
+  //     url: `${config.apiUrl}/api/orden/my`,
+  //   });
+  //   myInProgressOrden = dataOrden.data[0] ? dataOrden.data[0] : {};
+  // } catch (error) {
+  //   myInProgressOrden = {};
+  // }
 
   const initialState = {
-    'user': user,
+    'user': {},
     'redirect': '',
-    'cartonesUser': cartones[0] ? cartones.map((e)=>{
-      return {
-        ...e,
-        play: [[false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false]],
-      };
-    }) : [],
+    'cartonesUser': [],
     'ordenes': {
-      enProgreso: myInProgressOrden,
-      terminadas: myEndsOrden,
+      enProgreso: {},
+      terminadas: [],
     },
-    'catalogos': catalogo,
+    'catalogos': [],
     'play': {
       estado: 0,
       serieJuego: 1,
     },
-    'infoPago': {
-      numeroCuenta: config.pagoNumeroCuenta,
-      rut: config.pagoRut,
-      titular: config.pagoTitular,
-      banco: config.pagoBanco,
-    },
     'carrito': {
       active: false,
-      state: (myInProgressOrden.user ? 1 : 0),
+      state: 0,
       data: [],
     },
+    'load': false,
   };
+
+  // const initialState = {
+  //   'user': user,
+  //   'redirect': '',
+  //   'cartonesUser': cartones[0] ? cartones.map((e)=>{
+  //     return {
+  //       ...e,
+  //       play: [[false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false]],
+  //     };
+  //   }) : [],
+  //   'ordenes': {
+  //     enProgreso: myInProgressOrden,
+  //     terminadas: myEndsOrden,
+  //   },
+  //   'catalogos': catalogo,
+  //   'play': {
+  //     estado: 0,
+  //     serieJuego: 1,
+  //   },
+  //   'carrito': {
+  //     active: false,
+  //     state: (myInProgressOrden.user ? 1 : 0),
+  //     data: [],
+  //   },
+  // };
 
   const nonceGenerator = uuidv4();
   res.set('Content-Security-Policy', `script-src 'self' 'nonce-${nonceGenerator}';`);

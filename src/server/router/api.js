@@ -80,6 +80,10 @@ module.exports = function (app) {
         enProgreso: myInProgressOrden,
         terminadas: myEndsOrden,
       },
+      'play': {
+        estado: 0,
+        serieJuego: 1,
+      },
     };
 
     res.json({
@@ -88,6 +92,100 @@ module.exports = function (app) {
 
   });
 
+  router.post('/initialState', async (req, res)=>{
+    const { token, email, name, id } = req.cookies;
+
+    let catalogo;
+    try {
+      const { data } = await axios({
+        method: 'get',
+        url: `${config.apiUrl}/api/catalogos`,
+      });
+      catalogo = data.data;
+    } catch (error) {
+
+    }
+    let cartones;
+    try {
+      const { data: dataCartones } = await axios({
+        method: 'get',
+        headers: { Authorization: `Bearer ${token}` },
+        url: `${config.apiUrl}/api/cartones/mys`,
+      });
+      cartones = dataCartones.data;
+      // myOrden = dataOrden.data.estado;
+    } catch (error) {
+      cartones = [];
+    }
+
+    let user;
+    try {
+      await axios({
+        method: 'get',
+        headers: { Authorization: `Bearer ${token}` },
+        url: `${config.apiUrl}/api/auth/isauth`,
+      });
+
+      user = {
+        name,
+        email,
+        id,
+      };
+    } catch (error) {
+      user = {};
+    }
+
+    let myEndsOrden;
+    try {
+      const { data: dataOrden } = await axios({
+        method: 'get',
+        headers: { Authorization: `Bearer ${token}` },
+        url: `${config.apiUrl}/api/orden/terminadas/my`,
+      });
+      myEndsOrden = dataOrden.data;
+    } catch (error) {
+      myEndsOrden = [];
+    }
+    let myInProgressOrden;
+    try {
+      const { data: dataOrden } = await axios({
+        method: 'get',
+        headers: { Authorization: `Bearer ${token}` },
+        url: `${config.apiUrl}/api/orden/my`,
+      });
+      myInProgressOrden = dataOrden.data[0] ? dataOrden.data[0] : {};
+    } catch (error) {
+      myInProgressOrden = {};
+    }
+
+    const initialState = {
+      'user': user,
+      'redirect': '',
+      'cartonesUser': cartones[0] ? cartones.map((e)=>{
+        return {
+          ...e,
+          play: [[false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false]],
+        };
+      }) : [],
+      'ordenes': {
+        enProgreso: myInProgressOrden,
+        terminadas: myEndsOrden,
+      },
+      'catalogos': catalogo,
+      'play': {
+        estado: 0,
+        serieJuego: 1,
+      },
+      'carrito': {
+        active: false,
+        state: (myInProgressOrden.user ? 1 : 0),
+        data: [],
+      },
+    };
+
+    res.json(initialState).status(200);
+
+  });
   router.post('/createOrden', async (req, res, next)=>{
     const { token } = req.cookies;
     try {

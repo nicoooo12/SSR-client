@@ -6,6 +6,7 @@ import ButtonIcon from '../components/forms/ButtonIcon';
 import Accordion from '../components/forms/Accordion';
 
 import '../assets/styles/containers/Ayuda.scss';
+import { Link } from 'react-router-dom';
 
 const App = ({ history })=> {
   const [first, setFirst] = useState(true);
@@ -24,7 +25,7 @@ const App = ({ history })=> {
     <>
       <Header title='Ayuda!' to='/' >
         <h1>Estamos aquí para ayudarte.</h1>
-        <p>Tienes dudas con algo? No te preocupes, presiona sobre la pregunta que más se acomode a tus dudas. Si necesitas asistencia de otro tipo ve a la sección de contactos y contacta con el equipo organizador</p>
+        <p>Tienes dudas con algo? No te preocupes, presiona sobre la pregunta que más se acomode a tus dudas. Si necesitas asistencia de otro tipo ve a la sección de <Link to='/contacto'>contactos</Link> y contacta con el equipo organizador</p>
         <div style={{ transform: 'rotate(-90deg)' }}>
           <ButtonIcon onClick={clickHandler} />
         </div>

@@ -6,11 +6,12 @@ import Pageination from '../components/forms/Pageination';
 import { statusNextCarrito, setStatusCarrito, setRedirect, createOrden } from '../actions';
 import Button from '../components/forms/Button';
 import Icon from '../components/display/Icon';
+import varsBingo from '../varsBingo';
 
 import Auth from './SignIn';
 import '../assets/styles/containers/Compra.scss';
 
-const App = ({ infoPago, misOrdenes, history, createOrden, user, carrito, setStatusCarrito, statusNextCarrito, setRedirect })=> {
+const App = ({ misOrdenes, history, createOrden, user, carrito, setStatusCarrito, statusNextCarrito, setRedirect })=> {
   const [first, setFirst] = useState(true);
   useEffect(()=>{
     if (first) {
@@ -80,19 +81,19 @@ const App = ({ infoPago, misOrdenes, history, createOrden, user, carrito, setSta
           <tbody>
             <tr>
               <td className='td__start'>Numero de cuenta:</td>
-              <td className='td__end'>{infoPago.numeroCuenta}</td>
+              <td className='td__end'>{varsBingo.pago.numCuenta}</td>
             </tr>
             <tr>
               <td className='td__start'>Rut:</td>
-              <td className='td__end'>{infoPago.rut}</td>
+              <td className='td__end'>{varsBingo.pago.rut}</td>
             </tr>
             <tr>
               <td className='td__start'>Titular:</td>
-              <td className='td__end'>{infoPago.titular}</td>
+              <td className='td__end'>{varsBingo.pago.titular}</td>
             </tr>
             <tr>
               <td className='td__start'>Banco:</td>
-              <td className='td__end'>{infoPago.banco}</td>
+              <td className='td__end'>{varsBingo.pago.banco}</td>
             </tr>
             {/* <tr>
               <td className='td__start'>Comentario en la transferencia (Poner en el espacio de comentario)</td>
@@ -160,8 +161,6 @@ const mapStateToProps = (state)=>{
     carrito: state.carrito,
     user: state.user,
     misOrdenes: state.ordenes.enProgreso,
-    // state: state,
-    infoPago: state.infoPago,
   };
 };
 

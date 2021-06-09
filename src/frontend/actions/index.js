@@ -167,6 +167,24 @@ export const createCanvasOrden = (data, fnCallBack, fnErrorCallback) => {
   };
 };
 
+export const initialState = () => {
+  return (dispatch) => {
+    // console.log('[data actions]', data);
+    axios({
+      url: '/api/initialState',
+      method: 'post',
+    })
+      .then(({ data }) => {
+        console.log('[initial State]', data);
+        // console.log(data);
+        dispatch(updateStateReducer({ ...data, load: true }));
+      })
+      .catch((error) => {
+        dispatch(setError(error));
+      });
+  };
+};
+
 export const updateState = () => {
   return (dispatch) => {
     axios({

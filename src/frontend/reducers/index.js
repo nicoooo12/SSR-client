@@ -72,14 +72,13 @@ const reducer = (state, action) => {
       };
     case 'UPDATE_STATE':
       console.log('update');
+      console.log({
+        ...state,
+        ...action.payload,
+      });
       return {
         ...state,
-        user: action.payload.user,
-        cartonesUser: action.payload.cartonesUser,
-        ordenes: {
-          enProgreso: action.payload.ordenes.enProgreso,
-          terminadas: action.payload.ordenes.terminadas,
-        },
+        ...action.payload,
       };
     default:
       return state;

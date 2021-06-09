@@ -5,6 +5,8 @@ import Badges from './display/Badges';
 import '../assets/styles/components/Carton.scss';
 const App = (props)=> {
   //titulo, data, serie
+  const color1 = props['color'] ? props.color : '#2A00AF';
+  const color2 = 'transparent';
   return (
     <>
       <div className='carton'>
@@ -15,49 +17,252 @@ const App = (props)=> {
           <div>
             <table className='carton__table'>
               <thead>
-                <tr>
-                  <th>B</th>
-                  <th>I</th>
-                  <th>N</th>
-                  <th>G</th>
-                  <th>O</th>
+                <tr style={{
+                  border: `${color1} solid`,
+                }}
+                >
+                  <th style={{ background: color1, border: `${color1} solid` }}>B</th>
+                  <th style={{ background: color1, border: `${color1} solid` }}>I</th>
+                  <th style={{ background: color1, border: `${color1} solid` }}>N</th>
+                  <th style={{ background: color1, border: `${color1} solid` }}>G</th>
+                  <th style={{ background: color1, border: `${color1} solid` }}>O</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>{props.data[0][0]}</td>
-                  <td>{props.data[1][0]}</td>
-                  <td>{props.data[2][0]}</td>
-                  <td>{props.data[3][0]}</td>
-                  <td>{props.data[4][0]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[0][0]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[1][0]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[2][0]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[3][0]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[4][0]}</td>
                 </tr>
                 <tr>
-                  <td>{props.data[0][1]}</td>
-                  <td>{props.data[1][1]}</td>
-                  <td>{props.data[2][1]}</td>
-                  <td>{props.data[3][1]}</td>
-                  <td>{props.data[4][1]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[0][1]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[1][1]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[2][1]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[3][1]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[4][1]}</td>
                 </tr>
                 <tr>
-                  <td>{props.data[0][2]}</td>
-                  <td>{props.data[1][2]}</td>
-                  <td>{props.data[2][2]}</td>
-                  <td>{props.data[3][2]}</td>
-                  <td>{props.data[4][2]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[0][2]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[1][2]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[2][2]}{/*X*/}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[3][2]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[4][2]}</td>
                 </tr>
                 <tr>
-                  <td>{props.data[0][3]}</td>
-                  <td>{props.data[1][3]}</td>
-                  <td>{props.data[2][3]}</td>
-                  <td>{props.data[3][3]}</td>
-                  <td>{props.data[4][3]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[0][3]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[1][3]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[2][3]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[3][3]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[4][3]}</td>
                 </tr>
                 <tr>
-                  <td>{props.data[0][4]}</td>
-                  <td>{props.data[1][4]}</td>
-                  <td>{props.data[2][4]}</td>
-                  <td>{props.data[3][4]}</td>
-                  <td>{props.data[4][4]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[0][4]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[1][4]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[2][4]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[3][4]}</td>
+                  <td
+                    style={
+                      {
+                        border: `${color1} solid`,
+                        background: color2,
+                        color: '#14142B',
+                      }
+                    }
+                  >{props.data[4][4]}</td>
                 </tr>
               </tbody>
             </table>
