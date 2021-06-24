@@ -194,11 +194,11 @@ const App = ({ load, pedidos, play, user, updateState, logoutRequest })=> {
                                   </Link>
                                   <Link to='ordenes'>
                                     <div className='itemHome'>
-                                      <div>
+                                      <div style={{ width: '35px', height: '35px' }}>
                                         <Icon type='trolley' width='35' height='35'/>
                                         {
                                           pedidos['_id'] &&
-                                          <div className='bubble' style={{ transition: 'all 1s', fontSize: '15px', position: 'absolute', display: 'flex', justifyContent: 'center', alignItems: 'center', top: '15px', left: '80px', width: '30px', height: '30px', borderRadius: '100%', border: 'solid #FCFCFC 3px', background: '#F4B740', color: '#FCFCFC' }}>1</div>
+                                          <div className='bubble' style={{ transition: 'all 1s', fontSize: '15px', position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', top: '-55px', left: '15px', width: '30px', height: '30px', borderRadius: '100%', border: 'solid #FCFCFC 3px', background: '#F4B740', color: '#FCFCFC' }}>1</div>
                                         }
                                       </div>
                                       <p>Mis  Pedidos</p>
