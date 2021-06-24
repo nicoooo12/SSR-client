@@ -66,8 +66,6 @@ module.exports = function (app) {
       myInProgressOrden = {};
     }
 
-    console.log(myInProgressOrden);
-
     const newState = {
       'user': user,
       'cartonesUser': cartones[0] ? cartones.map((e)=>{
@@ -93,97 +91,22 @@ module.exports = function (app) {
   });
 
   router.post('/initialState', async (req, res)=>{
-    const { token, email, name, id } = req.cookies;
+    const { token } = req.cookies;
 
-    let catalogo;
-    try {
-      const { data } = await axios({
-        method: 'get',
-        url: `${config.apiUrl}/api/catalogos`,
-      });
-      catalogo = data.data;
-    } catch (error) {
-
-    }
-    let cartones;
-    try {
-      const { data: dataCartones } = await axios({
+    if (token) {
+      const { data: initialState } = await axios({
         method: 'get',
         headers: { Authorization: `Bearer ${token}` },
-        url: `${config.apiUrl}/api/cartones/mys`,
+        url: `${config.apiUrl}/api/initialState`,
       });
-      cartones = dataCartones.data;
-      // myOrden = dataOrden.data.estado;
-    } catch (error) {
-      cartones = [];
-    }
-
-    let user;
-    try {
-      await axios({
+      res.json(initialState.data).status(200);
+    } else {
+      const { data: initialState } = await axios({
         method: 'get',
-        headers: { Authorization: `Bearer ${token}` },
-        url: `${config.apiUrl}/api/auth/isauth`,
+        url: `${config.apiUrl}/api/initialState`,
       });
-
-      user = {
-        name,
-        email,
-        id,
-      };
-    } catch (error) {
-      user = {};
+      res.json(initialState.data).status(200);
     }
-
-    let myEndsOrden;
-    try {
-      const { data: dataOrden } = await axios({
-        method: 'get',
-        headers: { Authorization: `Bearer ${token}` },
-        url: `${config.apiUrl}/api/orden/terminadas/my`,
-      });
-      myEndsOrden = dataOrden.data;
-    } catch (error) {
-      myEndsOrden = [];
-    }
-    let myInProgressOrden;
-    try {
-      const { data: dataOrden } = await axios({
-        method: 'get',
-        headers: { Authorization: `Bearer ${token}` },
-        url: `${config.apiUrl}/api/orden/my`,
-      });
-      myInProgressOrden = dataOrden.data[0] ? dataOrden.data[0] : {};
-    } catch (error) {
-      myInProgressOrden = {};
-    }
-
-    const initialState = {
-      'user': user,
-      'redirect': '',
-      'cartonesUser': cartones[0] ? cartones.map((e)=>{
-        return {
-          ...e,
-          play: [[false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false]],
-        };
-      }) : [],
-      'ordenes': {
-        enProgreso: myInProgressOrden,
-        terminadas: myEndsOrden,
-      },
-      'catalogos': catalogo,
-      'play': {
-        estado: 0,
-        serieJuego: 1,
-      },
-      'carrito': {
-        active: false,
-        state: (myInProgressOrden.user ? 1 : 0),
-        data: [],
-      },
-    };
-
-    res.json(initialState).status(200);
 
   });
   router.post('/createOrden', async (req, res, next)=>{
@@ -209,7 +132,6 @@ module.exports = function (app) {
   app.use(express.raw({ type: 'application/octet-stream' }));
   router.post('/createCanvas', async (req, res, next)=>{
     const { token } = req.cookies;
-    console.log(req);
     try {
       const { data: dataOrden } = await axios({
         method: 'post',

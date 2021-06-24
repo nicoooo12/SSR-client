@@ -8,6 +8,7 @@ import SignIn from '../containers/SignIn';
 import SignUp from '../containers/SignUp';
 import Contacto from '../containers/Contacto';
 import Ayuda from '../containers/Ayuda';
+// import pay from '../containers/pagoPrueba';
 import Notfound from '../containers/Notfound';
 
 const routers = (isLogged)=>{
@@ -62,6 +63,11 @@ const routers = (isLogged)=>{
       path: '/help',
       component: Ayuda,
     },
+    // {
+    //   exact: true,
+    //   path: '/pay',
+    //   component: pay,
+    // },
     {
       exact: false,
       component: Notfound,

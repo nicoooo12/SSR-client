@@ -30,7 +30,7 @@ const App = ({ catalogos, load, carrito, history })=> {
     <>
       <Header to='/' title='Compras' icon='trolley'>
         <h1>¡Apoya con tu compra para este bingo!</h1>
-        <p>Comprando estos bingos estarás apoyando la recaudación de fondos del Centro Mariápolis. Solo añade a tu carrito los cartones de los bingos que quieras jugar y cuando estés list@ para pagar, presiona “¡Pagar todo!”.</p>
+        <p>Comprando estos bingos estarás ayudando a cumplir nuestra meta. Solo añade a tu carrito los cartones de los bingos que quieras jugar y cuando estés list@ para pagar, presiona en el carrito que aparecerá en la parte superior derecha.</p>
         <div style={{ transform: 'rotate(-90deg)' }}>
           <ButtonIcon onClick={clickHandler}/>
         </div>

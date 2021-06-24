@@ -337,7 +337,7 @@ header{
       &>.card{
         padding: 0!important;
         // height: 420px;
-        animation: upHeader .85s cubic-bezier(0, 0, 0.2, 1);
+        animation: upHeaderHome .85s cubic-bezier(0, 0, 0.2, 1);
         position: relative;
         //top: 40px;
         margin-top: 135px;
@@ -364,6 +364,7 @@ header{
             &>div{
               top: 5px;
               position: relative;
+              transition: all 5s;
               background: linear-gradient(114.44deg, #EB0055 0%, #FFFA80 100%);
               width: 160px;
               height: 160px;
@@ -446,5 +447,18 @@ header{
   100%{
     // visibility: none;
     top: 40px;
+  }
+}
+
+@keyframes upHeaderHome {
+  0%{
+    top: 250px;
+    // visibility:  hidden;
+    background: transparent;
+    color: transparent;
+  }
+  100%{
+    // visibility: none;
+    top: 0px;
   }
 }

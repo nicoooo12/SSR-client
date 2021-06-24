@@ -40,10 +40,10 @@ const App = ({ load, pedidos, play, user, updateState, logoutRequest })=> {
   };
 
   const logoutHandler = ()=>{
+    document.cookie = 'token=';
     document.cookie = 'email=';
     document.cookie = 'name=';
     document.cookie = 'id=';
-    document.cookie = 'token=';
     logoutRequest();
     updateState();
     setMenu(false);

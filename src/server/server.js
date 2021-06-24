@@ -19,22 +19,22 @@ const passport = require('passport');
 const cookieParser = require('cookie-parser');
 
 const app = express();
-const server = require('http').createServer(app);
-const { Server } = require('socket.io');
-const { instrument } = require('@socket.io/admin-ui');
-const io = new Server(server, {
-  cors: {
-    origin: ['https://admin.socket.io', config.adminUrl],
-  },
-});
+// const server = require('http').createServer(app);
+// const { Server } = require('socket.io');
+// const { instrument } = require('@socket.io/admin-ui');
+// const io = new Server(server, {
+//   cors: {
+//     origin: ['https://admin.socket.io', config.adminUrl],
+//   },
+// });
 
-instrument(io, {
-  auth: {
-    type: 'basic',
-    username: config.socketUser,
-    password: config.socketPassword,
-  },
-});
+// instrument(io, {
+//   auth: {
+//     type: 'basic',
+//     username: config.socketUser,
+//     password: config.socketPassword,
+//   },
+// });
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -83,8 +83,8 @@ const setResponse = (html, preloadedState, nonce) => {
   </head>
   <body>
     <div id="react">${html}</div>
-    <script id="preloadedState" nonce=${nonce}>
-      window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
+    <script id="preloadedState" nonce='${nonce}'>
+    window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
     </script>
     <script script src="bundle.js" type="text/javascript"></script>
   </body>
@@ -224,8 +224,11 @@ const renderApp = async (req, res) => {
 
 require('./router/auth')(app);
 require('./router/api')(app);
-require('./router/sockets')(app, io);
+// require('./router/sockets')(app, io);
 app.get('*', renderApp);
-server.listen(config.port, () => {
+// server.listen(config.port, () => {
+//   console.log(`Server listening on port ${config.port} in ${config.dev ? 'development' : 'production'} mode`);
+// });
+app.listen(config.port, () => {
   console.log(`Server listening on port ${config.port} in ${config.dev ? 'development' : 'production'} mode`);
 });

@@ -38,10 +38,23 @@ export const loginRequest = (payload) => ({
   payload,
 });
 
-export const logoutRequest = (payload) => ({
+export const logoutDispatchRequest = (payload) => ({
   type: 'LOGOUT_REQUEST',
   payload,
 });
+
+export const logoutRequest = (payload) => {
+  return (dispatch) => {
+    console.log('uwu');
+    axios.get('/auth/logout')// {email, name, password}
+      .then(() => {
+        dispatch(logoutDispatchRequest(payload));
+      })
+      .catch((error) => {
+        dispatch(setError(error));
+      });
+  };
+};
 
 export const registerRequest = (payload) => ({
   type: 'REGISTER_REQUEST',
@@ -103,7 +116,7 @@ export const singIn = ({ email, password }, fnCallback, fnErrorCallback) => {
         document.cookie = `name=${data.user.name}`;
         document.cookie = `id=${data.user.id}`;
         dispatch(registerRequest(data.user));
-        dispatch(updateState());
+        dispatch(initialState());
         fnCallback(data.user);
       })
       .catch((error) => {

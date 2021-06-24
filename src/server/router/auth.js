@@ -37,6 +37,13 @@ module.exports = function (app) {
     })(req, res, next);
   });
 
+  router.get('/logout', (req, res, next) => {
+    res.cookie('token', '');
+    res.json({
+      message: 'ok',
+    }).status(200);
+  });
+
   router.post('/sign-up', async function (req, res, next) {
     const { body: user } = req;
 

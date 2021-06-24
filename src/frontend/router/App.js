@@ -11,14 +11,16 @@ import SignIn from '@containers/SignIn';
 import SignUp from '@containers/SignUp';
 import Ayuda from '@containers/Ayuda';
 import Contacto from '@containers/Contacto';
+// import pay from '@containers/pagoPrueba';
 import Notfound from '@containers/Notfound';
 import { io } from 'socket.io-client';
 import { connect } from 'react-redux';
 import { updateState, initialState } from '../actions';
 import '../assets/styles/App.scss';
+const varsBingo = require('../varsBingo');
 
 const App = ({ isLogged, updateState, initialState }) => {
-  const socket = io();
+  const socket = io(varsBingo.api);
   useEffect(()=>{
     socket.on('change', ()=>{
       console.log('[changes in the State of socket]');
@@ -46,6 +48,7 @@ const App = ({ isLogged, updateState, initialState }) => {
         <Route exact path='/sign-up' component={SignUp} />
         <Route exact path='/help' component={Ayuda} />
         <Route exact path='/contacto' component={Contacto} />
+        {/* <Route exact path='/pay' component={pay} /> */}
         <Route component={Notfound} />
       </Switch>
     </BrowserRouter>);

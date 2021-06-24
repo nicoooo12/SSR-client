@@ -20,6 +20,10 @@ const App = ({ misOrdenes, history, createOrden, user, carrito, setStatusCarrito
     }
   }, []);
 
+  if (!user.id) {
+    history.push('/');
+  }
+
   const nextHandler = (num)=>{
     if (num || num === 0) {
       setStatusCarrito(num + 1);
