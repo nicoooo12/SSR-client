@@ -82,5 +82,5 @@ export default {
     ['Equipo técnico:', 'nicoflores.dev@gmail.com'],
     ['Equipo organizador:', 'ayudabingoisabel@gmail.com'],
   ],
-  api: 'http://localhost:3000',
+  api: 'bingoloteando-api.vercel.app',
 };
