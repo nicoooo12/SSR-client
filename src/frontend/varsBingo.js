@@ -16,8 +16,8 @@ const Home = () =>{
         <h1>Ayuda a Isabelita</h1>
         <p>
       Isabelita es una niña pequeña. Hace un par de meses, a Isabelita se le detectó un tumor en su cabeza. El tumor en cuestión es pequeño, más la locación dificulta el estudio del mismo y por ende su tratamiento.
-      En este momento, se precisa hacer un tratamiento progresivo ara disminuir el tamaño del tumor sin perjudicar el crecimiento de Isabel, posteriormente se podría realizar una operación para extraer el tumor, todo depende de como progrese la condición. Como podrán suponer, el tratamiento no es nada barato, y de hecho solo la biopsia ha costado como mínimo quince millones de pesos, por lo dificultoso que es acceder al lugar donde se localiza el tumor, por ende se sobreentiende lo caro que será todo el proceso.<br/>
-      Como generación y comunidad Saint Paul´s, hemos organizado este bingo en pos de recaudar fondos para el tratamiento y todos los gastos relacionados. nuestra esperanza y corazones estarán con isabelita.
+      En este momento, se precisa hacer un tratamiento progresivo hará disminuir el tamaño del tumor sin perjudicar el crecimiento de Isabel, posteriormente se podría realizar una operación para extraer el tumor, todo depende de como progrese la condición. Como podrán suponer, el tratamiento no es nada barato, y de hecho solo la biopsia ha costado como mínimo quince millones de pesos, por lo dificultoso que es acceder al lugar donde se localiza el tumor, por ende se sobreentiende lo caro que será todo el proceso.<br/>
+      Como generación y comunidad Saint Paul´s, hemos organizado este bingo en pos de recaudar fondos para el tratamiento y todos los gastos relacionados. Nuestra esperanza y corazones estarán con isabelita.
         </p>
       </Modal>
     </div>
@@ -82,5 +82,4 @@ export default {
     ['Equipo técnico:', 'nicoflores.dev@gmail.com'],
     ['Equipo organizador:', 'ayudabingoisabel@gmail.com'],
   ],
-  api: 'bingoloteando-api.vercel.app',
 };

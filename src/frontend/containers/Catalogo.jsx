@@ -28,7 +28,7 @@ const App = ({ catalogos, load, carrito, history })=> {
 
   return (
     <>
-      <Header to='/' title='Compras' icon='trolley'>
+      <Header to='/' title='Compras' icon='trolley' >
         <h1>¡Apoya con tu compra para este bingo!</h1>
         <p>Comprando estos bingos estarás ayudando a cumplir nuestra meta. Solo añade a tu carrito los cartones de los bingos que quieras jugar y cuando estés list@ para pagar, presiona en el carrito que aparecerá en la parte superior derecha.</p>
         <div style={{ transform: 'rotate(-90deg)' }}>

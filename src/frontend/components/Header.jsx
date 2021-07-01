@@ -5,7 +5,7 @@ import Icon from './display/Icon';
 import Card from './display/Card';
 
 import '../assets/styles/components/Header.scss';
-const App = ({ title, icon, children, to })=> {
+const App = ({ title, icon, children, to, refe })=> {
 
   const [focusHeader, setFocusHeader] = useState(true);
   let observer;
@@ -57,7 +57,7 @@ const App = ({ title, icon, children, to })=> {
             </div>
           </>
       }
-      <header className='headerMain'>
+      <header className='headerMain' ref={refe}>
         <div className='header'>
           <div className='banner'> </div>
           <div className='content'>

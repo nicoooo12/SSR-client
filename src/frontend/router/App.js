@@ -17,10 +17,9 @@ import { io } from 'socket.io-client';
 import { connect } from 'react-redux';
 import { updateState, initialState } from '../actions';
 import '../assets/styles/App.scss';
-const varsBingo = require('../varsBingo');
 
-const App = ({ isLogged, updateState, initialState }) => {
-  const socket = io(varsBingo.api);
+const App = ({ isLogged, api, updateState, initialState }) => {
+  const socket = io(api);
   useEffect(()=>{
     socket.on('change', ()=>{
       console.log('[changes in the State of socket]');

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 
 import HeaderB from '../components/Header-B';
@@ -23,6 +23,8 @@ const App = ({ setStatusCarrito, user, history, enProgreso, terminadas, catalogo
     history.push('/');
   }
 
+  const headerAA = useRef('');
+
   const addImgHandler = () => {
     setStatusCarrito(2);
     history.push('/compra');
@@ -34,7 +36,7 @@ const App = ({ setStatusCarrito, user, history, enProgreso, terminadas, catalogo
         !enProgreso['user'] ?
           terminadas[0] ?
             <HeaderB/> :
-            <Header title='Mis ordenes' to='/'>
+            <Header title='Mis ordenes' to='/' refe={headerAA}>
               <h1>No tienes<br/>ordenes</h1>
               <p>Que espera! ve y compra tus cartones para el bingo.</p>
               <Link to='/catalogo'>
@@ -43,67 +45,72 @@ const App = ({ setStatusCarrito, user, history, enProgreso, terminadas, catalogo
                 </Button>
               </Link>
             </Header> :
-          <Header title='Mis ordenes' to='/'>
-            <h1>Compra<br/> en progreso</h1>
-            <table className='bank__table'>
-              <thead>
-                <tr>
-                  <th className='th__start'>Articulo</th>
-                  <th className='th__end'>Cantidad</th>
-                </tr>
-              </thead>
-              <tbody>
+          <Header title='Mis ordenes' to='/' refe={headerAA}>
+            <div className='cardPedidos'>
+              <h1>Compra<br/> en progreso</h1>
+              <table className='bank__table'>
+                <thead>
+                  <tr>
+                    <th className='th__start'>Articulo</th>
+                    <th className='th__end'>Cantidad</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    enProgreso.compra.map((e, index)=>{
+                      return (
+                        <tr key={index}>
+                          <td className='td__start'>{catalogo.filter((r)=>{return r.serie === e.serie;})[0].titulo}</td>
+                          <td className='td__end'>{e.cantidad}</td>
+                        </tr>
+                      );
+                    })
+                  }
+                  <tr>
+                    <td> </td>
+                    <td> </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td className='td__start'>Código de orden:</td>
+                    <td className='td__end'>{enProgreso.code}</td>
+                  </tr>
+                  <tr>
+                    <td className='td__start'>Pago total:</td>
+                    <td className='td__end'>${enProgreso.totalPago}</td>
+                  </tr>
+                  <tr>
+                    <td className='td__start'>Comprobante:</td>
+                    <td className='td__end'>{enProgreso.canvasUrl ? 'si' : <><Button size='small' onClick={addImgHandler}>Agregar</Button></>}</td>
+                  </tr>
+                  <tr>
+                    <td className='td__start'>Estado:</td>
+                    <td className='td__end'>{enProgreso.estado === 2 ? 'iniciada' : 'En revisión' }</td>
+                  </tr>
+                </tfoot>
                 {
-                  enProgreso.compra.map((e, index)=>{
-                    return (
-                      <tr key={index}>
-                        <td className='td__start'>{catalogo.filter((r)=>{return r.serie === e.serie;})[0].titulo}</td>
-                        <td className='td__end'>{e.cantidad}</td>
-                      </tr>
-                    );
-                  })
+                  enProgreso.message ?
+                    <div className='comentario'>
+                      <h2>Comentario:</h2>
+                      <p>{enProgreso.message}</p>
+                    </div> : <></>
                 }
-                <tr>
-                  <td> </td>
-                  <td> </td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td className='td__start'>Código de orden:</td>
-                  <td className='td__end'>{enProgreso.code}</td>
-                </tr>
-                <tr>
-                  <td className='td__start'>Pago total:</td>
-                  <td className='td__end'>${enProgreso.totalPago}</td>
-                </tr>
-                <tr>
-                  <td className='td__start'>Comprobante:</td>
-                  <td className='td__end'>{enProgreso.canvasUrl ? 'si' : <><Button size='small' onClick={addImgHandler}>Agregar</Button></>}</td>
-                </tr>
-                <tr>
-                  <td className='td__start'>Estado:</td>
-                  <td className='td__end'>{enProgreso.estado === 2 ? 'iniciada' : 'En revisión' }</td>
-                </tr>
-              </tfoot>
-            </table>
-            {
-              enProgreso.message ?
-                <div className='comentario'>
-                  <h2>Comentario:</h2>
-                  <p>{enProgreso.message}</p>
-                </div> : <></>
-            }
+              </table>
+            </div>
           </Header>
       }
       {
+        console.log(headerAA.current.clientHeight)
+      }
+      {
         terminadas[0] ?
-          <div className='contentCardsPedidos' style={enProgreso.user ? { top: '800px', position: 'absolute' } : {}}>
+          <div className='contentCardsPedidos' style={enProgreso.user ? { top: headerAA.current.clientHeight ? `${headerAA.current.clientHeight + 40}px` : '800px', position: 'absolute' } : {}}>
             <Titulo title='Mis compras' />
             {
               terminadas.map((e, index)=>{
                 return (
-                  <div key={index} className='cardPedidos'>
+                  <div key={index} className='cardPedidosEnd'>
                     <h1>Compra<br/> finalizada</h1>
                     <table className='bank__table'>
                       <thead>
@@ -123,10 +130,6 @@ const App = ({ setStatusCarrito, user, history, enProgreso, terminadas, catalogo
                             );
                           })
                         }
-                        <tr>
-                          <td> </td>
-                          <td> </td>
-                        </tr>
                       </tbody>
                       <tfoot>
                         <tr>
