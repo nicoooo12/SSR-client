@@ -8,85 +8,23 @@ module.exports = function (app) {
   app.use('/api', router);
 
   router.post('/getState', async (req, res)=>{
-    const { token, email, name, id } = req.cookies;
 
-    let cartones;
-    try {
-      const { data: dataCartones } = await axios({
+    const { token } = req.cookies;
+
+    if (token) {
+      const { data: getState } = await axios({
         method: 'get',
         headers: { Authorization: `Bearer ${token}` },
-        url: `${config.apiUrl}/api/cartones/mys`,
+        url: `${config.apiUrl}/api/getState`,
       });
-      cartones = dataCartones.data;
-    } catch (error) {
-      // console.log(error);
-      cartones = {};
-    }
-
-    let user;
-    try {
-      await axios({
+      res.json(getState.data).status(200);
+    } else {
+      const { data: getState } = await axios({
         method: 'get',
-        headers: { Authorization: `Bearer ${token}` },
-        url: `${config.apiUrl}/api/auth/isauth`,
+        url: `${config.apiUrl}/api/getState`,
       });
-
-      user = {
-        name,
-        email,
-        id,
-      };
-    } catch (error) {
-      // console.log(error);
-      user = {};
+      res.json(getState.data).status(200);
     }
-
-    let myEndsOrden;
-    try {
-      const { data: dataOrden } = await axios({
-        method: 'get',
-        headers: { Authorization: `Bearer ${token}` },
-        url: `${config.apiUrl}/api/orden/terminadas/my`,
-      });
-      myEndsOrden = dataOrden.data;
-    } catch (error) {
-      // console.log(error);
-      myEndsOrden = [];
-    }
-    let myInProgressOrden;
-    try {
-      const { data: dataOrden } = await axios({
-        method: 'get',
-        headers: { Authorization: `Bearer ${token}` },
-        url: `${config.apiUrl}/api/orden/my`,
-      });
-      myInProgressOrden = dataOrden.data[0] ? dataOrden.data[0] : {};
-    } catch (error) {
-      // console.log(error);
-      myInProgressOrden = {};
-    }
-
-    const newState = {
-      'user': user,
-      'cartonesUser': cartones[0] ? cartones.map((e)=>{
-        return {
-          ...e,
-          play: [[false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false]],
-        };
-      }) : [],
-      'ordenes': {
-        enProgreso: myInProgressOrden,
-        terminadas: myEndsOrden,
-      },
-      'play': {
-        estado: 0,
-        serieJuego: 1,
-      },
-    };
-
-    res.json({
-      data: newState,
-    }).status(200);
 
   });
 
