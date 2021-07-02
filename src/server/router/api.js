@@ -23,7 +23,9 @@ module.exports = function (app) {
         method: 'get',
         url: `${config.apiUrl}/api/getState`,
       });
-      res.json(getState.data).status(200);
+      res.json({
+        data: getState.data,
+      }).status(200);
     }
 
   });
