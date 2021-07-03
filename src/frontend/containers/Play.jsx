@@ -99,6 +99,10 @@ const App = ({ user, history, play, misCartones, catalogos, socket }) => {
 
     if (first) {
       socket.emit('connectPlay');
+      setKey(play.estado);
+      setSerie(play.serieJuego);
+      setColor1(catalogos.filter((e)=>e.serie === play.serieJuego)[0].color);
+      setColor2(catalogos.filter((e)=>e.serie === play.serieJuego)[0].color);
       setFirst(false);
       document.querySelector('#react').scrollTo(0, 0);
     }
