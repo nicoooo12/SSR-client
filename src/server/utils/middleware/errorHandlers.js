@@ -1,5 +1,5 @@
 const boom = require('@hapi/boom');
-const config = require('../../config');
+const config = require('../../../../config');
 
 const withErrorStack = (error, stack) => {
   if (config.dev) {
