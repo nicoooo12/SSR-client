@@ -9,32 +9,20 @@ import { StaticRouter } from 'react-router';
 import { createStore } from 'redux';
 import { renderRoutes } from 'react-router-config';
 import reducer from '../frontend/reducers';
-// import initialState from '../frontend/initialState';
 import serverRoutes from '../frontend/router/serverRouter';
 
 const { v4: uuidv4 } = require('uuid');
 const axios = require('axios');
 const passport = require('passport');
-// const session = require('express-session');
 const cookieParser = require('cookie-parser');
 
-const app = express();
-// const server = require('http').createServer(app);
-// const { Server } = require('socket.io');
-// const { instrument } = require('@socket.io/admin-ui');
-// const io = new Server(server, {
-//   cors: {
-//     origin: ['https://admin.socket.io', config.adminUrl],
-//   },
-// });
+const {
+  logErrors,
+  wrapErrors,
+  errorHandler,
+} = require('./utils/middleware/errorHandlers');
 
-// instrument(io, {
-//   auth: {
-//     type: 'basic',
-//     username: config.socketUser,
-//     password: config.socketPassword,
-//   },
-// });
+const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -172,13 +160,16 @@ const renderApp = async (req, res) => {
   res.send(setResponse(html, preloadedState, nonceGenerator));
 };
 
+// router
 require('./router/auth')(app);
 require('./router/api')(app);
-// require('./router/sockets')(app, io);
 app.get('*', renderApp);
-// server.listen(config.port, () => {
-//   console.log(`Server listening on port ${config.port} in ${config.dev ? 'development' : 'production'} mode`);
-// });
+
+// error handlers
+app.use(logErrors);
+app.use(wrapErrors);
+app.use(errorHandler);
+
 app.listen(config.port, () => {
   console.log(`Server listening on port ${config.port} in ${config.dev ? 'development' : 'production'} mode`);
 });

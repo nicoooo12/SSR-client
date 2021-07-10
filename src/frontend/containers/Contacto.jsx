@@ -1,9 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Header from '../components/Header-B';
 import Footer from '../components/Footer';
-import varsBingo from '../varsBingo';
 
-const App = ()=> {
+const App = (varsBingo)=> {
 
   return (
     <>
@@ -37,4 +37,10 @@ const App = ()=> {
 
 };
 
-export default App;
+const mapDispatchToProps = (state)=>{
+  return {
+    varsBingo: state.vars,
+  };
+};
+
+export default connect(mapDispatchToProps)(App);

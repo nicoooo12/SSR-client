@@ -42,7 +42,9 @@ const App = ({ catalogos, load, carrito, history })=> {
               <Title title='Catalogo'/>
               {
                 load ?
-                  <>{catalogos.map(
+                  <>{catalogos.filter((e)=>{
+                    return e.enVenta === true;
+                  }).map(
                     (item, index)=>
                       (
                         <Tarjeta
@@ -54,7 +56,8 @@ const App = ({ catalogos, load, carrito, history })=> {
                           premios={item.premios.map((e, i)=>i === 0 ? `${e.nombre} ` : `~ ${e.nombre}`)}
                         />
                       ),
-                  )}</> :
+                  )
+                  }</> :
                   <>
                     <div style={{ width: '100%', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
                       <Spiner />

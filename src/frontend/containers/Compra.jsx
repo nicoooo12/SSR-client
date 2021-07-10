@@ -6,12 +6,11 @@ import Pageination from '../components/forms/Pageination';
 import { statusNextCarrito, setStatusCarrito, setRedirect, createOrden } from '../actions';
 import Button from '../components/forms/Button';
 import Icon from '../components/display/Icon';
-import varsBingo from '../varsBingo';
 
 import Auth from './SignIn';
 import '../assets/styles/containers/Compra.scss';
 
-const App = ({ misOrdenes, history, createOrden, user, carrito, setStatusCarrito, statusNextCarrito, setRedirect })=> {
+const App = ({ misOrdenes, history, varsBingo, createOrden, user, carrito, setStatusCarrito, statusNextCarrito, setRedirect })=> {
   const [first, setFirst] = useState(true);
   useEffect(()=>{
     if (first) {
@@ -165,6 +164,7 @@ const mapStateToProps = (state)=>{
     carrito: state.carrito,
     user: state.user,
     misOrdenes: state.ordenes.enProgreso,
+    varsBingo: state.vars,
   };
 };
 

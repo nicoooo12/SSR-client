@@ -9,14 +9,14 @@ import { Link } from 'react-router-dom';
 import Icon from '../components/display/Icon';
 import Card from '../components/display/Card';
 import Spiner from '../components/spiner';
-import varsBingo from '../varsBingo';
+import varsHome from '../varsBingo';
 
 import Img1 from '../assets/images/B.png';
 
 import '../assets/styles/containers/menu.scss';
 import '../assets/styles/containers/Home.scss';
 
-const App = ({ load, pedidos, play, user, updateState, logoutRequest })=> {
+const App = ({ load, varsBingo, pedidos, play, user, updateState, logoutRequest })=> {
   const [first, setFirst] = useState(true);
   useEffect(()=>{
     if (first) {
@@ -270,7 +270,7 @@ const App = ({ load, pedidos, play, user, updateState, logoutRequest })=> {
                 </div>
               </div>
             </header>
-            <varsBingo.home />
+            <varsHome.home />
             <Footer/>
           </>
       }
@@ -284,6 +284,7 @@ const mapSateToProps = (state)=>{
     pedidos: state.ordenes.enProgreso,
     play: state.play,
     load: state.load,
+    varsBingo: state.vars,
   };
 };
 
