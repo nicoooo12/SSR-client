@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Header from '../components/Header-B';
 import Footer from '../components/Footer';
 
-const App = (varsBingo)=> {
+const App = ({ varsBingo })=> {
 
   return (
     <>
