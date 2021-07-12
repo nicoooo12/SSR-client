@@ -94,18 +94,15 @@ const renderApp = async (req, res) => {
     });
 
     initialState = {
-      'user': {},
+      'user': { ...initialStateServer.data.user },
       'redirect': '',
-      'cartonesUser': [],
+      'cartonesUser': [...initialStateServer.data.cartonesUser],
       'ordenes': {
-        enProgreso: {},
-        terminadas: [],
+        enProgreso: { ...initialStateServer.data.ordenes.enProgreso },
+        terminadas: [...initialStateServer.data.ordenes.terminadas],
       },
-      'catalogos': [],
-      'play': {
-        estado: 0,
-        serieJuego: 1,
-      },
+      'catalogos': [...initialStateServer.data.catalogos],
+      'play': { ...initialStateServer.data.play },
       'carrito': {
         active: false,
         state: 0,
@@ -113,11 +110,12 @@ const renderApp = async (req, res) => {
       },
       'vars': {
         api: config.apiUrl,
+        ...initialStateServer.data.vars,
       },
       'load': true,
-      ...initialStateServer.data,
     };
   } catch (error) {
+    console.log('aaaa');
     initialState = {
       'user': {},
       'redirect': '',

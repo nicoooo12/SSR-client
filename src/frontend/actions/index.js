@@ -33,6 +33,11 @@ export const setStatusCarrito = (payload) => ({
   payload,
 });
 
+export const resetStatusCarrito = (payload) => ({
+  type: 'RESET_CARRITO',
+  payload,
+});
+
 export const loginRequest = (payload) => ({
   type: 'LOGIN_REQUEST',
   payload,
@@ -145,6 +150,7 @@ export const createOrden = (compra, totalPago) => {
     })// {email, password}
       .then(({ data }) => {
         console.log('[create orden]', data.data);
+        dispatch(resetStatusCarrito());
         dispatch(updateState());
       })
       .catch((error) => {

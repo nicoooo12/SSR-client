@@ -53,6 +53,16 @@ const reducer = (state, action) => {
         carrito: { ...state.carrito, state: action.payload },
       };
 
+    case 'RESET_CARRITO':
+      return {
+        ...state,
+        carrito: {
+          ...state.carrito,
+          active: false,
+          data: [],
+        },
+      };
+
     case 'SET_REDIRECT':
       return {
         ...state,

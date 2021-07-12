@@ -98,15 +98,21 @@ const App = ({ misOrdenes, history, varsBingo, createOrden, user, carrito, setSt
               <td className='td__start'>Banco:</td>
               <td className='td__end'>{varsBingo.pago.banco}</td>
             </tr>
-            {/* <tr>
-              <td className='td__start'>Comentario en la transferencia (Poner en el espacio de comentario)</td>
-              <td className='td__end'>Pago de cartones Bingoloteando, [Nombre] pago $[monto]</td>
-            </tr> */}
+            <tr>
+              <td className='td__start'>Motivo de la transferencia:</td>
+              <td className='td__end'>{varsBingo.pago.motivo}</td>
+            </tr>
           </tbody>
           <tfoot>
             <tr>
               <td className='td__start'>Monto a Pagar: </td>
-              <td className='td__end'>$10000</td>
+              <td className='td__end'>
+                $ {
+                  misOrdenes['totalPago'] ?
+                    <>{misOrdenes.totalPago}</> :
+                    <>Cargando ...</>
+                }
+              </td>
             </tr>
           </tfoot>
         </table>
