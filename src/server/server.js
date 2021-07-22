@@ -89,7 +89,7 @@ const renderApp = async (req, res) => {
   try {
     const { data: initialStateServer } = await axios({
       method: 'get',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: token ? { Authorization: `Bearer ${token}` } : { },
       url: `${config.apiUrl}/api/initialState`,
     });
 
