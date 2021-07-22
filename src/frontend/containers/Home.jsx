@@ -222,7 +222,7 @@ const App = ({ load, varsBingo, pedidos, play, user, updateState, logoutRequest 
                                 <p>Para comprar tus cartones y poder jugar debes primero tener una cuenta.</p>
                                 <div>
                                   <Link to='/sign-up'>
-                                    <Button>Register</Button>
+                                    <Button>Registrarme</Button>
                                   </Link>
                                   <Link to='/sign-in'>
                                     <Button typebutton='secondary'>Ingresar</Button>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Modal from './components/modal';
 import { Link } from 'react-router-dom';
 import Button from './components/forms/Button';
@@ -8,7 +9,7 @@ import _3 from './assets/images/3.png';
 import _4 from './assets/images/4.png';
 import _5 from './assets/images/5.png';
 
-const Home = () =>{
+const Home = ({ varsBingo }) =>{
   return (<>
     <div className='banner-img' >
       <img src={_1} alt='' className='img' />
@@ -53,7 +54,40 @@ const Home = () =>{
       <Modal btn='Donar aquí!' >
         <h1>Has tu donaciones</h1>
         <p>
-        Comprar los cartones no es la única forma de ayudar en esta noble causa, existe otra manera de colaborar: donar es una excelente opción. Si lo prefieres puedes colaborar de forma directa, ¡Cualquier cantidad sirve! Ayudar en esta causa significará un gran aporte para Isabelita y su familia. Si de verdad lo quiere realice una transferencia a la cuenta (información pendiente), con motivo de la transferencia “donación para Isabelita”. <br/><br/>
+        Comprar los cartones no es la única forma de ayudar en esta noble causa, existe otra manera de colaborar: donar es una excelente opción. Si lo prefieres puedes colaborar de forma directa, ¡Cualquier cantidad sirve! Ayudar en esta causa significará un gran aporte para Isabelita y su familia. Si de verdad lo quiere realice una transferencia a la cuenta
+          <br/>
+          <br/>
+          <table className='bank__table' style={{ background: '#F7F7FC', borderRadius: '10px', padding: '10px' }}>
+            <thead>
+              {/* <tr>
+                <th className='th__start'>Correo </th>
+                <th className='th__end'>example@example.com</th>
+              </tr> */}
+            </thead>
+            <tbody>
+              <tr>
+                <td className='td__start'>Numero de cuenta:</td>
+                <td className='td__end'>{varsBingo.pago.numCuenta}</td>
+              </tr>
+              <tr>
+                <td className='td__start'>Rut:</td>
+                <td className='td__end'>{varsBingo.pago.rut}</td>
+              </tr>
+              <tr>
+                <td className='td__start'>Titular:</td>
+                <td className='td__end'>{varsBingo.pago.titular}</td>
+              </tr>
+              <tr>
+                <td className='td__start'>Banco:</td>
+                <td className='td__end'>{varsBingo.pago.banco}</td>
+              </tr>
+              <tr>
+                <td className='td__start'>Motivo de la transferencia:</td>
+                <td className='td__end'>{varsBingo.pago.motivo}</td>
+              </tr>
+            </tbody>
+          </table>
+          <br/><br/>
         ¡Muchas gracias por interesarse en este causa y querer ayudar desde el corazón!
         </p>
       </Modal>
@@ -68,6 +102,12 @@ const Home = () =>{
   </>);
 };
 
+const mapStateToProps = (state)=>{
+  return {
+    varsBingo: state.vars,
+  };
+};
+
 export default {
-  home: Home,
+  home: connect(mapStateToProps)(Home),
 };
