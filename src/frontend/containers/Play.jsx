@@ -112,6 +112,9 @@ const App = ({ user, history, play, misCartones, catalogos, socket }) => {
     ...misCartones.map((e)=>{
       return e.play;
     }),
+    ...misCartonesDePruebas.map((e)=>{
+      return e.play;
+    }),
   ]);
 
   const [direction, setDirection] = useState(1);
