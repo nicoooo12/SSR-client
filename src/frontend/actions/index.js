@@ -214,6 +214,7 @@ export const updateState = () => {
         console.log('[updateState]', data.data);
         // dispatch(registerRequest(data.user));
         dispatch(updateStateReducer(data.data));
+        dispatch(updateState());
       })
       .catch((error) => {
         console.log(error);
