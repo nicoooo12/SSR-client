@@ -16,9 +16,8 @@ const Home = ({ varsBingo }) =>{
       <Modal btn='Más información'>
         <h1>Ayuda a Isabelita</h1>
         <p>
-        Isabelita es una niña de pequeña. Hace un par de meses, a Isabelita se le detectó un tumor en su cabeza. El tumor en cuestión es pequeño, mas la localización dificulta el estudio del mismo y por ende su tratamiento.
-        En este momento, se precisa hacer un tratamiento progresivo para disminuir el tamaño del tumor sin perjudicar el crecimiento de Isabel, posteriormente se podría realizar una operación para extraer el tumor, todo depende de como progrese la condición. Como podrán suponer, el tratamiento no es nada barato, y de hecho solo la biopsia ha costado como mínimo quince millones de pesos, por lo dificultoso que es acceder al lugar donde se localiza el tumor, por ende se sobreentiende lo caro que será todo el proceso.<br/>
-        Como generación y comunidad Saint Paul’s, hemos organizado este bingo en pos de recaudar fondos para el tratamiento y todos los gastos relacionados. Nuestras esperanzas y corazones estarán con Isabelita.
+        Isabelita es una niña pequeña. Hace un par de meses, se le detectó un tumor en su cabeza. El tumor en cuestión es pequeño, mas la localización dificulta el estudio del mismo y por ende su tratamiento. En este momento, se precisa hacer un tratamiento progresivo para disminuir el tamaño del tumor sin perjudicar el crecimiento de Isabel, posteriormente se podría realizar una operación para extraer el tumor, todo depende de como progrese su enfermedad. Como podrán suponer, el tratamiento no es nada barato, y de hecho solo la biopsia ha costado ya quince millones de pesos, por lo dificultoso que es acceder al lugar donde se localiza el tumor, por ende se sobreentiende lo caro que será todo el proceso.<br/>
+        Como generación y comunidad Saint Paul’s, hemos organizado este bingo en pos de recaudar fondos para el tratamiento y todos los gastos relacionados. Nuestras esperanzas y corazones están con Isabelita.
         </p>
       </Modal>
     </div>
@@ -28,9 +27,9 @@ const Home = ({ varsBingo }) =>{
       <Modal btn='Más información' >
         <h1>Bingo!</h1>
         <p>
-        Usted podrá comprar varios cartones, los cuales podrá jugar tanto en papel si decide imprimir el cartón, o en pantalla, pero para que el administrador del juego pueda verificar si ha ganado o no, debe siempre ir rellenando los espacios en la pantalla y presionar un botón cuando crea que ha ganado...<br/>
-        Para comprar los bingos simplemente agréguelos al carro y posteriormente vaya a terminar la compra, realice la transferencia, luego envíe el comprobante y luego de que sea revisado se lib  erará el cartón de bingo para usted.<br/>
-        Habrá un total de seis bingos, el juego tendrá un animador de principio a fin para aligerar y entretener el ambiente.
+        Se tiene la posibilidad de comprar varios cartones, los cuales podrá jugar tanto en papel si decide imprimir el cartón o en su dispositivo electrónico, si es que está jugándolo en papel puede simplemente activar su micrófono y decir ¡BINGO!, luego debe dar el correo con el que se registró para revisar su bingo, y en caso de estar jugando en el dispositivo simplemente presione el botón de bingo para que el administrador revise su cartón.<br/>
+        Para comprar los bingos simplemente agréguelos al carro y posteriormente vaya a terminar la compra, realice la transferencia, luego envíe el comprobante para que sea revisado y finalmente se le entregue el cartón del bingo a usted.<br/>
+        Habrá un total de seis bingos, cada uno con tres premios, de linea, letra y cartón completo. El juego tendrá un animador de principio a fin para aligerar y entretener el ambiente.
         </p>
         <Link to='catalogo'>
           <Button>Ir a comprar!</Button>
@@ -43,8 +42,8 @@ const Home = ({ varsBingo }) =>{
       <Modal btn='Ir ver' >
         <h1>Premios</h1>
         <p>
-        Existirán varios premios, los más grandes obviamente se darán por cartón completo, pero también se entregarán premios menores por linea, o también por actividades interactivas como mini-concursos, que se planean hacer mientras se esté realizando el bingo.<br/>
-        Si es que le gustaría donar premios lo agradeceríamos, y si lo desea de hecho por favor contactarse con &quot;ayudabingoisabel@gmail.com&quot;, pero resultaría más beneficioso para la causa que done directamente ese dinero al fondo para la causa.
+        Existirán varios premios, los más grandes obviamente se darán por cartón completo, pero también se entregarán premios menores por línea y letra.<br/>
+        Los premios correspondientes a cada bingo se pueden ver en la descripción de este al comprarlo.
         </p>
       </Modal>
     </div>

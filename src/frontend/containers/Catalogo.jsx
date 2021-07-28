@@ -39,7 +39,7 @@ const App = ({ catalogos, load, carrito, history })=> {
         {
           !carrito.active ?
             <>
-              <Title title='Catalogo'/>
+              <Title title='Catálogo'/>
               {
                 load ?
                   <>{catalogos.filter((e)=>{

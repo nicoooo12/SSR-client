@@ -25,7 +25,7 @@ const App = ({ history })=> {
     <>
       <Header title='Ayuda!' to='/' >
         <h1>Estamos aquí para ayudarte.</h1>
-        <p>Tienes dudas con algo? No te preocupes, presiona sobre la pregunta que más se acomode a tus dudas. Si necesitas asistencia de otro tipo ve a la sección de <Link to='/contacto'>contactos</Link> y contacta con el equipo organizador</p>
+        <p>¿Tienes dudas con algo? No te preocupes, presiona sobre la pregunta que se relacione con tu problema. Si necesitas asistencia de otro tipo ve a la sección de <Link to='/contacto'>contactos</Link> para comunicarte con el equipo organizador.</p>
         <div style={{ transform: 'rotate(-90deg)' }}>
           <ButtonIcon onClick={clickHandler} />
         </div>
@@ -37,18 +37,15 @@ const App = ({ history })=> {
         </Accordion>
         <Accordion title='¿Cómo entro a la página?' >
           <ul className='list-group'>
-            Para poder acceder  a la página de Bingoloteando necesitas primero crearte una cuenta.
+          Para poder acceder a la página de Bingoloteando primero debes crearte una cuenta.
             <li className='list-group-item'>
-              Para esto solo tienes que apretar “Registrarme” en el home, que te llevará a la página de registro.
+            Para esto solo presiona “Registrarme” en la página de inicio, lo que te llevará a la sección de registro.
             </li>
             <li className='list-group-item'>
-              En esta página tendrás que poner tu Nombre y Apellido, Correo Electrónico y crear una Contraseña para tu cuenta.
+            Ya en la sección de registro debes colocar tu Nombre y Apellido, Correo Electronico, y por último crear una Contraseña para terminar el registro presionando el boton.
             </li>
             <li className='list-group-item'>
-              Cuando ya hayas ingresado todo eso, solo tienes que apretar el botón de “Registrarme” y podrás acceder a la página.
-            </li>
-            <li className='list-group-item'>
-              Ya registrad@, para acceder de nuevo a la página solo debes poner el correo electrónico y contraseña que usaste para registrarte y apretar el botón de “Ingresar”.
+            Ya registrado, podrás ingresar a la página utilizando el correo con que introdujiste y la contraseña que creaste, y ahora si podrás emepzar a comprar cartones!
             </li>
           </ul>
         </Accordion>
@@ -80,21 +77,21 @@ const App = ({ history })=> {
               ¡Recuerda! Si ya te hiciste una cuenta una vez, no es necesario volver a hacer otra. Solo tienes que iniciar sesión con tu correo electrónico y la contraseña que creaste y apretar el botón de “Entrar”. Puedes encontrar la página apretando “Iniciar sesión” en la página de inicio.
           </ul>
         </Accordion>
-        <Accordion title='No me funciona mi cuenta' >
+        <Accordion title='Mi cuenta no funciona' >
           <ul className='list-group'>
             <li className='list-group-item'>
-              Si no puedes acceder a tu cuenta,  asegura antes que nada que:
+            Si no logras acceder a tu cuenta, asegurate que:
               <ul className='list-group'>
                 <li className='list-group-item'>
-                  Te hayas creado una cuenta en la página
+                Hayas creado una cuenta en la página.
                 </li>
                 <li className='list-group-item'>
-                  Has puesto la contraseña y/o el correo electrónico con el cual te registraste correctamente.
+                Has introducido el correo y/o contraseña con el cual te registraste correctamente.
                 </li>
               </ul>
             </li>
             <li className='list-group-item'>
-                Si no es ninguna de estas opciones, contáctate con nosotros con la información proporcionada en la página de <Link to='/contacto' >“Contacto”</Link>.
+            Si tu problema persiste, ve a la sección de <Link to='/contacto' >“Contacto”</Link> para comunicarte directamente con nosotros.
             </li>
           </ul>
         </Accordion>
