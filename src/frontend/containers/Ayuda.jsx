@@ -136,7 +136,7 @@ Esto te llevará a la página de compras.
 
             </li>
             <li className='list-group-item'>
-              Si compró más de un cartón para un bingo podrá jugar con los dos cartones. Para cambiar de un cartón a otro debe deslizar la pantalla, en la parte superior aparece una flecha, que cambia la dirección de la aplicación de los cartones.
+              Si compró más de un cartón para un bingo podrá jugar con los dos cartones. Para cambiar de un cartón a otro debe deslizar la pantalla, en la parte superior aparece una flecha, que cambia la dirección del orden de los cartones.
 
             </li>
             <li className='list-group-item'>
@@ -150,6 +150,9 @@ Esto te llevará a la página de compras.
             <li className='list-group-item'>
               Cuando la partida se termine, volverás automáticamente a la página de “En espera” a esperar por la próxima partida.
 
+            </li>
+            <li className='list-group-item'>
+                Otra forma de jugar es “a la antigua” donde podrás descargar en físico tus cartones a traves de los pdfs, enviado a tu correo al momento de comprar, y ya en el juego solo tienes que gritar “Bingo!” por medio del Zoom.
             </li>
           </ul>
         </Accordion>
