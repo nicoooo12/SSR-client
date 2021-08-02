@@ -31,6 +31,7 @@ const App = ({ catalogos, load, carrito, history })=> {
       <Header to='/' title='Compras' icon='trolley' >
         <h1>¡Apoya con tu compra para este bingo!</h1>
         <p>Comprando estos bingos estarás ayudando a cumplir nuestra meta. Solo añade a tu carrito los cartones de los bingos que quieras jugar y cuando estés list@ para pagar, presiona en el carrito que aparecerá en la parte superior derecha.</p>
+        <p>Recuerda hacer tu compra antes del inicio del bingo. Una vez iniciado se cerrará la venta de cartones y no se recibirán más compras. No esperes más y Compra Ya!</p>
         <div style={{ transform: 'rotate(-90deg)' }}>
           <ButtonIcon onClick={clickHandler}/>
         </div>
