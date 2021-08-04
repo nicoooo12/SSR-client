@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../../assets/styles/components/forms/Button.scss';
 
-const App = ({ color, children, size, type = 'button', typebutton, state = '', onClick, disabled = false, autoLogin = true })=> {
+const App = ({ style, color, children, size, type = 'button', typebutton, state = '', onClick, disabled = false, autoLogin = true })=> {
 
   const [loading, setLoading] = useState(state);
 
@@ -20,7 +20,7 @@ const App = ({ color, children, size, type = 'button', typebutton, state = '', o
     <button
       onClick={onClickHandle}
       className='button'
-      style={{ background: color ? color : '' }}
+      style={{ ...style, background: color ? color : '' }}
       type={type}
       disabled={disabled}
       typebutton={typebutton ? typebutton : 'primary'}

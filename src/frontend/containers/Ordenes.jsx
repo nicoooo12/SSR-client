@@ -30,6 +30,11 @@ const App = ({ setStatusCarrito, user, history, enProgreso, terminadas, catalogo
     history.push('/compra');
   };
 
+  const viewBankData = () => {
+    setStatusCarrito(1);
+    history.push('/compra');
+  };
+
   return (
     <>
       {
@@ -45,7 +50,7 @@ const App = ({ setStatusCarrito, user, history, enProgreso, terminadas, catalogo
                 </Button>
               </Link>
             </Header> :
-          <Header title='Mis ordenes' to='/' refe={headerAA}>
+          <Header title='Mis ordenes' to='/' refe={headerAA} >
             <div className='cardPedidos'>
               <h1>Compra<br/> en progreso</h1>
               <table className='bank__table'>
@@ -96,12 +101,10 @@ const App = ({ setStatusCarrito, user, history, enProgreso, terminadas, catalogo
                       <p>{enProgreso.message}</p>
                     </div> : <></>
                 }
+                <Button style={{ width: '80%', top: '25px', position: 'relative' }} size='large' typebutton='secondary' onClick={viewBankData}>Ver datos bancarios</Button>
               </table>
             </div>
           </Header>
-      }
-      {
-        console.log(headerAA.current.clientHeight)
       }
       {
         terminadas[0] ?
