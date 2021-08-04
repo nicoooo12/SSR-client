@@ -119,3 +119,10 @@
     font-size: 13px;
   }
 }
+
+@media (max-width: $mediaWidthMobileL){
+  .correoTable{
+    display: block;
+    width: 10px;
+  }
+}

@@ -100,7 +100,7 @@ const App = ({ misOrdenes, history, varsBingo, createOrden, user, carrito, setSt
             </tr>
             <tr>
               <td className='td__start'>Correo:</td>
-              <td className='td__end'>luis.linares.escobar@gmail.com</td>
+              <td className='td__end correoTable'>luis.linares.escobar@gmail.com</td>
             </tr>
             <tr>
               <td className='td__start'>Motivo de la transferencia:</td>
