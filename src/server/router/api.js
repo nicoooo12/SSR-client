@@ -70,4 +70,23 @@ module.exports = function (app) {
     }
   });
 
+  router.post('/cancelOrden', async (req, res, next) =>{
+    const { token } = req.cookies;
+    try {
+      const { data: dataOrden } = await axios({
+        method: 'delete',
+        headers: { Authorization: `Bearer ${token}` },
+        url: `${config.apiUrl}/api/orden/my`,
+      });
+
+      res.json({
+        data: dataOrden,
+      }).status(200);
+
+    } catch (error) {
+      // console.log(error.request.data);
+      next(error);
+    }
+  });
+
 };

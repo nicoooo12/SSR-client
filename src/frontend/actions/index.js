@@ -160,27 +160,17 @@ export const createOrden = (compra, totalPago) => {
   };
 };
 
-export const createCanvasOrden = (data, fnCallBack, fnErrorCallback) => {
+export const cancelarMiOrden = () => {
   return (dispatch) => {
-    console.log('[data actions]', data);
-    const token = document.cookie.split(' ')[3].slice(6);
     axios({
-      url: 'http://localhost:3000/api/images/upload',
+      url: '/api/cancelOrden',
       method: 'post',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data',
-      },
-      data: { data },
     })
-      .then(({ data }) => {
-        console.log('[CreateCanvas]', data);
-        // console.log(data);
+      .then(() => {
         dispatch(updateState());
-        fnCallBack();
       })
       .catch((error) => {
-        fnErrorCallback(error);
+        console.log(error);
         dispatch(setError(error));
       });
   };

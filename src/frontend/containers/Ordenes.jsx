@@ -7,11 +7,11 @@ import Header from '../components/Header';
 import Titulo from '../components/Title';
 import Button from '../components/forms/Button';
 import { Link } from 'react-router-dom';
-import { setStatusCarrito } from '../actions';
+import { setStatusCarrito, cancelarMiOrden } from '../actions';
 
 import '../assets/styles/containers/Ordenes.scss';
 
-const App = ({ setStatusCarrito, user, history, enProgreso, terminadas, catalogo })=> {
+const App = ({ setStatusCarrito, cancelarMiOrden, user, history, enProgreso, terminadas, catalogo })=> {
   const [first, setFirst] = useState(true);
   useEffect(()=>{
     if (first) {
@@ -35,6 +35,10 @@ const App = ({ setStatusCarrito, user, history, enProgreso, terminadas, catalogo
     history.push('/compra');
   };
 
+  const cancelHandler = () => {
+    confirm('¿Estás seguro de que quieres cancelar tu orden?') ? cancelarMiOrden() : false;
+  };
+
   return (
     <>
       {
@@ -50,7 +54,7 @@ const App = ({ setStatusCarrito, user, history, enProgreso, terminadas, catalogo
                 </Button>
               </Link>
             </Header> :
-          <Header title='Mis ordenes' to='/' refe={headerAA} >
+          <Header title='Mis ordenes' to='/' refe={headerAA}>
             <div className='cardPedidos'>
               <h1>Compra<br/> en progreso</h1>
               <table className='bank__table'>
@@ -87,11 +91,11 @@ const App = ({ setStatusCarrito, user, history, enProgreso, terminadas, catalogo
                   </tr>
                   <tr>
                     <td className='td__start'>Comprobante:</td>
-                    <td className='td__end'>{enProgreso.canvasUrl ? 'si' : <><Button size='small' onClick={addImgHandler}>Agregar</Button></>}</td>
+                    <td className='td__end'>{enProgreso.canvasUrl ? 'Listo' : <><Button size='small' onClick={addImgHandler}>Agregar</Button></>}</td>
                   </tr>
                   <tr>
                     <td className='td__start'>Estado:</td>
-                    <td className='td__end'>{enProgreso.estado === 2 ? 'iniciada' : 'En revisión' }</td>
+                    <td className='td__end'>{enProgreso.estado === 2 ? 'Iniciada' : 'En revisión' }</td>
                   </tr>
                 </tfoot>
                 {
@@ -101,7 +105,13 @@ const App = ({ setStatusCarrito, user, history, enProgreso, terminadas, catalogo
                       <p>{enProgreso.message}</p>
                     </div> : <></>
                 }
-                <Button style={{ width: '80%', top: '25px', position: 'relative' }} size='large' typebutton='secondary' onClick={viewBankData}>Ver datos bancarios</Button>
+                {
+                  !enProgreso.canvasUrl ?
+                    <>
+                      <Button style={{ width: '80%', top: '25px', position: 'relative' }} size='large' typebutton='secondary' onClick={viewBankData}>Ver datos bancarios</Button>
+                      <Button style={{ marginBottom: '20px', width: '20%', top: '25px', position: 'relative' }} autoLogin={false} size='small' typebutton='text' onClick={cancelHandler}>Cancelar orden</Button>
+                    </> : <></>
+                }
               </table>
             </div>
           </Header>
@@ -170,6 +180,7 @@ const mapSateToProps = (state)=>{
 
 const mapDispatchToProps = {
   setStatusCarrito,
+  cancelarMiOrden,
 };
 
 export default connect(mapSateToProps, mapDispatchToProps)(App);
