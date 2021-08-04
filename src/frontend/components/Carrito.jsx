@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import Icon from './display/Icon';
 import IncrementStepper from './forms/IncrementStepper';
 import Button from './forms/Button';
-import { addItemToCarrito, removeItemToCarrito, desactiveCarrito, setRedirect } from '../actions';
+import { addItemToCarrito, removeItemToCarrito, desactiveCarrito, setRedirect, setStatusCarrito } from '../actions';
 
 import '../assets/styles/components/Carrito.scss';
-const App = ({ carrito, compras, addItemToCarrito, removeItemToCarrito, desactiveCarrito, history, user, setRedirect })=> {
+const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemToCarrito, desactiveCarrito, history, user, setRedirect })=> {
 
   let totalCarrito = 0;
   let totalPrecio = 0;
@@ -30,6 +30,7 @@ const App = ({ carrito, compras, addItemToCarrito, removeItemToCarrito, desactiv
         history.push('/ordenes');
       } else {
         history.push('/compra');
+        setStatusCarrito(0);
       }
     }
   };
@@ -123,6 +124,7 @@ const mapDispatchToProps = {
   removeItemToCarrito,
   desactiveCarrito,
   setRedirect,
+  setStatusCarrito,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
