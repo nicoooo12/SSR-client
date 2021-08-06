@@ -159,7 +159,7 @@ const renderApp = async (req, res) => {
 };
 
 // router
-app.use(express.static(`${__dirname}/../../public`));
+// app.use(express.static(`${__dirname}/../../public`));
 require('./router/auth')(app);
 require('./router/api')(app);
 app.get('*', renderApp);
