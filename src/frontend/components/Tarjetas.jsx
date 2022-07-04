@@ -2,11 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Button from './forms/IncrementStepper';
 import Badges from './display/Badges';
+import numberWithCommas from '../utils';
 
 import { addItemToCarrito, removeItemToCarrito } from '../actions';
 
 import '../assets/styles/components/Tarjetas.scss';
-const App = ({ title, subTitle, precio, serie, premios, addItemToCarrito, removeItemToCarrito, carrito })=> {
+const App = ({ title, subTitle, precio, serie, premios, addItemToCarrito, removeItemToCarrito, carrito, varsBingo })=> {
 
   const addCarritoHandle = (serie, cantidad)=>{
     addItemToCarrito({ serie, title, precio: precio });
@@ -28,7 +29,7 @@ const App = ({ title, subTitle, precio, serie, premios, addItemToCarrito, remove
         <p className='tarjeta__subTitle'>{subTitle}</p>
         <div className='tarjeta__componentsGroup'>
           <Button idHandler={serie} setStartCount={carrito.data.filter((e)=>{return e.serie === serie;})[0] ? carrito.data.filter((e)=>{return e.serie === serie;})[0].cantidad : 0} handlerAdd={addCarritoHandle} handlerSubtract={subtractCarritoHandle} />
-          <Badges>{'$' + precio + ' CLP'}</Badges>
+          <Badges>{varsBingo.pago.simbolo + numberWithCommas(precio) + ' ' + varsBingo.pago.moneda}</Badges>
         </div>
       </div>
     </div>
@@ -40,6 +41,7 @@ const mapStateToProps = (state)=>{
 
   return {
     carrito: state.carrito,
+    varsBingo: state.vars,
   };
 
 };

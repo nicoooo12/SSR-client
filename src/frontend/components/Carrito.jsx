@@ -6,9 +6,10 @@ import Icon from './display/Icon';
 import IncrementStepper from './forms/IncrementStepper';
 import Button from './forms/Button';
 import { addItemToCarrito, removeItemToCarrito, desactiveCarrito, setRedirect, setStatusCarrito } from '../actions';
+import numberWithCommas from '../utils';
 
 import '../assets/styles/components/Carrito.scss';
-const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemToCarrito, desactiveCarrito, history, user, setRedirect })=> {
+const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemToCarrito, desactiveCarrito, history, user, setRedirect, varsBingo })=> {
 
   let totalCarrito = 0;
   let totalPrecio = 0;
@@ -82,7 +83,7 @@ const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemT
                             <p>{e.cantidad}</p>
                         }
                       </td>
-                      <td className='td__precio'>${e.precio}</td>
+                      <td className='td__precio'>{varsBingo.pago.simbolo + numberWithCommas(e.precio)}</td>
                     </tr>
                   );
                 })}
@@ -91,7 +92,7 @@ const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemT
                 <tr>
                   <td className='td__title'>Total</td>
                   <td className='td__button'>{totalCarrito} unidades</td>
-                  <td className='td__precio'>${totalPrecio}</td>
+                  <td className='td__precio'>{varsBingo.pago.simbolo + numberWithCommas(totalPrecio)}</td>
                 </tr>
               </tfoot>
             </table> :
@@ -103,7 +104,7 @@ const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemT
         {
           compras['user'] ?
             <Button onClick={initPayHandler} >Ver Compra</Button> :
-            <Button onClick={initPayHandler} >Pagar ${totalPrecio}</Button>
+            <Button onClick={initPayHandler} >Pagar { varsBingo.pago.simbolo + numberWithCommas(totalPrecio) + ' ' + varsBingo.pago.moneda}</Button>
         }
       </div>
     </div>
@@ -116,6 +117,7 @@ const mapStateToProps = (state) => {
     carrito: state.carrito,
     user: state.user,
     compras: state.ordenes.enProgreso,
+    varsBingo: state.vars,
   };
 };
 

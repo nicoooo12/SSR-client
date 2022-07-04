@@ -20,15 +20,12 @@ import '../assets/styles/App.scss';
 
 const App = ({ isLogged, api, updateState, initialState }) => {
   const socket = io(api);
-  console.log(api);
   useEffect(()=>{
     socket.on('change', ()=>{
-      console.log('[changes in the State of socket]');
       updateState();
       socket.emit('ok');
     });
     socket.on(isLogged ? isLogged : 'change-noSignIn', ()=>{
-      console.log('[changes in the State of socket]');
       updateState();
       socket.emit('ok');
     });

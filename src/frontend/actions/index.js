@@ -50,7 +50,6 @@ export const logoutDispatchRequest = (payload) => ({
 
 export const logoutRequest = (payload) => {
   return (dispatch) => {
-    console.log('uwu');
     axios.get('/auth/logout')// {email, name, password}
       .then(() => {
         dispatch(logoutDispatchRequest(payload));
@@ -88,7 +87,6 @@ export const setError = (payload) => ({
 
 export const singUp = (payload, fnCallBack, fnErrorCallback) => {
   return (dispatch) => {
-    console.log('[sigUp]', typeof fnCallBack, typeof fnErrorCallback);
     axios.post('/auth/sign-up', payload)// {email, name, password}
       .then(({ data }) => {
         dispatch(singIn({ email: payload.email, password: payload.password },
@@ -126,7 +124,6 @@ export const singIn = ({ email, password }, fnCallback, fnErrorCallback) => {
       })
       .catch((error) => {
         fnErrorCallback(error);
-        // console.log(error.request.status);
         dispatch(setError(error));
       });
   };
@@ -134,7 +131,6 @@ export const singIn = ({ email, password }, fnCallback, fnErrorCallback) => {
 
 export const createOrden = (compra, totalPago) => {
   return (dispatch) => {
-    // console.log(compra, totalPago);
     axios({
       url: '/api/createOrden',
       method: 'post',
@@ -149,12 +145,10 @@ export const createOrden = (compra, totalPago) => {
       },
     })// {email, password}
       .then(({ data }) => {
-        console.log('[create orden]', data.data);
         dispatch(resetStatusCarrito());
         dispatch(updateState());
       })
       .catch((error) => {
-        console.log(error);
         dispatch(setError(error));
       });
   };
@@ -170,7 +164,6 @@ export const cancelarMiOrden = () => {
         dispatch(updateState());
       })
       .catch((error) => {
-        console.log(error);
         dispatch(setError(error));
       });
   };
@@ -178,14 +171,11 @@ export const cancelarMiOrden = () => {
 
 export const initialState = () => {
   return (dispatch) => {
-    // console.log('[data actions]', data);
     axios({
       url: '/api/initialState',
       method: 'post',
     })
       .then(({ data }) => {
-        console.log('[initial State]', data);
-        // console.log(data);
         dispatch(updateStateReducer({ ...data, load: true }));
       })
       .catch((error) => {
@@ -201,12 +191,10 @@ export const updateState = () => {
       method: 'post',
     })// {email, password}
       .then(({ data }) => {
-        console.log('[updateState]', data.data);
         // dispatch(registerRequest(data.user));
         dispatch(updateStateReducer(data.data));
       })
       .catch((error) => {
-        console.log(error);
         dispatch(setError(error));
       });
   };

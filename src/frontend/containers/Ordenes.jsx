@@ -8,10 +8,11 @@ import Titulo from '../components/Title';
 import Button from '../components/forms/Button';
 import { Link } from 'react-router-dom';
 import { setStatusCarrito, cancelarMiOrden } from '../actions';
+import numberWithCommas from '../utils';
 
 import '../assets/styles/containers/Ordenes.scss';
 
-const App = ({ setStatusCarrito, cancelarMiOrden, user, history, enProgreso, terminadas, catalogo })=> {
+const App = ({ setStatusCarrito, cancelarMiOrden, user, history, enProgreso, terminadas, catalogo, varsBingo })=> {
   const [first, setFirst] = useState(true);
   useEffect(()=>{
     if (first) {
@@ -87,7 +88,7 @@ const App = ({ setStatusCarrito, cancelarMiOrden, user, history, enProgreso, ter
                   </tr>
                   <tr>
                     <td className='td__start'>Pago total:</td>
-                    <td className='td__end'>${enProgreso.totalPago}</td>
+                    <td className='td__end'>{varsBingo.pago.simbolo}{numberWithCommas(enProgreso.totalPago)} {varsBingo.pago.moneda}</td>
                   </tr>
                   <tr>
                     <td className='td__start'>Comprobante:</td>
@@ -147,11 +148,11 @@ const App = ({ setStatusCarrito, cancelarMiOrden, user, history, enProgreso, ter
                       <tfoot>
                         <tr>
                           <td className='td__start'>Total a pagar:</td>
-                          <td className='td__end'>${e.pago}</td>
+                          <td className='td__end'>{varsBingo.pago.simbolo}{e.pago} {varsBingo.pago.simbolo}</td>
                         </tr>
                         <tr>
                           <td className='td__start'>Total pagado:</td>
-                          <td className='td__end'>${e.pagado}</td>
+                          <td className='td__end'>{varsBingo.pago.simbolo}{e.pagado} {varsBingo.pago.simbolo}</td>
                         </tr>
                         <tr>
                           <td className='td__start'>Estado:</td>
@@ -175,6 +176,7 @@ const mapSateToProps = (state)=>{
     enProgreso: state.ordenes.enProgreso,
     terminadas: state.ordenes.terminadas,
     catalogo: state.catalogos,
+    varsBingo: state.vars,
   };
 };
 

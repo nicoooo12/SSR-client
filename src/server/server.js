@@ -35,7 +35,7 @@ app.use(passport.session());
 
 if (config.dev) {
   console.log('Development config');
-  const webpackConfig = require('../../webpack.config.dev.js');
+  const webpackConfig = require('../../webpack.config.dev');
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
   const compiler = webpack(webpackConfig);

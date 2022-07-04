@@ -82,7 +82,7 @@ const Home = ({ varsBingo }) =>{
               </tr>
               <tr>
                 <td className='td__start'>Correo:</td>
-                <td className='td__end'>luis.linares.escobar@gmail.com</td>
+                <td className='td__end'>{varsBingo.pago.correo}</td>
               </tr>
               <tr>
                 <td className='td__start'>Motivo de la transferencia:</td>

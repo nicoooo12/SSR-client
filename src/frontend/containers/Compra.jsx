@@ -6,6 +6,7 @@ import Pageination from '../components/forms/Pageination';
 import { statusNextCarrito, setStatusCarrito, setRedirect, createOrden } from '../actions';
 import Button from '../components/forms/Button';
 import Icon from '../components/display/Icon';
+import numberWithCommas from '../utils';
 
 import Auth from './SignIn';
 import '../assets/styles/containers/Compra.scss';
@@ -100,7 +101,7 @@ const App = ({ misOrdenes, history, varsBingo, createOrden, user, carrito, setSt
             </tr>
             <tr>
               <td className='td__start'>Correo:</td>
-              <td className='td__end correoTable'>luis.linares.escobar@gmail.com</td>
+              <td className='td__end correoTable'>{varsBingo.pago.correo}</td>
             </tr>
             <tr>
               <td className='td__start'>Motivo de la transferencia:</td>
@@ -111,11 +112,11 @@ const App = ({ misOrdenes, history, varsBingo, createOrden, user, carrito, setSt
             <tr>
               <td className='td__start'>Monto a Pagar: </td>
               <td className='td__end'>
-                $ {
+                {varsBingo.pago.simbolo}{
                   misOrdenes['totalPago'] ?
-                    <>{misOrdenes.totalPago}</> :
+                    <>{numberWithCommas(misOrdenes.totalPago)}</> :
                     <>Cargando ...</>
-                }
+                } {varsBingo.pago.moneda}
               </td>
             </tr>
           </tfoot>

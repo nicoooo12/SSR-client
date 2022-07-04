@@ -81,11 +81,6 @@ const reducer = (state, action) => {
         user: {},
       };
     case 'UPDATE_STATE':
-      console.log('update');
-      console.log({
-        ...state,
-        ...action.payload,
-      });
       return {
         ...state,
         ...action.payload,
