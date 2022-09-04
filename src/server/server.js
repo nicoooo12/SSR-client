@@ -29,7 +29,7 @@ app.use(express.json());
 app.use(cookieParser());
 // app.use(session({ secret: config.sessionSecret }));
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 
 // require('./utils/auth/strategies/basic');
 
