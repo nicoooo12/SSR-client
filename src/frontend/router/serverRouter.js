@@ -8,8 +8,11 @@ import SignIn from '../containers/SignIn';
 import SignUp from '../containers/SignUp';
 import Contacto from '../containers/Contacto';
 import Ayuda from '../containers/Ayuda';
+import Admin from '../containers/admin/Index';
+import Tests from '../containers/Tests';
+
 // import pay from '../containers/pagoPrueba';
-import Notfound from '../containers/Notfound';
+import NotFound from '../containers/NotFound';
 
 const routers = (isLogged)=>{
   return [
@@ -63,14 +66,24 @@ const routers = (isLogged)=>{
       path: '/help',
       component: Ayuda,
     },
-    // {
-    //   exact: true,
-    //   path: '/pay',
-    //   component: pay,
-    // },
+    {
+      exact: true,
+      path: '/admin',
+      component: Admin,
+    },
+    {
+      exact: true,
+      path: '/admin/play',
+      component: Admin,
+    },
+    {
+      exact: true,
+      path: '/test',
+      component: Tests,
+    },
     {
       exact: false,
-      component: Notfound,
+      component: NotFound,
     },
   ];
 };

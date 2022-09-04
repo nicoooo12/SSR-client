@@ -69,10 +69,7 @@ const App = ({ catalogos, load, carrito, history })=> {
             <Carrito history={history}/>
         }
       </MainContent>
-      {
-        !carrito.active ?
-          <Footer/> : <></>
-      }
+      { !carrito.active ?? <Footer/> }
     </>
   );
 

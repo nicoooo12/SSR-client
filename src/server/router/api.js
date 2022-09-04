@@ -65,7 +65,6 @@ module.exports = function (app) {
       }).status(200);
 
     } catch (error) {
-      // console.log(error.request.data);
       next(error);
     }
   });
@@ -84,7 +83,6 @@ module.exports = function (app) {
       }).status(200);
 
     } catch (error) {
-      // console.log(error.request.data);
       next(error);
     }
   });

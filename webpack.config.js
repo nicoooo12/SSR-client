@@ -15,16 +15,6 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
-    alias: {
-      '@containers': path.resolve(__dirname, 'src/frontend/containers'),
-      '@components': path.resolve(__dirname, 'src/frontend/components'),
-      '@images': path.resolve(__dirname, 'src/frontend/assets/images'),
-      '@styles': path.resolve(__dirname, 'src/frontend/assets/styles'),
-      '@actions': path.resolve(__dirname, 'src/frontend/actions'),
-      '@reducers': path.resolve(__dirname, 'src/frontend/reducers'),
-      '@router': path.resolve(__dirname, 'src/frontend/router'),
-      '@config': path.resolve(__dirname, 'config'),
-    },
   },
   module: {
     rules: [

@@ -66,27 +66,27 @@ const Home = ({ varsBingo }) =>{
             <tbody>
               <tr>
                 <td className='td__start'>Numero de cuenta:</td>
-                <td className='td__end'>{varsBingo.pago.numCuenta}</td>
+                <td className='td__end'>{varsBingo.pago?.numCuenta}</td>
               </tr>
               <tr>
                 <td className='td__start'>Rut:</td>
-                <td className='td__end'>{varsBingo.pago.rut}</td>
+                <td className='td__end'>{varsBingo.pago?.rut}</td>
               </tr>
               <tr>
                 <td className='td__start'>Titular:</td>
-                <td className='td__end'>{varsBingo.pago.titular}</td>
+                <td className='td__end'>{varsBingo.pago?.titular}</td>
               </tr>
               <tr>
                 <td className='td__start'>Banco:</td>
-                <td className='td__end'>{varsBingo.pago.banco}</td>
+                <td className='td__end'>{varsBingo.pago?.banco}</td>
               </tr>
               <tr>
                 <td className='td__start'>Correo:</td>
-                <td className='td__end'>{varsBingo.pago.correo}</td>
+                <td className='td__end'>{varsBingo.pago?.correo}</td>
               </tr>
               <tr>
                 <td className='td__start'>Motivo de la transferencia:</td>
-                <td className='td__end'>{varsBingo.pago.motivo}</td>
+                <td className='td__end'>{varsBingo.pago?.motivo}</td>
               </tr>
             </tbody>
           </table>

@@ -101,7 +101,7 @@ const App = ({ misOrdenes, history, varsBingo, createOrden, user, carrito, setSt
             </tr>
             <tr>
               <td className='td__start'>Correo:</td>
-              <td className='td__end correoTable'>{varsBingo.pago.correo}</td>
+              <td className='td__end correoTable' style={{ width: '100%', wordBreak: 'break-word' }}>{varsBingo.pago.correo}</td>
             </tr>
             <tr>
               <td className='td__start'>Motivo de la transferencia:</td>
