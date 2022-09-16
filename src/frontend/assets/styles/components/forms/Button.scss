@@ -46,16 +46,16 @@
   // height: 64px;
   border-radius: 40px;
   color: $greyscale_off-white;
-  background: $primary_dark;
+  background: $primary_default;
   outline: none;
   &:hover{
-    background: $primary_default;
+    background: $primary_dark;
   }
   &:focus{
     box-shadow : 0 0 0 8px $primary_light;
   }
   &:active{
-    background: $primary_default;
+    background: $primary_dark;
   }
   &:disabled{
     background: $primary_default;

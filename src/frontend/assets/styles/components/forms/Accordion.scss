@@ -12,13 +12,13 @@
   border-radius: 16px;
   padding: 20px;
   outline: none;
-  background: $greyscale_inputBG;
+  background: $greyscale_input;
   border: solid transparent 3px;
   transition: .3s all;
   &[open]{
     background: $greyscale_bg;
     height: auto;
-    border: solid $greyscale_title-active 3px;
+    border: solid $greyscale_body 3px;
     &>summary>div{
       transform: rotate(0deg);
     }
@@ -30,10 +30,9 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    // background: red;
     top: -24px;
     position: relative;
-    color: $greyscale_title-active;
+    color: $greyscale_ash;
     cursor: pointer;
     outline: none;
     padding: 10px;

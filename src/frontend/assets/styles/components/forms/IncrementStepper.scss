@@ -1,9 +1,10 @@
 @import '../../Index.scss';
+@import './Button.scss';
 
 .buttonGroup{
   width: 185px;
   height: 64px;
-  margin: 10px;
+  margin: 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -11,20 +12,17 @@
 }
 .buttonGroup>span{
   @extend %Typography-text-DSB;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none; 
 }
 
 .buttonGroup__buttonComprar{
   @extend %btn-primary;
   @extend %Typography-text-LXS;
+  align-items: center;
   font-size: 13px;
   position: absolute;
   width: 170px;
   height: 56px;
-  left: 32px;
+  // left: 32px;
 }
 
 .buttonGroup__buttonAction{
@@ -37,48 +35,70 @@
   margin: 0;
   outline: none;
   @extend %Typography-text-TM;
-  background-color: $greyscale_inputBG;
+  line-height: unset!important;
+  background-color: $greyscale_input;
   &:hover{
     background-color: $greyscale_bg;
     border: 2px solid $greyscale_line;
   }
   &:focus{
-    // background-color: $greyscale_bg;
+    background-color: $greyscale_bg;
     border: 2px solid $primary_default;
     color: $primary_default;
     transition: .1s;
     box-shadow : 0 0 0 6px $primary_light;
   }
   &:active{
-    // background-color: $greyscale_line;
+    background-color: $greyscale_line;
     border: 2px solid $primary_default;
     color: $primary_default;
     box-shadow : none;
   }
 }
 
-%btn-primary{
-  // width: 200px;
-  // height: 64px;
-  border-radius: 40px;
-  color: $greyscale_off-white;
-  background: $primary_dark;
-  outline: none;
+.buttonGroup__buttonAction-red{
+  background-color: $error_bg !important;
   &:hover{
-    background: $primary_default;
+    background-color: $error_bg;
+    border: 2px solid $error_light;
   }
   &:focus{
-    box-shadow : 0 0 0 8px $primary_light;
+    background-color: $error_bg;
+    border: 2px solid $error_default;
+    color: $error_default;
+    transition: .1s;
+    box-shadow : 0 0 0 6px $error_light;
   }
   &:active{
-    background: $primary_default;
-  }
-  &:disabled{
-    background: $primary_default;
-    opacity: 0.5;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background-color: $error_light;
+    border: 2px solid $error_default;
+    color: $error_default;
+    box-shadow : none;
   }
 }
+
+// %btn-primary{
+//   // width: 200px;
+//   // height: 64px;
+//   border-radius: 40px;
+//   color: $greyscale_off-white;
+//   background: $primary_dark;
+//   outline: none;
+//   &:hover{
+//     background: $primary_default;
+//   }
+//   &:focus{
+//     box-shadow : 0 0 0 8px $primary_light;
+//   }
+//   &:active{
+//     background: $primary_default;
+//   }
+//   &:disabled{
+//     background: $primary_default;
+//     opacity: 0.5;
+//     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+//   }
+// }
 
 @media (max-width: $mediaWidthMobileM){
   .buttonGroup__buttonComprar{
@@ -96,10 +116,38 @@
     padding: 0;
     left: -32px;
     position: relative;
+    // &>span{
+    //   font-size: 15px!important;
+    // }
   }
+  // .buttonGroup__buttonAction{
+  //   width: 25px!important;
+  //   height: 25px!important;
+  // }
   .buttonGroup__buttonComprar{
     margin-left: 5px;
     width: 150px;
     padding: 0.4rem .001rem;
+  }
+}
+
+@media (max-width: $mediaWidthMobileXS){
+  .buttonGroup{
+    padding: 0;
+    left: -32px;
+    position: relative;
+    &>span{
+      font-size: 15px!important;
+    }
+  }
+  .buttonGroup__buttonAction{
+    width: 25px!important;
+    height: 25px!important;
+  }
+  .buttonGroup__buttonComprar{
+    margin-left: 0!important;
+    width: 130px!important;
+    padding: 0!important;
+    font-size: 10px!important;
   }
 }

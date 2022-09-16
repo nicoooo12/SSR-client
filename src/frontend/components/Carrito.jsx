@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 // import { desactiveCarrito } from '../';
 // import { Link } from 'react-router-dom';
-import Icon from './display/Icon';
 import IncrementStepper from './forms/IncrementStepper';
 import Button from './forms/Button';
 import { addItemToCarrito, removeItemToCarrito, desactiveCarrito, setRedirect, setStatusCarrito } from '../actions';
@@ -48,13 +47,7 @@ const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemT
   };
 
   return (
-    <div className='carrito'>
-      <div className='carrito__head'>
-        <h1>Carrito de compras</h1>
-        <div className='icon' onClick={desactiveCarrito} >
-          <Icon width='30' height='30' />
-        </div>
-      </div>
+    <div className='carrito-2'>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         {
           err
@@ -91,7 +84,7 @@ const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemT
               <tfoot>
                 <tr>
                   <td className='td__title'>Total</td>
-                  <td className='td__button'>{totalCarrito} unidades</td>
+                  <td className='td__button'>{totalCarrito}</td>
                   <td className='td__precio'>{varsBingo.pago.simbolo + numberWithCommas(totalPrecio)}</td>
                 </tr>
               </tfoot>

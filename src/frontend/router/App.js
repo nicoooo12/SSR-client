@@ -63,7 +63,7 @@ const App = ({ isLogged, api, updateState, initialState, logoutRequest }) => {
         <Route exact path='/admin' component={Admin} />
         {/* <Route exact path='/admin/play' component={<>play</>} /> */}
 
-        <Route exact path='/test' component={Tests} />
+        <Route exact path='/test' render={(props) => <Tests socket={socket} {...props} />} />
 
         <Route component={NotFound} />
       </Switch>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import Header from '../components/Header';
@@ -12,17 +12,6 @@ import Auth from './SignIn';
 import '../assets/styles/containers/Compra.scss';
 
 const App = ({ misOrdenes, history, varsBingo, createOrden, user, carrito, setStatusCarrito, statusNextCarrito, setRedirect })=> {
-  const [first, setFirst] = useState(true);
-  useEffect(()=>{
-    if (first) {
-      setFirst(false);
-      document.querySelector('#react').scrollTo(0, 0);
-    }
-  }, []);
-
-  if (!user.id) {
-    history.push('/');
-  }
 
   const nextHandler = (num)=>{
     if (num || num === 0) {
@@ -31,8 +20,6 @@ const App = ({ misOrdenes, history, varsBingo, createOrden, user, carrito, setSt
       statusNextCarrito();
     }
   };
-
-  // console.log(misOrdenes);
 
   const startPay = ()=>{
     if (!misOrdenes.user) {
@@ -55,7 +42,6 @@ const App = ({ misOrdenes, history, varsBingo, createOrden, user, carrito, setSt
   };
 
   let contentHeader;
-  // console.log(carrito);
   switch (carrito.state) {
     case 0:
       if (!carrito.data[0]) {

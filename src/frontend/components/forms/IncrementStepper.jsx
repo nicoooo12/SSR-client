@@ -22,11 +22,13 @@ const App = ({ text = true, idHandler, handlerAdd, handlerSubtract, setStartCoun
             {
               count > 0 ?
                 <>
-                  <button disabled={!!disabledButton} className='buttonGroup__buttonAction' onClick={removeHandle}>-</button>
+                  <button disabled={!!disabledButton} className={'buttonGroup__buttonAction'} onClick={removeHandle}>-</button>
                   <span>{ count }</span>
                   <button disabled={!!disabledButton} className='buttonGroup__buttonAction' onClick={addHandle}>+</button>
                 </> :
                 <>
+                  <button style={{ display: 'none' }} />
+                  <span style={{ display: 'none' }} />
                   <button disabled={!!disabledButton} className='buttonGroup__buttonComprar' onClick={addHandle}>Añadir Al carrito</button>
                 </>
             }

@@ -1,21 +1,19 @@
 @import '../../Index.scss';
 
 .badges{
-  background-color: $primary_light;
+  background-color: $primary_bg;
   color: $primary_dark;
   // width: 90px;
   padding: .34rem 1.50rem;
   height: 40px;
   border-radius: 39px;
+  line-height: 0;
   display: flex;
   text-align: center;
   justify-content: center;
   align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none; 
   // width: 120px;
+  width: fit-content;
   &>span{
     @extend %Typography-text-LS;
     display: flex;
@@ -27,8 +25,7 @@
 
 @media (max-width: $mediaWidthMobileL){
   .badges{
-    width: 120px;
-    padding: 0.2rem .3rem;
+    // padding: 0.2rem .3rem;
     &>span{
       font-size: 12px;
     }
@@ -36,12 +33,10 @@
 }
 @media (max-width: $mediaWidthMobileXS){
   .badges{
-    width: 130px;
-    left: 26px;
     position: relative;
-    padding: 0.2rem .3rem;
+    // padding: 0.2rem .3rem;
     &>span{
-      font-size: 12px;
+      font-size: 12px!important;
     }
   }
 }

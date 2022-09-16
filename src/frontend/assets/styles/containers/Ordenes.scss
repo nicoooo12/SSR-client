@@ -1,15 +1,44 @@
 @import '../Index.scss';
 
-
 .contentCardsPedidos{
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.noTengo{
+  filter: drop-shadow(0px 8px 16px rgba(17, 17, 17, 0.04));
+  border-radius: 30px;
+  background: $greyscale_off-white;
+  margin-bottom: 40px;
+  width: 100%;
+  margin: 20px;
+  max-width: 700px;
+  padding: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  &>h1{
+    text-align: center;
+    margin-bottom: 3rem;
+  }
 }
 
 .cardPedidos{
+  filter: drop-shadow(0px 8px 16px rgba(17, 17, 17, 0.04));
+  border-radius: 30px;
+  background: $greyscale_off-white;
+  margin-bottom: 40px;
+  width: 100%;
+  margin: 20px;
   max-width: 700px;
+  padding: 3rem;
+  &>h1{
+    text-align: center;
+    margin-bottom: 3rem;
+  }
   &>table{
     margin-bottom: 10px;
     width: 100%;
@@ -55,7 +84,8 @@
   padding: 20px;
   max-width: 400px;
   &>h1{
-    text-align: center;
+    text-align: left;
+    margin-top: 2rem;
     @extend %Typography-text-DSB;
     margin-bottom: 30px;
   }
@@ -88,3 +118,4 @@
     }
   }
 }
+

@@ -1,37 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-import Header from '../components/Header';
-import Titulo from '../components/Title';
-import ButtonIcon from '../components/forms/ButtonIcon';
+import Layout from '../components/layouts/Layout';
+import { Link } from 'react-router-dom';
 import Accordion from '../components/forms/Accordion';
 
 import '../assets/styles/containers/Ayuda.scss';
-import { Link } from 'react-router-dom';
 
-const App = ({ history })=> {
-  const [first, setFirst] = useState(true);
-  useEffect(()=>{
-    if (first) {
-      setFirst(false);
-      document.querySelector('#react').scrollTo(0, 0);
-    }
-  }, []);
-
-  const clickHandler = ()=>{
-    document.querySelector('#react').scrollTo(0, document.querySelector('header').offsetHeight);
-  };
+const Ayuda = () => {
 
   return (
     <>
-      <Header title='Ayuda!' to='/' >
-        <h1>Estamos aquí para ayudarte.</h1>
-        <p>¿Tienes dudas con algo? No te preocupes, presiona sobre la pregunta que se relacione con tu problema. Si necesitas asistencia de otro tipo ve a la sección de <Link to='/contacto'>contactos</Link> para comunicarte con el equipo organizador.</p>
-        <div style={{ transform: 'rotate(-90deg)' }}>
-          <ButtonIcon onClick={clickHandler} />
-        </div>
-      </Header>
-      <div className='mainContent' style={{ top: '640px', position: 'absolute' }}>
-        <Titulo title='Preguntas frecuentes' />
+      <Layout title='Ayuda' to='/' >
         <Accordion title='¿Qué es el Bingoloteando?' >
           El Bingoloteando es una app para jugar bingo, diseñada para apoyar a causas que lo necesiten facilitando la venta y jugabilidad de cartones de bingo.
         </Accordion>
@@ -156,9 +135,9 @@ Esto te llevará a la página de compras.
             </li>
           </ul>
         </Accordion>
-      </div>
+      </Layout>
     </>
   );
 };
 
-export default App;
+export default Ayuda;

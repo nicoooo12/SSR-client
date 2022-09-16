@@ -1,86 +1,86 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
-import Header from '../components/Header-carrito';
-import ButtonIcon from '../components/forms/ButtonIcon';
-import Footer from '../components/Footer';
-import MainContent from '../components/MainContent';
-import Title from '../components/Title';
-// import Section from '../components/Section';
+import Layout from '../components/layouts/Layout';
 import Tarjeta from '../components/Tarjetas';
-import Carrito from '../components/Carrito';
-// import Carrito from '../components/Carrito';
-// import { Link } from 'react-router-dom';
-import Spiner from '../components/spiner';
+import Icon from '../components/display/Icon';
 
-const App = ({ catalogos, load, carrito, history })=> {
-  const [first, setFirst] = useState(true);
-  useEffect(()=>{
-    if (first) {
-      setFirst(false);
-      document.querySelector('#react').scrollTo(0, 0);
-    }
-  }, []);
+import { Link } from 'react-router-dom';
 
-  const clickHandler = ()=>{
-    document.querySelector('#react').scrollTo(0, document.querySelector('header').offsetHeight);
-  };
+import numberWithCommas from '../utils';
+
+import '../assets/styles/containers/Catalogo.scss';
+
+const Catalogo = ({ catalogos, carrito, varsBingo, history }) => {
+
+  let totalCarrito = 0;
+  let totalPrecio = 0;
+  carrito.data.forEach((element) => {
+    totalCarrito += (element.cantidad);
+    totalPrecio += (element.precio * element.cantidad);
+  });
 
   return (
     <>
-      <Header to='/' title='Compras' icon='trolley' >
-        <h1>¡Apoya con tu compra para este bingo!</h1>
-        <p>Comprando estos bingos estarás ayudando a cumplir nuestra meta. Solo añade a tu carrito los cartones de los bingos que quieras jugar y cuando estés list@ para pagar, presiona en el carrito que aparecerá en la parte superior derecha.</p>
-        <p>Recuerda hacer tu compra antes del inicio del bingo. Una vez iniciado se cerrará la venta de cartones y no se recibirán más compras. No esperes más y Compra Ya!</p>
-        <div style={{ transform: 'rotate(-90deg)' }}>
-          <ButtonIcon onClick={clickHandler}/>
-        </div>
-      </Header>
-      <MainContent>
+      <Layout title='Catalogo' to='/' >
         {
-          !carrito.active ?
-            <>
-              <Title title='Catálogo'/>
-              {
-                load ?
-                  <>{catalogos.filter((e)=>{
-                    return e.enVenta === true;
-                  }).map(
-                    (item, index)=>
-                      (
-                        <Tarjeta
-                          key={index}
-                          title={item.titulo}
-                          subTitle={item.subTitulo}
-                          precio={item.precio}
-                          serie={item.serie}
-                          premios={item.premios.map((e, i)=>i === 0 ? `${e.nombre} ` : `~ ${e.nombre}`)}
-                        />
-                      ),
-                  )
-                  }</> :
-                  <>
-                    <div style={{ width: '100%', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
-                      <Spiner />
-                    </div>
-                  </>
-              }
-            </> :
-            <Carrito history={history}/>
+          <>
+            {catalogos.filter((e)=>{
+              return e.enVenta === true;
+            }).map(
+              (item, index)=>
+                (
+                  <Tarjeta
+                    key={index}
+                    title={item.titulo}
+                    subTitle={item.subTitulo}
+                    precio={item.precio}
+                    serie={item.serie}
+                    premios={item.premios.map((e, i)=>i === 0 ? `${e.nombre} ` : `~ ${e.nombre}`)}
+                  />
+                ),
+            )
+            }
+          </>
         }
-      </MainContent>
-      { !carrito.active ?? <Footer/> }
+        {
+          totalCarrito > 0 ?
+            <div className={'carrito'} >
+              <div className='gradiente'/>
+              <div className='carrito-main'>
+                <div className={'carro'} >
+                  <div className='icon' >
+                    <Icon type={'trolley'} width='35' height='35'/>
+                    <div className='bubble'>{totalCarrito}</div>
+                  </div>
+                </div>
+                <div className='payText' >{varsBingo.pago.simbolo + numberWithCommas(totalPrecio) + ' ' + varsBingo.pago.moneda}</div>
+                <Link to='/test'>
+                  <div className='pagar'>
+                    <span>Pagar</span>
+                    <div>
+                      <Icon type='arrow' stroke='#4700AB' />
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            </div> :
+            <div >
+              <div />
+              <div />
+            </div>
+        }
+      </Layout>
     </>
   );
-
 };
 
 const mapDispatchToProps = (state)=>{
   return {
     carrito: state.carrito,
     catalogos: state.catalogos,
-    load: state.load,
+    varsBingo: state.vars,
   };
 };
 
-export default connect(mapDispatchToProps)(App);
+export default connect(mapDispatchToProps)(Catalogo);
