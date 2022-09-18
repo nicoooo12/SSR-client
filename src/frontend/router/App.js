@@ -34,16 +34,6 @@ const App = ({ isLogged, api, updateState, initialState, logoutRequest }) => {
       socket.emit('ok');
     });
     initialState();
-    cookieStore.onchange = (e) =>{
-      if (e.changed[0].name === 'token' && e.changed[0].value === 'reload') {
-        // eslint-disable-next-line no-self-assign
-        document.cookie = 'token=';
-        document.cookie = 'email=';
-        document.cookie = 'name=';
-        document.cookie = 'id=';
-        logoutRequest();
-      }
-    };
   }, []);
 
   return (
