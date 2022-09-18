@@ -17,28 +17,33 @@ module.exports = function (app) {
         if (error || !data) {
           return next(boom.unauthorized());
         }
-        req.login(data, { session: false }, async function (error) {
+        return req.login(data, { session: false }, async function (error) {
           if (error) {
-            next(error);
+            return next(error);
           }
 
           const { token, ...user } = data;
-
           res.cookie('token', token, {
             httpOnly: !config.dev,
             secure: !config.dev,
           });
 
-          res.json(user).status(200);
+          res.cookie('isAdmin', user.user.isAdmin, {
+            httpOnly: !config.dev,
+            secure: !config.dev,
+          });
+
+          return res.json(user).status(200);
         });
       } catch (error) {
-        next(error);
+        return next(error);
       }
     })(req, res, next);
   });
 
   router.get('/logout', (req, res, next) => {
     res.cookie('token', '');
+    res.cookie('isAdmin', '');
     res.json({
       message: 'ok',
     }).status(200);
@@ -59,7 +64,6 @@ module.exports = function (app) {
 
       res.json({ message: 'user created' }).status(201);
     } catch (error) {
-      // console.log('[err-server]', error.response.data);
       if (error.response.status === 400) {
         next(boom.badRequest(error.response.data.message));
       }

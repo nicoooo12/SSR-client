@@ -45,7 +45,7 @@
   &>thead{
     width: 100%;
     vertical-align: bottom;
-    border-bottom: solid 2px $greyscale_inputBG;
+    border-bottom: solid 2px $greyscale_input;
     &>tr>th{
       padding: .5rem .5rem;
       &.th__end{
@@ -70,7 +70,7 @@
   }
   &>tfoot{
     margin-top: 10px;
-    border-top: solid 3px $greyscale_inputBG;
+    border-top: solid 3px $greyscale_input;
     &>tr>td{
       padding: .5rem .5rem;
       &.td__end{

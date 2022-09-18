@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 // import { desactiveCarrito } from '../';
 // import { Link } from 'react-router-dom';
-import Icon from './display/Icon';
 import IncrementStepper from './forms/IncrementStepper';
 import Button from './forms/Button';
 import { addItemToCarrito, removeItemToCarrito, desactiveCarrito, setRedirect, setStatusCarrito } from '../actions';
@@ -24,16 +23,7 @@ const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemT
     }
   }, [compras]);
   const initPayHandler = ()=>{
-    if (!user['email']) {
-      history.push('/sign-in');
-    } else {
-      if (compras['user']) {
-        history.push('/ordenes');
-      } else {
-        history.push('/compra');
-        setStatusCarrito(0);
-      }
-    }
+    setStatusCarrito(1);
   };
 
   const addCarritoHandle = (id, cantidad)=>{
@@ -48,13 +38,7 @@ const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemT
   };
 
   return (
-    <div className='carrito'>
-      <div className='carrito__head'>
-        <h1>Carrito de compras</h1>
-        <div className='icon' onClick={desactiveCarrito} >
-          <Icon width='30' height='30' />
-        </div>
-      </div>
+    <div className='carrito-2'>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         {
           err
@@ -63,39 +47,49 @@ const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemT
       <div className='carrito__body'>
         {
           !compras['user'] ?
-            <table className='carrito__table'>
-              <thead>
-                <tr>
-                  <th className='th__title'>Articulo</th>
-                  <th className='th__button'>Cantidad</th>
-                  <th className='th__precio'>Precio</th>
-                </tr>
-              </thead>
-              <tbody>
-                {carrito.data.map((e, index)=>{
-                  return (
-                    <tr key={index}>
-                      <td className='td__title'>{e.title}</td>
-                      <td className='td__button'>
-                        {
-                          !carrito.state >= 1 ?
-                            <IncrementStepper text={false} setStartCount={e.cantidad} key={index} idHandler={{ serie: e.serie, title: e.title, precio: e.precio }} handlerAdd={addCarritoHandle} handlerSubtract={subtractCarritoHandle}/> :
-                            <p>{e.cantidad}</p>
-                        }
-                      </td>
-                      <td className='td__precio'>{varsBingo.pago.simbolo + numberWithCommas(e.precio)}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td className='td__title'>Total</td>
-                  <td className='td__button'>{totalCarrito} unidades</td>
-                  <td className='td__precio'>{varsBingo.pago.simbolo + numberWithCommas(totalPrecio)}</td>
-                </tr>
-              </tfoot>
-            </table> :
+            <>
+              <table className='carrito__table'>
+                <thead>
+                  <tr>
+                    <th className='th__title'>Articulo</th>
+                    <th className='th__button'>Cantidad</th>
+                    <th className='th__precio'>Precio</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {carrito.data.map((e, index)=>{
+                    return (
+                      <tr key={index}>
+                        <td className='td__title'>{e.title}</td>
+                        <td className='td__button'>
+                          {
+                            !carrito.state >= 1 ?
+                              <IncrementStepper text={false} setStartCount={e.cantidad} key={index} idHandler={{ serie: e.serie, title: e.title, precio: e.precio }} handlerAdd={addCarritoHandle} handlerSubtract={subtractCarritoHandle}/> :
+                              <p>{e.cantidad}</p>
+                          }
+                        </td>
+                        <td className='td__precio'>{varsBingo.pago.simbolo + numberWithCommas(e.precio)}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td className='td__title'>Total</td>
+                    <td className='td__button'>{totalCarrito}</td>
+                    <td className='td__precio'>{varsBingo.pago.simbolo + numberWithCommas(totalPrecio)}</td>
+                  </tr>
+                </tfoot>
+              </table>
+              <br />
+              <hr />
+              <div>
+                <button>
+                  agregar código de referido {'>'}
+                </button>
+              </div>
+              <hr />
+            </> :
             <>
             </>
         }

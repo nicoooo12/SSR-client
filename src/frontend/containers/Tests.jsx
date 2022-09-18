@@ -1,18 +1,19 @@
 import React from 'react';
+
 import { connect } from 'react-redux';
 
-import Header from '../components/Header';
-import Pageination from '../components/forms/Pageination';
-import { statusNextCarrito, setStatusCarrito, setRedirect, createOrden } from '../actions';
+import Layout from '../components/layouts/Layout';
+import { Link } from 'react-router-dom';
 import Button from '../components/forms/Button';
+import Badges from '../components/display/Badges';
 import Icon from '../components/display/Icon';
-import numberWithCommas from '../utils';
+import Carrito from '../components/Carrito';
+import Accordion from '../components/forms/Accordion';
 
-import Auth from './SignIn';
-import '../assets/styles/containers/Compra.scss';
+import { statusNextCarrito, setStatusCarrito, createOrden } from '../actions';
+import '../assets/styles/containers/Play.scss';
 
-const App = ({ misOrdenes, history, varsBingo, createOrden, user, carrito, setStatusCarrito, statusNextCarrito, setRedirect })=> {
-
+const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatusCarrito, statusNextCarrito }) => {
   const nextHandler = (num)=>{
     if (num || num === 0) {
       setStatusCarrito(num + 1);
@@ -20,7 +21,6 @@ const App = ({ misOrdenes, history, varsBingo, createOrden, user, carrito, setSt
       statusNextCarrito();
     }
   };
-
   const startPay = ()=>{
     if (!misOrdenes.user) {
       console.log('[startPay]');
@@ -37,27 +37,32 @@ const App = ({ misOrdenes, history, varsBingo, createOrden, user, carrito, setSt
     history.push('ordenes');
   };
 
-  const handleOnLoad = ()=>{
-    setRedirect('');
-  };
-
   let contentHeader;
   switch (carrito.state) {
     case 0:
-      if (!carrito.data[0]) {
-        history.push('/catalogo');
-      }
+      contentHeader = (
+        <>
+          <Layout to='/catalogo' title='Pago'>
+            <Carrito />
+          </Layout>
+        </>
+      );
+      break;
+    case 1:
+      // if (!carrito.data[0]) {
+      //   history.push('/catalogo');
+      // }
       if (!misOrdenes['user']) {
-        contentHeader = (<>
+        contentHeader = (<div className='noTengo'>
           <h1>Pago con Transferencia.</h1>
           <p>Para realizar el pago deberá realizar una transferencia electrónica (Datos de la transacción se presentarán a continuación) y posteriormente mandarnos un comprobante de esta transacción. Sus cartones sólo serán liberados una vez que nos envíe este comprobante.</p>
           <Button onClick={statusNextCarrito}>Iniciar Pago</Button>
-        </>);
+        </div>);
       } else {
         nextHandler();
       }
       break;
-    case 1:
+    case 2:
       contentHeader = (<>
         <h1>Datos<br/>bancarios.</h1>
         { startPay() }
@@ -110,7 +115,7 @@ const App = ({ misOrdenes, history, varsBingo, createOrden, user, carrito, setSt
         <Pageination content={['Datos bancarios.', 'Subir Comprobante.']} btn={true} pag={0} nextHandler={nextHandler} />
       </>);
       break;
-    case 2:
+    case 3:
       contentHeader = (<>
         <h1>Subir<br/>Comprobante.</h1>
         <div className='subirArchivo'>
@@ -142,24 +147,14 @@ const App = ({ misOrdenes, history, varsBingo, createOrden, user, carrito, setSt
 
   return (
     <>
-      {
-        carrito.state >= 1 & !user.id ?
-          <Auth history={history} notRedirect /> :
-          <div className='compras' onLoad={handleOnLoad}>
-            <Header title='Pagar' to='catalogo' >
-              {contentHeader}
-            </Header>
-          </div>
-      }
+      {contentHeader}
     </>
   );
-
 };
 
 const mapStateToProps = (state)=>{
   return {
     carrito: state.carrito,
-    user: state.user,
     misOrdenes: state.ordenes.enProgreso,
     varsBingo: state.vars,
   };
@@ -169,7 +164,6 @@ const mapDispatchToProps = {
   createOrden,
   statusNextCarrito,
   setStatusCarrito,
-  setRedirect,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(Compra);

@@ -1,5 +1,6 @@
 const boom = require('@hapi/boom');
 const config = require('../../../../config');
+const debug = require('debug')('app:Error-middleware');
 
 const withErrorStack = (error, stack) => {
   if (config.dev) {
@@ -10,7 +11,7 @@ const withErrorStack = (error, stack) => {
 };
 
 const logErrors = (err, req, res, next) => {
-  console.log(err);
+  debug(err);
   next(err);
 };
 
@@ -22,7 +23,7 @@ const wrapErrors = (err, req, res, next) => {
   next(err);
 };
 
-const errorHandler = (err, req, res) => {
+const errorHandler = (err, req, res, next) => {
   const {
     output: { statusCode, payload },
   } = err;

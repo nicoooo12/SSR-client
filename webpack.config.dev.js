@@ -2,11 +2,15 @@ const path = require('path');
 const webpack = require('webpack');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: ['./src/frontend/index.js', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&reload=true'],
+  entry: [
+    './src/frontend/index.js',
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&reload=true',
+  ],
   mode: 'development',
-  devtool: 'source-map',
+  // devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
@@ -14,16 +18,6 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
-    alias: {
-      '@containers': path.resolve(__dirname, 'src/frontend/containers'),
-      '@components': path.resolve(__dirname, 'src/frontend/components'),
-      '@images': path.resolve(__dirname, 'src/frontend/assets/images'),
-      '@styles': path.resolve(__dirname, 'src/frontend/assets/styles'),
-      '@actions': path.resolve(__dirname, 'src/frontend/actions'),
-      '@reducers': path.resolve(__dirname, 'src/frontend/reducers'),
-      '@router': path.resolve(__dirname, 'src/frontend/router'),
-      '@config': path.resolve(__dirname, 'config'),
-    },
   },
   module: {
     rules: [
@@ -48,7 +42,7 @@ module.exports = {
         test: /\.(png|gif|jpg)$/,
         use: [
           {
-            'loader': 'file-loader',
+            loader: 'file-loader',
             options: {
               name: 'assets/[name].[ext]',
             },
@@ -58,9 +52,12 @@ module.exports = {
     ],
   },
   devServer: {
-    historyApiFallback: true,
+    // hot: true,
+    // static: path.resolve(__dirname, 'dist'),
+    // historyApiFallback: true,
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].css',

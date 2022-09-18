@@ -12,40 +12,40 @@
     top:0;
   }
 
-  &>.carton__title-content{
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-end;
-    width: 100%;
-    margin: 40px 0 20px 0;
-    &>div{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      &>h1{
-        margin: 0;
-        @extend %Typography-text-DM;
-      }
-      &>.badges{
-        &>span{
-          @extend %Typography-text-LXS;
-        }
-        margin: 10px 0 0 0;
-        left: 0;
-        width: 176px;
-        height: 30px;
-      }
-    }
-    &>.row{
-      transition: all .5s;
-      width: 24px;
-      height: 24px;
-    }
-  }
-
   &>.carton{
     // margin: 40px 0;
     width: 90%;
+    &>.carton__title-content{
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      width: 100%;
+      margin: 40px 0 20px 0;
+      padding: 1rem;
+      &>div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        &>h1{
+          margin: 0;
+          @extend %Typography-text-DM;
+        }
+        &>.badges{
+          &>span{
+            @extend %Typography-text-LXS;
+          }
+          margin: 10px 0 0 0;
+          left: 0;
+          width: 176px;
+          height: 30px;
+        }
+      }
+      &>.row{
+        transition: all .5s;
+        width: 24px;
+        height: 24px;
+      }
+    }
     &>.carton__content{
 
       &>.hidden-data{

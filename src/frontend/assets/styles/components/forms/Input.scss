@@ -50,7 +50,7 @@
     display: block;
     width: 325px;
     height: 64px;
-    background: $greyscale_inputBG;
+    background: $greyscale_input;
     border-radius: 16px;
     color: $greyscale_placeholder;
     padding: 20px;
@@ -71,7 +71,7 @@
       border: 2px solid $primary_default;
       font-size: 16px;
       // background: transparent;
-      color: $greyscale_title-active;
+      color: $greyscale_body;
       padding-top: 36px;
     }
     &:not(:placeholder-shown)~label{
@@ -139,7 +139,7 @@
   height: 64px;
   background: $error_light;
   border-radius: 16px;
-  color: $greyscale_title-active;
+  color: $greyscale_body;
   padding: 20px;
   outline: none;
   &::placeholder{
@@ -155,7 +155,7 @@
     border: 2px solid $error_default;
     font-size: 16px;
     // background: transparent;
-    color: $greyscale_title-active;
+    color: $greyscale_body;
     padding-top: 36px;
   }
   &:not(:placeholder-shown)~label{
@@ -174,7 +174,7 @@
   height: 64px;
   background: $success_light;
   border-radius: 16px;
-  color: $greyscale_title-active;
+  color: $greyscale_body;
   padding: 20px;
   outline: none;
   &::placeholder{
@@ -190,7 +190,7 @@
     border: 2px solid $success_default;
     font-size: 16px;
     // background: transparent;
-    color: $greyscale_title-active;
+    color: $greyscale_body;
     padding-top: 36px;
   }
   &:not(:placeholder-shown)~label{

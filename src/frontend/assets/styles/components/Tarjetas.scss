@@ -32,7 +32,15 @@
 }
 
 .tarjeta__title{
-  @extend %Typography-text-DSB;
+  &>h1{
+    @extend %Typography-text-DSB;
+    margin: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+  display: flex;
+  flex-direction: column;
+  // justify-content: space-between;
   margin-bottom: 10px;
 }
 .tarjeta__subTitle{
@@ -49,6 +57,12 @@
 .tarjeta:hover{
   transform: scale(1.02);
   filter: drop-shadow(0px 8px 16px rgba(17, 17, 17, 0.1));
+}
+
+.tarjeta-info{
+  @extend %Typography-text-LS;
+  color: $error_default;
+  font-size: .9rem;
 }
 
 @media (max-width: $mediaWidth1){

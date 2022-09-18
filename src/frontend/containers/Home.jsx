@@ -186,7 +186,7 @@ const App = ({ load, varsBingo, pedidos, play, user, updateState, logoutRequest 
                                   <Link to='cartones'>
                                     <div className='itemHome'>
                                       <div>
-                                        <Icon type='eye' width='35' height='35'/>
+                                        <Icon type='eye' width='35' height='35' stroke='#4700AB' strokeWidth='2'/>
                                       </div>
                                       <p>Ver mis cartones</p>
                                     </div>

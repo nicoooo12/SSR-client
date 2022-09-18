@@ -1,47 +1,48 @@
 @import '../Index.scss';
 
-.carrito{
-  transition: .3s;
-  display: inline-block;
-  position: absolute;
+.carrito-2{
+  filter: drop-shadow(0px 8px 16px rgba(17, 17, 17, 0.04));
+  border-radius: 30px;
+  background: #FCFCFC;
+  margin-bottom: 40px;
   width: 100%;
-  width: 90%;
-  height: calc(100% - 60px);;
-  // z-index: 100000;
-  top: 60px;
-
-  &>.carrito__head{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
-    margin-bottom: 40px;
-    &>h1{
-      width: 337px;
-      @extend %Typography-text-DMB;
-    }
-  }
-  &>.carrito__body{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  &>.carrito__footer{
-    margin: 50px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    &>.button{
-        width: 80%;
-    } 
-  }
+  margin: 20px;
+  max-width: 700px;
+  padding: 3rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .carrito__tableContent{
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.carrito__body{
+  width: 100%;
+  max-width: 600px;
+  &>div{
+    text-align: center;
+    &>button{
+      margin: 1rem;
+      text-align: center;
+      color: $greyscale_body;
+      background: none;
+      font-size: 1rem;
+      &:hover{
+        color: $greyscale_ash;
+      }
+      &:active{
+        color: $greyscale_label;
+      }
+    }
+  }
+}
+
+.carrito__footer{
+  margin-top: 2rem;
 }
 
 .carrito__table{
@@ -53,7 +54,7 @@
   &>thead{
     width: 100%;
     vertical-align: bottom;
-    border-bottom: solid 2px $greyscale_inputBG;
+    border-bottom: solid 2px $greyscale_input;
     &>tr>th{
       padding: .5rem .5rem;
       &.th__precio{
@@ -101,7 +102,7 @@
   }
   &>tfoot{
     margin-top: 10px;
-    border-top: solid 3px $greyscale_inputBG;
+    border-top: solid 2px $greyscale_input;
     &>tr>td{
       padding: .5rem .5rem;
       &.td__precio{
@@ -116,57 +117,6 @@
     }  
   }
 }
-
-%btn-primary{
-  // width: 200px;
-  // height: 64px;
-  border-radius: 40px;
-  color: $greyscale_off-white;
-  background: $primary_dark;
-  outline: none;
-  &:hover{
-    background: $primary_default;
-  }
-  &:focus{
-    box-shadow : 0 0 0 8px $primary_light;
-  }
-  &:active{
-    background: $primary_default;
-  }
-  &:disabled{
-    background: $primary_default;
-    opacity: 0.5;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  }
-}
-%btn-text{
-  outline: none;  
-  border-radius: 40px;
-  background: rgba(0, 0, 0, 0);
-  color: $primary_dark;
-  &:hover{
-    border-radius: 40px;
-    color: $primary_default;
-    background: rgba(0, 0, 0, 0);
-  }
-  &:focus{
-    border-radius: 40px;
-    color: $primary_default;
-    outline: none;
-    background: $greyscale_inputBG;
-  }
-  &:active{
-    border-radius: 40px;
-    background: rgba(0, 0, 0, 0);
-    color: $primary_default;
-  }
-  &:disabled{
-    opacity: 0.5;
-    color: $primary_default;
-    background: rgba(0, 0, 0, 0);
-    border-radius: 40px;
-  }
-}  
 
 .carrito__table{
   &>tbody{
@@ -217,9 +167,7 @@
 }
 
 @media (max-width: $mediaWidthMobileS){
-  .carrito{
-    width: 100%;
-  }
+  
   .carrito__table{
     &>tbody{
       &>tr>td{

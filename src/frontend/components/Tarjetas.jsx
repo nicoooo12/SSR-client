@@ -20,7 +20,10 @@ const App = ({ title, subTitle, precio, serie, premios, addItemToCarrito, remove
   return (
     <div className='tarjeta'>
       <div className='tarjeta__content'>
-        <h1 className='tarjeta__title'>{title}</h1>
+        <div className='tarjeta__title'>
+          <h1 >{title}</h1>
+          <Badges>{varsBingo.pago.simbolo + numberWithCommas(precio) + ' ' + varsBingo.pago.moneda}</Badges>
+        </div>
         <div className='tarjeta__premios'>
           <small>
             { premios }
@@ -28,8 +31,8 @@ const App = ({ title, subTitle, precio, serie, premios, addItemToCarrito, remove
         </div>
         <p className='tarjeta__subTitle'>{subTitle}</p>
         <div className='tarjeta__componentsGroup'>
+          <span className='tarjeta-info'>Ultimas Compras</span>
           <Button idHandler={serie} setStartCount={carrito.data.filter((e)=>{return e.serie === serie;})[0] ? carrito.data.filter((e)=>{return e.serie === serie;})[0].cantidad : 0} handlerAdd={addCarritoHandle} handlerSubtract={subtractCarritoHandle} />
-          <Badges>{varsBingo.pago.simbolo + numberWithCommas(precio) + ' ' + varsBingo.pago.moneda}</Badges>
         </div>
       </div>
     </div>

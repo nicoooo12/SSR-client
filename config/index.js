@@ -13,4 +13,6 @@ module.exports = {
   pagoRut: process.env.PAGO_RUT,
   pagoTitular: process.env.PAGO_TITULAR,
   pagoBanco: process.env.PAGO_BANCO,
+  authJwtSecret: process.env.AUTH_JWT_SECRET,
+
 };

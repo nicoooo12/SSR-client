@@ -46,16 +46,16 @@
   // height: 64px;
   border-radius: 40px;
   color: $greyscale_off-white;
-  background: $primary_dark;
+  background: $primary_default;
   outline: none;
   &:hover{
-    background: $primary_default;
+    background: $primary_dark;
   }
   &:focus{
     box-shadow : 0 0 0 8px $primary_light;
   }
   &:active{
-    background: $primary_default;
+    background: $primary_dark;
   }
   &:disabled{
     background: $primary_default;
@@ -76,7 +76,7 @@
     background: rgba(0, 0, 0, 0.05);
   }
   &:focus{
-    box-shadow : 0 0 0 8px $greyscale_inputBG;
+    box-shadow : 0 0 0 8px $greyscale_input;
   }
   &:disabled{
     opacity: 0.5;
@@ -94,7 +94,7 @@
   &:focus{
     border-radius: 40px;
     outline: none;
-    box-shadow : 0 0 0 8px $greyscale_inputBG;
+    box-shadow : 0 0 0 8px $greyscale_input;
     color: $primary_default;
     border: solid 2px $greyscale_line;
     background: rgba(0, 0, 0, 0);
@@ -129,8 +129,8 @@
     border-radius: 40px;
     color: $primary_default;
     outline: none;
-    background: $greyscale_inputBG;
-    border: 10px $greyscale_inputBG solid;
+    background: $greyscale_input;
+    border: 10px $greyscale_input solid;
   }
   &:active{
     border-radius: 40px;
