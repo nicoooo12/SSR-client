@@ -55,7 +55,7 @@
   &:focus{
     border-radius: 40px;
     outline: none;
-    box-shadow : 0 0 0 8px $greyscale_inputBG;
+    box-shadow : 0 0 0 8px $greyscale_input;
     color: $primary_default;
     border: solid 2px $greyscale_line;
     background: rgba(0, 0, 0, 0);

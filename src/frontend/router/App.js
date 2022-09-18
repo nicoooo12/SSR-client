@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-// import Auth from '../utils/Auth';
+import Auth from '../utils/Auth';
 
 import Home from '../containers/Home';
 import Catalogo from '../containers/Catalogo';
@@ -49,22 +49,86 @@ const App = ({ isLogged, api, updateState, initialState, logoutRequest }) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path='/' component={Home} />
-        <Route exact path='/catalogo' component={Catalogo} />
-        <Route exact path='/compra' component={Compra} />
-        <Route exact path='/ordenes' component={Ordenes} />
-        <Route exact path='/cartones' component={Cartones} />
-        <Route exact path='/play' render={(props) => <Play socket={socket} {...props} />} />
+        <Route exact path='/' >
+          <Home />
+        </Route>
+        <Route
+          exact
+          path='/catalogo'
+          render={(props)=> (
+            <Auth login {...props}>
+              <Catalogo />
+            </Auth>
+          )
+          }
+        />
+        <Route
+          exact
+          path='/compra'
+          render={(props)=> (
+            <Auth login {...props}>
+              <Compra />
+            </Auth>
+          )
+          }
+        />
+        <Route
+          exact
+          path='/ordenes'
+          render={(props)=> (
+            <Auth login {...props}>
+              <Ordenes />
+            </Auth>
+          )
+          }
+        />
+        <Route
+          exact
+          path='/cartones'
+          render={(props)=> (
+            <Auth login {...props}>
+              <Cartones />
+            </Auth>
+          )
+          }
+        />
+        <Route
+          exact
+          path='/play'
+          render={(props)=> (
+            <Auth login {...props}>
+              <Play socket={socket} />
+            </Auth>
+          )
+          }
+        />
         <Route exact path='/sign-in' render={(props) => <SignIn socket={socket} {...props} />}/>
         <Route exact path='/sign-up' component={SignUp} />
         <Route exact path='/help' component={Ayuda} />
         <Route exact path='/contacto' component={Contacto} />
 
-        <Route exact path='/admin' component={Admin} />
+        <Route
+          exact
+          path='/admin'
+          render={(props)=> (
+            <Auth login admin {...props}>
+              <Admin />
+            </Auth>
+          )
+          }
+        />
         {/* <Route exact path='/admin/play' component={<>play</>} /> */}
 
-        <Route exact path='/test' render={(props) => <Tests socket={socket} {...props} />} />
-
+        <Route
+          exact
+          path='/test'
+          render={(props)=> (
+            <Auth login {...props}>
+              <Tests socket={socket} />
+            </Auth>
+          )
+          }
+        />
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>);

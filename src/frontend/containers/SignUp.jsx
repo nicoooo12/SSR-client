@@ -2,14 +2,9 @@ import React, { useRef, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { singUp, setRedirect } from '../actions';
-import Header from '../components/Header-B';
-import Title from '../components/Title';
-// import Content from '../components/Content';
-// import Section from '../components/Section';
 import Input from '../components/forms/Input';
 import Button from '../components/forms/Button';
-// import MainContent from '../components/MainContent';
-// import Footer from '../components/Footer';
+import Layout from '../components/layouts/Layout';
 
 import '../assets/styles/containers/signIn-up.scss';
 
@@ -121,20 +116,19 @@ const App = ({ singUp, history, redirect, setRedirect })=> {
 
   return (
     <>
-      <Header/>
-      <Title title='Registro' />
-      <form onSubmit={handleSubmit} className='form'>
-        {errComponent}
-        <Input Ref={inputName} type='text' placeholder='Nombre y apellido' name='name' onChange={updateInput} text='Este nombre sera ocupado para identificar al usuario. También se mostrará al momento de jugar.' />
-        <Input Ref={inputEmail} type='email' placeholder='Email' name='email' onChange={updateInput} text='A traves de este medio nos comunicaremos contigo, asegurate de que sea el correcto.' />
-        <Input Ref={inputPassword} type='password' autoComplete='false' placeholder='Contraseña' name='password' onChange={updateInput} current-password text='Crea una contraseña de mínimo 8 caracteres.'/>
-        <Input Ref={inputRepeatPassword} type='password' autoComplete='false' placeholder='Contraseña (otra vez)' name='repeatPassword' onChange={updateInput} current-password text='Repite tu contraseña. Es importante no olvidarse...'/>
-        <p>
-          Ya tienes cuenta ? Ingresa <Button onClick={()=>{history.push('/sign-in');}} typebutton='text' >Aquí</Button>
-        </p>
-        <Button type='submit' onClick={clickHandler}>Registrarme</Button>
-      </form>
-      {/* <Footer/> */}
+      <Layout to='/' title='Registro'>
+        <form onSubmit={handleSubmit} className='form noTengo'>
+          {errComponent}
+          <Input Ref={inputName} type='text' placeholder='Nombre y apellido' name='name' onChange={updateInput} text='Este nombre sera ocupado para identificar al usuario. También se mostrará al momento de jugar.' />
+          <Input Ref={inputEmail} type='email' placeholder='Email' name='email' onChange={updateInput} text='A traves de este medio nos comunicaremos contigo, asegurate de que sea el correcto.' />
+          <Input Ref={inputPassword} type='password' autoComplete='false' placeholder='Contraseña' name='password' onChange={updateInput} current-password text='Crea una contraseña de mínimo 8 caracteres.'/>
+          <Input Ref={inputRepeatPassword} type='password' autoComplete='false' placeholder='Contraseña (otra vez)' name='repeatPassword' onChange={updateInput} current-password text='Repite tu contraseña. Es importante no olvidarse...'/>
+          <p>
+            Ya tienes cuenta ? Ingresa <Button onClick={()=>{history.push('/sign-in');}} typebutton='text' >Aquí</Button>
+          </p>
+          <Button type='submit' onClick={clickHandler}>Registrarme</Button>
+        </form>
+      </Layout>
     </>
   );
 

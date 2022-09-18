@@ -31,7 +31,7 @@ const App = ({ title, subTitle, precio, serie, premios, addItemToCarrito, remove
         </div>
         <p className='tarjeta__subTitle'>{subTitle}</p>
         <div className='tarjeta__componentsGroup'>
-          <span className='tarjeta-info'>Ultimas Ventas</span>
+          <span className='tarjeta-info'>Ultimas Compras</span>
           <Button idHandler={serie} setStartCount={carrito.data.filter((e)=>{return e.serie === serie;})[0] ? carrito.data.filter((e)=>{return e.serie === serie;})[0].cantidad : 0} handlerAdd={addCarritoHandle} handlerSubtract={subtractCarritoHandle} />
         </div>
       </div>

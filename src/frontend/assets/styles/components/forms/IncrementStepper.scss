@@ -103,18 +103,18 @@
 @media (max-width: $mediaWidthMobileM){
   .buttonGroup__buttonComprar{
     font-size: 12px;
-    left: 10px;
+    // left: 10px;
   }
   .buttonGroup__buttonComprar{
     margin: 0;
-    margin-left: 10px;
+    // margin-left: 10px;
   }
 }
 
 @media (max-width: $mediaWidthMobileS){
   .buttonGroup{
     padding: 0;
-    left: -32px;
+    // left: -32px;
     position: relative;
     // &>span{
     //   font-size: 15px!important;
@@ -125,7 +125,7 @@
   //   height: 25px!important;
   // }
   .buttonGroup__buttonComprar{
-    margin-left: 5px;
+    // margin-left: 5px;
     width: 150px;
     padding: 0.4rem .001rem;
   }
@@ -134,15 +134,15 @@
 @media (max-width: $mediaWidthMobileXS){
   .buttonGroup{
     padding: 0;
-    left: -32px;
+    // left: -32px;
     position: relative;
     &>span{
-      font-size: 15px!important;
+      font-size: 20px!important;
     }
   }
   .buttonGroup__buttonAction{
-    width: 25px!important;
-    height: 25px!important;
+    width: 30px!important;
+    height: 30px!important;
   }
   .buttonGroup__buttonComprar{
     margin-left: 0!important;

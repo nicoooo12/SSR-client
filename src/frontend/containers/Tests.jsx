@@ -21,7 +21,6 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
       statusNextCarrito();
     }
   };
-
   const startPay = ()=>{
     if (!misOrdenes.user) {
       console.log('[startPay]');

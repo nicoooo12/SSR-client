@@ -56,7 +56,7 @@
 .contentLibre{
   transition: .3s all;
   top: 0px;
-  background: $primary_dark;
+  background: $primary_default;
   // background: red;
   z-index: 100000;
   height: 60px;
@@ -106,7 +106,7 @@
 
 .contentLibreA{
   transition: .3s all;
-  background: $primary_dark;
+  background: $primary_default;
   height: 60px;
     width: 100%;
     display: flex;
@@ -137,7 +137,7 @@
 
 .contentLibreB{
   transition: .3s all;
-  background: $primary_dark;
+  background: $primary_default;
   height: 60px;
     width: 100%;
     display: flex;
@@ -258,7 +258,7 @@
       // height: 400px ;
       z-index: -1;
       // border-radius: 0 0 70px 70px;
-      background: $primary_dark;
+      background: $primary_default;
       box-shadow: 0px 4px 130px -5px rgba(0, 0, 0, 0.25);
     }
     &>.content{
@@ -326,7 +326,7 @@
         margin-top: 135px;
         // left: 2.5%;
         width: 100%;
-        background: $greyscale_inputBG;
+        background: $greyscale_input;
         box-shadow: 0px 52px 118px rgba(0, 0, 0, 0.12);
         text-align: center;
         text-align: -webkit-center;
@@ -340,7 +340,7 @@
           &>.circule{
             // top: -90px;
             position: relative;
-            background: $greyscale_inputBG;
+            background: $greyscale_input;
             width: 170px;
             height: 170px;
             border-radius: 100%;
@@ -355,7 +355,7 @@
               &>div{
                 top: 7.5px;
                 position: relative;
-                background: $greyscale_inputBG;
+                background: $greyscale_input;
                 width: 145px;
                 height: 145px;
                 border-radius: 100%;
@@ -391,7 +391,7 @@
             text-decoration: none;
             &>.itemHome{
               background: $greyscale_off-white;
-              color: $greyscale_title-active;
+              color: $primary_dark;
               filter: drop-shadow(0px 4px 9px rgba(0, 0, 0, 0.1));
               width: 150px;
               margin: 10px;
@@ -405,7 +405,7 @@
                 top: 0;
                 line-height: 24px;
                 @extend %Typography-text-LM;
-                color: $greyscale_title-active;  
+                color: $primary_dark;  
               }
             }
           }
