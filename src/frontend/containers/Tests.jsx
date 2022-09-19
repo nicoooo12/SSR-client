@@ -11,9 +11,11 @@ import Carrito from '../components/Carrito';
 // import Accordion from '../components/forms/Accordion';
 import Pagination from '../components/forms/Pagination';
 import Input from '../components/forms/Input';
+import Copy from '../components/forms/Input-copy';
 
+import numberWithCommas from '../utils';
 import { statusNextCarrito, setStatusCarrito, createOrden } from '../actions';
-import '../assets/styles/containers/Play.scss';
+import '../assets/styles/containers/Compra.scss';
 
 const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatusCarrito, statusNextCarrito }) => {
   const nextHandler = (num)=>{
@@ -32,6 +34,7 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
         return { serie: e.serie, cantidad: e.cantidad };
       });
       createOrden(carro, totalPago);
+      statusNextCarrito();
     }
   };
 
@@ -75,7 +78,7 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
               <br />
               <Input type='text' placeholder='R.U.T' name='rut'/>
               <br />
-              <Button onClick={statusNextCarrito}>Iniciar Pago</Button>
+              <Button onClick={startPay}>Iniciar Pago</Button>
             </div>
           </Layout>
         );
@@ -99,28 +102,24 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
               </thead>
               <tbody>
                 <tr>
-                  <td className='td__start'>Numero de cuenta:</td>
-                  <td className='td__end'>{varsBingo.pago.numCuenta}</td>
-                </tr>
-                <tr>
-                  <td className='td__start'>Rut:</td>
-                  <td className='td__end'>{varsBingo.pago.rut}</td>
-                </tr>
-                <tr>
-                  <td className='td__start'>Titular:</td>
-                  <td className='td__end'>{varsBingo.pago.titular}</td>
-                </tr>
-                <tr>
-                  <td className='td__start'>Banco:</td>
-                  <td className='td__end'>{varsBingo.pago.banco}</td>
-                </tr>
-                <tr>
-                  <td className='td__start'>Correo:</td>
-                  <td className='td__end correoTable' style={{ width: '100%', wordBreak: 'break-word' }}>{varsBingo.pago.correo}</td>
-                </tr>
-                <tr>
-                  <td className='td__start'>Motivo de la transferencia:</td>
-                  <td className='td__end'>{varsBingo.pago.motivo}</td>
+                  <Copy placeholder='Numero de cuenta:'>
+                    {varsBingo.pago.numCuenta}
+                  </Copy>
+                  <Copy placeholder='Rut:'>
+                    {varsBingo.pago.rut}
+                  </Copy>
+                  <Copy placeholder='Titular:'>
+                    {varsBingo.pago.titular}
+                  </Copy>
+                  <Copy placeholder='Banco:'>
+                    {varsBingo.pago.banco}
+                  </Copy>
+                  <Copy placeholder='Correo:'>
+                    {varsBingo.pago.correo}
+                  </Copy>
+                  <Copy placeholder='Motivo de la transferencia:'>
+                    {varsBingo.pago.motivo}
+                  </Copy>
                 </tr>
               </tbody>
               <tfoot>
@@ -158,7 +157,7 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
             <p>
               {
                 misOrdenes['code'] ?
-                  <>Tu código de compra es: {misOrdenes.code}</> :
+                  <>Tu código de compra es: <span className='copy'>{misOrdenes.code}</span></> :
                   <>Cargando ...</>
               }
             </p>

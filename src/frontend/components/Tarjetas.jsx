@@ -7,7 +7,7 @@ import numberWithCommas from '../utils';
 import { addItemToCarrito, removeItemToCarrito } from '../actions';
 
 import '../assets/styles/components/Tarjetas.scss';
-const App = ({ title, subTitle, precio, serie, premios, addItemToCarrito, removeItemToCarrito, carrito, varsBingo })=> {
+const App = ({ title, subTitle, precio, serie, premios, mensaje, addItemToCarrito, removeItemToCarrito, carrito, varsBingo })=> {
 
   const addCarritoHandle = (serie, cantidad)=>{
     addItemToCarrito({ serie, title, precio: precio });
@@ -31,7 +31,7 @@ const App = ({ title, subTitle, precio, serie, premios, addItemToCarrito, remove
         </div>
         <p className='tarjeta__subTitle'>{subTitle}</p>
         <div className='tarjeta__componentsGroup'>
-          <span className='tarjeta-info'>Ultimas Compras</span>
+          <span className='tarjeta-info'>{mensaje}</span>
           <Button idHandler={serie} setStartCount={carrito.data.filter((e)=>{return e.serie === serie;})[0] ? carrito.data.filter((e)=>{return e.serie === serie;})[0].cantidad : 0} handlerAdd={addCarritoHandle} handlerSubtract={subtractCarritoHandle} />
         </div>
       </div>

@@ -13,6 +13,7 @@ import varsHome from '../varsBingo';
 
 import Img1 from '../assets/images/B.png';
 
+import '../assets/styles/components/Header.scss';
 import '../assets/styles/containers/menu.scss';
 import '../assets/styles/containers/Home.scss';
 

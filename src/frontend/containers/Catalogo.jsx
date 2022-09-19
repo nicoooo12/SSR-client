@@ -8,10 +8,11 @@ import Icon from '../components/display/Icon';
 import { Link } from 'react-router-dom';
 
 import numberWithCommas from '../utils';
+import { setStatusCarrito } from '../actions';
 
 import '../assets/styles/containers/Catalogo.scss';
 
-const Catalogo = ({ catalogos, carrito, varsBingo, history }) => {
+const Catalogo = ({ setStatusCarrito, catalogos, carrito, varsBingo, history }) => {
 
   let totalCarrito = 0;
   let totalPrecio = 0;
@@ -25,7 +26,16 @@ const Catalogo = ({ catalogos, carrito, varsBingo, history }) => {
       <Layout title='Catalogo' to='/' >
         {
           <>
-            {catalogos.filter((e)=>{
+            {catalogos.sort(function (a, b) {
+              if (a.serie > b.serie) {
+                return 1;
+              }
+              if (a.serie < b.serie) {
+                return -1;
+              }
+              // a must be equal to b
+              return 0;
+            }).filter((e)=>{
               return e.enVenta === true;
             }).map(
               (item, index)=>
@@ -36,7 +46,8 @@ const Catalogo = ({ catalogos, carrito, varsBingo, history }) => {
                     subTitle={item.subTitulo}
                     precio={item.precio}
                     serie={item.serie}
-                    premios={item.premios.map((e, i)=>i === 0 ? `${e.nombre} ` : `~ ${e.nombre}`)}
+                    mensaje={item?.mensaje}
+                    premios={item.premios.filter((e)=>e.nombre !== ' ').map((e, i)=>i === 0 ? `${e.nombre} ` : `~ ${e.nombre}`)}
                   />
                 ),
             )
@@ -55,7 +66,7 @@ const Catalogo = ({ catalogos, carrito, varsBingo, history }) => {
                   </div>
                 </div>
                 <div className='payText' >{varsBingo.pago.simbolo + numberWithCommas(totalPrecio) + ' ' + varsBingo.pago.moneda}</div>
-                <Link to='/test'>
+                <Link to='/compra' onClick={()=>{setStatusCarrito(0);}}>
                   <div className='pagar'>
                     <span>Pagar</span>
                     <div>
@@ -75,7 +86,7 @@ const Catalogo = ({ catalogos, carrito, varsBingo, history }) => {
   );
 };
 
-const mapDispatchToProps = (state)=>{
+const mapStateToProps = (state)=>{
   return {
     carrito: state.carrito,
     catalogos: state.catalogos,
@@ -83,4 +94,8 @@ const mapDispatchToProps = (state)=>{
   };
 };
 
-export default connect(mapDispatchToProps)(Catalogo);
+const mapDispatchToProps = {
+  setStatusCarrito,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Catalogo);

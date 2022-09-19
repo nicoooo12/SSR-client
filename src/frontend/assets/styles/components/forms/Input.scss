@@ -10,6 +10,9 @@
   // height: 64px;
   @extend %Typography-text-TS;
 }
+.copyButton{
+  left: -22px;
+}
 .input-error{
   transition: 1s all;
   &>p{
@@ -241,7 +244,7 @@
     width: 270px;
   }
   &>div{
-    left: 200px;
+    // left: 200px;
   }
 }
 

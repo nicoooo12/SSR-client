@@ -125,6 +125,15 @@ const App = ({ type, width = 24, height = 24, strokeWidth = '1.5', stroke = '#FC
           </svg>
         </>
       );
+    case 'copy':
+      return (
+        <>
+          <svg width={width} height={height} viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <rect x='11' y='10' width='12' height='13' rx='3' stroke={stroke} strokeWidth={strokeWidth}/>
+            <path d='M13 4.71429V4C13 2.34315 11.6569 1 10 1H4C2.34315 1 1 2.34315 1 4V11C1 12.6569 2.34315 14 4 14H6' stroke={stroke} strokeWidth={strokeWidth} strokeLinecap='round' strokeLinejoin='round'/>
+          </svg>
+        </>
+      );
     default:
       return (
         <>

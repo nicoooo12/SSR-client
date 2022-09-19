@@ -4,12 +4,8 @@ import Button from './Button';
 import '../../assets/styles/components/forms/Pageination.scss';
 const App = ({ content = [], pag, btn = false, nextHandler, text = 'Finalizar', end, disabled = false })=> {
 
-  const handler = (e)=> {
-    if (e.target.id === '0' || +e.target.id) {
-      nextHandler(+e.target.id);
-    } else {
-      nextHandler(undefined);
-    }
+  const handler = (ir, estoy, total)=> {
+    nextHandler(-(estoy - ir));
   };
 
   return (
@@ -17,7 +13,7 @@ const App = ({ content = [], pag, btn = false, nextHandler, text = 'Finalizar', 
       <div className='items'>
         {
           content.map((e, index)=>{
-            return (<div key={index} id={index} className={`pag${index === pag ? '-active' : ''}`} onClick={handler} > </div>);
+            return (<div key={index} id={index} className={`pag${index === pag ? '-active' : ''}`} onClick={()=>{handler(index, pag, content.length);}} > </div>);
           })
         }
       </div>
