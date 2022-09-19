@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Header from '../components/Header';
-import Pageination from '../components/forms/Pageination';
+import Pageination from '../components/forms/Pagination';
 import { statusNextCarrito, setStatusCarrito, setRedirect, createOrden } from '../actions';
 import Button from '../components/forms/Button';
 import Icon from '../components/display/Icon';

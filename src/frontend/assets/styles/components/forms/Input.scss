@@ -5,7 +5,8 @@
   @extend %input-text;
   position: relative;
   margin: 10px;
-  width: 325px;
+  width: 100%;
+  max-width: 325px;
   // height: 64px;
   @extend %Typography-text-TS;
 }
@@ -48,7 +49,7 @@
 
   &>input {
     display: block;
-    width: 325px;
+    width: 100%;
     height: 64px;
     background: $greyscale_input;
     border-radius: 16px;
@@ -234,7 +235,7 @@
 
 .input{
   &>input{
-    width: 270px;
+    // width: 270px;
   }
   &>p{
     width: 270px;
