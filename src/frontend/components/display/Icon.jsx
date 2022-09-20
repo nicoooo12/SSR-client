@@ -134,6 +134,25 @@ const App = ({ type, width = 24, height = 24, strokeWidth = '1.5', stroke = '#FC
           </svg>
         </>
       );
+    case 'play':
+      return (
+        <>
+          <svg width={width} height={height} viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <path d='M5 5.65537C5 4.48811 6.27454 3.76814 7.27427 4.37066L17.8017 10.7153C18.7693 11.2985 18.7693 12.7015 17.8017 13.2847L7.27427 19.6293C6.27454 20.2319 5 19.5119 5 18.3446V5.65537Z' stroke={stroke} strokeWidth={strokeWidth} strokeLinecap='round' strokeLinejoin='round'/>
+          </svg>
+        </>
+      );
+    case 'metrics':
+      return (
+        <>
+          <svg width={width} height={height} viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <path d='M3 17H13' stroke={stroke} strokeWidth={strokeWidth} strokeLinecap='round'/>
+            <path d='M10 7H20' stroke={stroke} strokeWidth={strokeWidth} strokeLinecap='round'/>
+            <circle cx='17' cy='17' r='3' stroke={stroke} strokeWidth={strokeWidth}/>
+            <circle cx='6' cy='7' r='3' stroke={stroke} strokeWidth={strokeWidth}/>
+          </svg>
+        </>
+      );
     default:
       return (
         <>

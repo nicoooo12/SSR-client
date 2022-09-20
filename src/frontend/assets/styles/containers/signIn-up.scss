@@ -19,11 +19,3 @@
     @extend %Typography-text-TS;
   }
 }
-
-@media (max-width: $mediaWidthMobileM){
-  .form {
-    &>.input{
-      width: auto;
-    } 
-  }
-}

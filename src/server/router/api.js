@@ -1,90 +1,35 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
-const config = require('../../../config');
+
+const request = require('../utils/request');
 
 module.exports = function (app) {
   app.use('/api', router);
 
   router.post('/getState', async (req, res)=>{
-
     const { token } = req.cookies;
-
     if (token) {
-      const { data: getState } = await axios({
-        method: 'get',
-        headers: { Authorization: `Bearer ${token}` },
-        url: `${config.apiUrl}/api/getState`,
-      });
-      res.json({
-        data: getState.data,
-      }).status(200);
-    } else {
-      const { data: getState } = await axios({
-        method: 'get',
-        url: `${config.apiUrl}/api/getState`,
-      });
-      res.json({
-        data: getState.data,
-      }).status(200);
+      return request('/api/getState', 'get', null, token, res);
     }
-
+    return request('/api/getState', 'get', null, undefined, res);
   });
 
-  router.post('/initialState', async (req, res)=>{
+  router.post('/initialState', async (req, res, next)=>{
     const { token } = req.cookies;
-
     if (token) {
-      const { data: initialState } = await axios({
-        method: 'get',
-        headers: { Authorization: `Bearer ${token}` },
-        url: `${config.apiUrl}/api/initialState`,
-      });
-      res.json(initialState.data).status(200);
-    } else {
-      const { data: initialState } = await axios({
-        method: 'get',
-        url: `${config.apiUrl}/api/initialState`,
-      });
-      res.json(initialState.data).status(200);
+      return await request('/api/initialState', 'get', null, token, res);
     }
-
+    return await request('/api/initialState', 'get', null, undefined, res);
   });
+
   router.post('/createOrden', async (req, res, next)=>{
     const { token } = req.cookies;
-    try {
-      const { data: dataOrden } = await axios({
-        method: 'post',
-        headers: { Authorization: `Bearer ${token}` },
-        url: `${config.apiUrl}/api/orden/my`,
-        data: req.body,
-      });
-
-      res.json({
-        data: dataOrden,
-      }).status(200);
-
-    } catch (error) {
-      next(error);
-    }
+    return request('/api/orden/my', 'post', req.body, token, res);
   });
 
   router.post('/cancelOrden', async (req, res, next) =>{
     const { token } = req.cookies;
-    try {
-      const { data: dataOrden } = await axios({
-        method: 'delete',
-        headers: { Authorization: `Bearer ${token}` },
-        url: `${config.apiUrl}/api/orden/my`,
-      });
-
-      res.json({
-        data: dataOrden,
-      }).status(200);
-
-    } catch (error) {
-      next(error);
-    }
+    return request('/api/orden/my', 'delete', null, token, res);
   });
 
 };

@@ -1,7 +1,4 @@
-import axios from 'axios';
-// import { io } from 'socket.io-client';
-
-// const socket = io();
+import request from '../utils/request';
 
 export const addItemToCarrito = (payload) =>({
   type: 'ADD_ITEM_TO_CARRITO',
@@ -49,14 +46,11 @@ export const logoutDispatchRequest = (payload) => ({
 });
 
 export const logoutRequest = (payload) => {
-  return (dispatch) => {
-    axios.get('/auth/logout')// {email, name, password}
-      .then(() => {
-        dispatch(logoutDispatchRequest(payload));
-      })
-      .catch((error) => {
-        dispatch(setError(error));
-      });
+  return async (dispatch) => {
+    const req = await request('/auth/logout', 'get', null, dispatch, payload);
+    if (!req.err) {
+      dispatch(logoutDispatchRequest(payload));
+    }
   };
 };
 
@@ -86,116 +80,71 @@ export const setError = (payload) => ({
 });
 
 export const singUp = (payload, fnCallBack, fnErrorCallback) => {
-  return (dispatch) => {
-    axios.post('/auth/sign-up', payload)// {email, name, password}
-      .then(({ data }) => {
-        dispatch(singIn({ email: payload.email, password: payload.password },
-          ()=>{
-            fnCallBack();
-          },
-          (err)=>{
-            fnErrorCallback(err);
-          }));
-      })
-      .catch((error) => {
-        fnErrorCallback(error);
-        dispatch(setError(error));
-      });
+  return async (dispatch) => {
+    const req = await request('/auth/sign-up', 'post', payload, dispatch, payload, {}, fnErrorCallback);
+    if (!req.err) {
+      dispatch(singIn({ email: payload.email, password: payload.password }, fnCallBack, fnErrorCallback));
+    }
   };
 };
 
 export const singIn = ({ email, password }, fnCallback, fnErrorCallback) => {
-  return (dispatch) => {
-    axios({
-      url: '/auth/sign-in',
-      method: 'post',
-      auth: {
-        username: email,
-        password,
-      },
-    })// {email, password}
-      .then(({ data }) => {
-        document.cookie = `email=${data.user.email}`;
-        document.cookie = `name=${data.user.name}`;
-        document.cookie = `id=${data.user.id}`;
-        dispatch(registerRequest(data.user));
-        dispatch(initialState());
-        fnCallback(data.user);
-      })
-      .catch((error) => {
-        fnErrorCallback(error);
-        dispatch(setError(error));
-      });
+  return async (dispatch) => {
+    const req = await request('/auth/sign-in', 'post', null, dispatch, null, { auth: {
+      username: email,
+      password,
+    } }, fnErrorCallback);
+    if (!req.err) {
+      const { data } = req.req;
+      document.cookie = `email=${data.user.email}`;
+      document.cookie = `name=${data.user.name}`;
+      document.cookie = `id=${data.user.id}`;
+      dispatch(registerRequest(data.user));
+      dispatch(initialState());
+      fnCallback(data.user);
+    }
   };
 };
 
 export const createOrden = (compra, totalPago) => {
-  return (dispatch) => {
-    axios({
-      url: '/api/createOrden',
-      method: 'post',
-      data: {
-        'compra': compra,
-        // [{
-        //   'serie': 1,
-        //   'cantidad': 1,
-        // }],
-        'totalPago': totalPago,
-        'tipoDePago': 'transferencia',
-      },
-    })// {email, password}
-      .then(({ data }) => {
-        dispatch(resetStatusCarrito());
-        dispatch(updateState());
-      })
-      .catch((error) => {
-        dispatch(setError(error));
-      });
+  return async (dispatch) => {
+    const req = await request('/api/createOrden', 'post', {
+      'compra': compra,
+      'totalPago': totalPago,
+      'tipoDePago': 'transferencia',
+    }, dispatch, null);
+    if (!req.err) {
+      dispatch(resetStatusCarrito());
+      dispatch(updateState());
+    }
   };
 };
 
 export const cancelarMiOrden = () => {
-  return (dispatch) => {
-    axios({
-      url: '/api/cancelOrden',
-      method: 'post',
-    })
-      .then(() => {
-        dispatch(updateState());
-      })
-      .catch((error) => {
-        dispatch(setError(error));
-      });
+  return async (dispatch) => {
+    const req = await request('/api/cancelOrden', 'post', null, dispatch, null);
+    if (!req.err) {
+      dispatch(updateState());
+    }
   };
 };
 
 export const initialState = () => {
-  return (dispatch) => {
-    axios({
-      url: '/api/initialState',
-      method: 'post',
-    })
-      .then(({ data }) => {
-        dispatch(updateStateReducer({ ...data, load: true }));
-      })
-      .catch((error) => {
-        dispatch(setError(error));
-      });
+  return async (dispatch) => {
+    const req = await request('/api/initialState', 'post', null, dispatch, null);
+    if (!req.err) {
+      const { data } = req.req;
+      dispatch(updateStateReducer({ ...data, load: true }));
+    }
   };
 };
 
 export const updateState = () => {
-  return (dispatch) => {
-    axios({
-      url: '/api/getState',
-      method: 'post',
-    })// {email, password}
-      .then(({ data }) => {
-        // dispatch(registerRequest(data.user));
-        dispatch(updateStateReducer(data.data));
-      })
-      .catch((error) => {
-        dispatch(setError(error));
-      });
+  return async (dispatch) => {
+    const req = await request('/api/getState', 'post', null, dispatch, null);
+    if (!req.err) {
+      const { data } = req.req;
+      dispatch(updateStateReducer(data));
+    }
   };
 };

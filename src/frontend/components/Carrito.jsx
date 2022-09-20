@@ -8,7 +8,7 @@ import { addItemToCarrito, removeItemToCarrito, desactiveCarrito, setRedirect, s
 import numberWithCommas from '../utils';
 
 import '../assets/styles/components/Carrito.scss';
-const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemToCarrito, desactiveCarrito, history, user, setRedirect, varsBingo })=> {
+const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemToCarrito, desactiveCarrito, history, varsBingo })=> {
 
   let totalCarrito = 0;
   let totalPrecio = 0;
@@ -81,14 +81,6 @@ const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemT
                   </tr>
                 </tfoot>
               </table>
-              <br />
-              <hr />
-              <div>
-                <button>
-                  agregar código de referido {'>'}
-                </button>
-              </div>
-              <hr />
             </> :
             <>
             </>
@@ -109,7 +101,6 @@ const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemT
 const mapStateToProps = (state) => {
   return {
     carrito: state.carrito,
-    user: state.user,
     compras: state.ordenes.enProgreso,
     varsBingo: state.vars,
   };

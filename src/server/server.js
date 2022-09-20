@@ -6,7 +6,6 @@ const config = require('../../config');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const debugApp = require('debug')('app:index');
-const jwt = require('jsonwebtoken');
 const debugAppError = require('debug')('app:Error-index');
 
 const app = express();
@@ -66,19 +65,6 @@ if (config.dev) {
 }
 
 // router
-app.use((req, res, next)=>{
-  const { token } = req.cookies;
-  if (!token) {
-    return next();
-  }
-  return jwt.verify(token, config.authJwtSecret, (err)=>{
-    if (err) {
-      res.cookie('token', 'reload');
-      res.cookie('isAdmin', '');
-    }
-    return next();
-  });
-});
 require('./router/auth')(app);
 require('./router/api')(app);
 require('./router/media')(app);

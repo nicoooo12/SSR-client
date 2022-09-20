@@ -31,7 +31,11 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
       let totalPago = 0;
       const carro = carrito.data.map((e)=>{
         totalPago += (e.precio * e.cantidad);
+        if (e.serie === 0) {
+          return { serie: e.serie, cantidad: e.cantidad, promo: e.promo };
+        }
         return { serie: e.serie, cantidad: e.cantidad };
+
       });
       createOrden(carro, totalPago);
       setStatusCarrito(2);
@@ -45,6 +49,9 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
   let contentHeader;
   switch (carrito.state) {
     case 0:
+      if (!carrito.data[0]) {
+        history.push('/catalogo');
+      }
       contentHeader = (
         <>
           <Layout to='/catalogo' title='Pago'>
@@ -54,9 +61,6 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
       );
       break;
     case 1:
-      // if (!carrito.data[0]) {
-      //   history.push('/catalogo');
-      // }
       if (!misOrdenes['user']) {
         contentHeader = (
           <Layout to='/catalogo' title='Pago'>
@@ -116,7 +120,7 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
                   <Copy placeholder='Correo:'>
                     {varsBingo.pago.correo}
                   </Copy>
-                  <Copy placeholder='Motivo de la transferencia:'>
+                  <Copy placeholder='Motivo:'>
                     {varsBingo.pago.motivo}
                   </Copy>
                 </tr>

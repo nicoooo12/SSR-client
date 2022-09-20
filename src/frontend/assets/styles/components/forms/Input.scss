@@ -7,6 +7,10 @@
   margin: 10px;
   width: 100%;
   max-width: 325px;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-end;
+  align-items: flex-end;
   // height: 64px;
   @extend %Typography-text-TS;
 }
@@ -112,7 +116,7 @@
     position: absolute;
     top: 0px;
     margin: 0;
-    left: 253px;
+    // left: 253px;
     -moz-user-select: none; 
     -webkit-user-select: none;
     -ms-user-select: none;
@@ -231,21 +235,6 @@
   font-weight: 400;
   position: relative;
   margin: 5px 2px 5px 5px;
-  width: 325px;
-}
-
-@media (max-width: $mediaWidth1){
-
-.input{
-  &>input{
-    // width: 270px;
-  }
-  &>p{
-    width: 270px;
-  }
-  &>div{
-    // left: 200px;
-  }
-}
-
+  width: 100%;
+  text-align: center;
 }
