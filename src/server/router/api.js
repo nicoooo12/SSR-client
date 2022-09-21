@@ -6,6 +6,16 @@ const request = require('../utils/request');
 module.exports = function (app) {
   app.use('/api', router);
 
+  router.get('/code/:code', async (req, res)=>{
+    const { token } = req.cookies;
+    return request(`/api/code/code/${req.params.code}`, 'get', null, token, res);
+  });
+
+  router.post('/code/:code', async (req, res)=>{
+    const { token } = req.cookies;
+    return request(`/api/code/canjear/${req.params.code}`, 'post', null, token, res);
+  });
+
   router.post('/getState', async (req, res)=>{
     const { token } = req.cookies;
     if (token) {

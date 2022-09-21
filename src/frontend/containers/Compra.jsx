@@ -69,18 +69,19 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
               <p>
                 Para realizar el pago deberá realizar una transferencia
                 electrónica (Datos de la transacción se presentarán a
-                continuación) y posteriormente, comprobaremos tu transferencia
+                continuación) y posteriormente, comprobaremos tu transferencia con
+                el comprobante que tendrás que subir.
                 <br />
-                Escribe tu Rut para comprobar la transferencia una vez esta se realice.
+                {/* Escribe tu Rut para comprobar la transferencia una vez esta se realice. */}
                 <br />
-                De no poder realizar la comprobación, se te notificará y tendrás
-                que subir un comprobante de manera manual.
+                {/* De no poder realizar la comprobación, se te notificará y tendrás
+                que subir un comprobante de manera manual. */}
                 <br />
                 Sus cartones sólo serán liberados
                 una vez que se compruebe la transferencia.
               </p>
               <br />
-              <Input type='text' placeholder='R.U.T' name='rut'/>
+              {/* <Input type='text' placeholder='R.U.T' name='rut'/> */}
               <br />
               <Button onClick={startPay}>Iniciar Pago</Button>
             </div>

@@ -4,12 +4,12 @@ import { logoutRequest } from '../actions';
 
 const Auth = ({ logoutRequest, user, login, admin, children, ...props }, t) => {
   if (login) {
-    if (document.cookie.match(/token=([a-zA-Z.\-0-9]*)([;]|$)/g) && document.cookie.match(/token=([a-zA-Z.\-0-9]*)([;]|$)/g)[0] === 'token=') {
+    if (document.cookie.match(/token=([a-zA-Z.\-0-9]*)([;]|$)/g) && document.cookie.match(/token=([a-zA-Z.\-0-9]*)([;]|$)/g)[0] === 'token=;') {
       logoutRequest();
     }
-    if (!user.id) {
-      props.history.push('/');
-    }
+    // if (!user.id) {
+    //   props.history.push('/');
+    // }
   }
 
   if (admin) {

@@ -1,11 +1,14 @@
 import React from 'react';
 import Icon from '../display/Icon';
 import '../../assets/styles/components/forms/Input.scss';
+import Alert from '../../utils/Alert';
+
 const App = ({ children, placeholder, text = '' })=> {
 
   const Input = React.createRef(Input);
 
   const copyHandler = ()=> {
+    Alert('Copiado!');
     navigator.clipboard.writeText(children);
   };
 

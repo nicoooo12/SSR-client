@@ -1,5 +1,5 @@
 const axios = require('axios');
-import { logoutDispatchRequest, setError } from '../actions';
+import { logoutRequest, setError } from '../actions';
 const request = async (url, method, data, dispatch, payload, opt = {}, fnCallbackError = ()=>{}) => {
   try {
     const req = await axios({
@@ -17,7 +17,7 @@ const request = async (url, method, data, dispatch, payload, opt = {}, fnCallbac
   } catch ({ response: error }) {
 
     if (error.data === 'Unauthorized') {
-      dispatch(logoutDispatchRequest(payload));
+      logoutRequest();
     }
 
     fnCallbackError(error);

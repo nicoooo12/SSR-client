@@ -46,10 +46,19 @@ export const logoutDispatchRequest = (payload) => ({
 });
 
 export const logoutRequest = (payload) => {
+  console.log('logout');
   return async (dispatch) => {
-    const req = await request('/auth/logout', 'get', null, dispatch, payload);
-    if (!req.err) {
+    try {
+      await axios({
+        method: 'get',
+        url: '/auth/logout',
+      });
+
       dispatch(logoutDispatchRequest(payload));
+      document.location.href = '/';
+
+    } catch ({ response: error }) {
+      document.location.href = '/';
     }
   };
 };
@@ -96,9 +105,9 @@ export const singIn = ({ email, password }, fnCallback, fnErrorCallback) => {
     } }, fnErrorCallback);
     if (!req.err) {
       const { data } = req.req;
-      document.cookie = `email=${data.user.email}`;
-      document.cookie = `name=${data.user.name}`;
-      document.cookie = `id=${data.user.id}`;
+      document.cookie = `email=${data.user.email}; path=/;`;
+      document.cookie = `name=${data.user.name}; path=/;`;
+      document.cookie = `id=${data.user.id}; path=/;`;
       dispatch(registerRequest(data.user));
       dispatch(initialState());
       fnCallback(data.user);
@@ -148,3 +157,27 @@ export const updateState = () => {
     }
   };
 };
+
+export const getCode = (code, fnCallback, fnErrorCallback) => {
+  return async (dispatch) => {
+    const req = await request(`/api/code/${code}`, 'get', null, dispatch, null, {}, fnErrorCallback);
+    if (!req.err) {
+      const { data } = req.req;
+      dispatch(updateState());
+      fnCallback(data);
+    }
+  };
+};
+
+export const canjearCode = (code, fnCallback, fnErrorCallback) => {
+  return async (dispatch) => {
+    console.log('canjeando');
+    const req = await request(`/api/code/${code}`, 'post', null, dispatch, null, {}, fnErrorCallback);
+    if (!req.err) {
+      const { data } = req.req;
+      dispatch(updateState());
+      fnCallback(data);
+    }
+  };
+};
+

@@ -21,7 +21,7 @@ const setResponse = (html, preloadedState, nonce) => (`
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="/main.css">
   
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +35,7 @@ const setResponse = (html, preloadedState, nonce) => (`
     <script id="preloadedState" nonce='${nonce}'>
       window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
     </script>
-    <script script src="bundle.js" type="text/javascript"></script>
+    <script script src="/bundle.js" type="text/javascript"></script>
     </body>
     </html>
     

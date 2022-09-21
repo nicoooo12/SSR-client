@@ -10,6 +10,8 @@ import Contacto from '../containers/Contacto';
 import Ayuda from '../containers/Ayuda';
 import Admin from '../containers/admin/Index';
 import Tests from '../containers/Tests';
+import Canjear from '../containers/Canjear';
+import CanjearByCode from '../containers/CanjearByCode';
 
 // import pay from '../containers/pagoPrueba';
 import NotFound from '../containers/NotFound';
@@ -75,6 +77,16 @@ const routers = (isLogged)=>{
       exact: true,
       path: '/admin/play',
       component: Admin,
+    },
+    {
+      exact: true,
+      path: '/canjear/:code',
+      component: CanjearByCode,
+    },
+    {
+      exact: true,
+      path: '/canjear',
+      component: Canjear,
     },
     {
       exact: true,

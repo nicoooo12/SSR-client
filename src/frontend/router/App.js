@@ -6,6 +6,8 @@ import Auth from '../utils/Auth';
 import Home from '../containers/Home';
 import Catalogo from '../containers/Catalogo';
 import Compra from '../containers/Compra';
+import Canjear from '../containers/Canjear';
+import CanjearByCode from '../containers/CanjearByCode';
 import Cartones from '../containers/Cartones';
 import Ordenes from '../containers/Ordenes';
 import Play from '../containers/Play';
@@ -88,6 +90,26 @@ const App = ({ isLogged, api, updateState, initialState, logoutRequest }) => {
           render={(props)=> (
             <Auth login {...props}>
               <Play socket={socket} />
+            </Auth>
+          )
+          }
+        />
+        <Route
+          exact
+          path='/canjear/:code'
+          render={(props)=> (
+            <Auth login {...props}>
+              <CanjearByCode />
+            </Auth>
+          )
+          }
+        />
+        <Route
+          exact
+          path='/canjear'
+          render={(props)=> (
+            <Auth login {...props}>
+              <Canjear />
             </Auth>
           )
           }
