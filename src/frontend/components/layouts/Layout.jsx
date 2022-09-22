@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import Icon from '../display/Icon';
@@ -6,6 +6,9 @@ import Icon from '../display/Icon';
 import '../../assets/styles/components/headers/Layout.scss';
 
 const Layout = ({ children, title = 'title', to = '/' }) => {
+  useEffect(()=>{
+    window.scroll({ top: 0 });
+  }, []);
   return (
     <div className='layout_main'>
       <div className='layout_top'>

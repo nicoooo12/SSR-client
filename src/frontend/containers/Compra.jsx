@@ -10,7 +10,7 @@ import Icon from '../components/display/Icon';
 import Carrito from '../components/Carrito';
 // import Accordion from '../components/forms/Accordion';
 import Pagination from '../components/forms/Pagination';
-import Input from '../components/forms/Input';
+// import Input from '../components/forms/Input';
 import Copy from '../components/forms/Input-copy';
 
 import numberWithCommas from '../utils';
@@ -55,7 +55,7 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
       contentHeader = (
         <>
           <Layout to='/catalogo' title='Pago'>
-            <Carrito />
+            <Carrito history={history} />
           </Layout>
         </>
       );

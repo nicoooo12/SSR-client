@@ -15,6 +15,7 @@ module.exports = function (app) {
     passport.authenticate('basic', function (error, data) {
       try {
         if (error || !data) {
+          console.log(error);
           return next(boom.unauthorized());
         }
         return req.login(data, { session: false }, async function (error) {

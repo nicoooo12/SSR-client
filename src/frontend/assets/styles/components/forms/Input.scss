@@ -18,30 +18,18 @@
   left: -22px;
 }
 .input-error{
-  transition: 1s all;
   &>p{
     color: $error_dark!important;
   }
-  @extend %input-text;
+  @extend .input;
   @extend %input-text-error;
-  position: relative;
-  margin: 10px;
-  width: 325px;
-  
-  // height: 64px;
-  @extend %Typography-text-TS;
 }
 .input-success{
   transition: 1s all;
-  @extend %input-text;
+  @extend .input;
   @extend %input-text-success;
-  position: relative;
-  margin: 10px;
-  width: 325px;
-  // height: 64px;
-  @extend %Typography-text-TS;
   &>p{
-    color: $success_dark;
+    color: $success_dark!important;
   }
 }
 // .input-text,
@@ -55,6 +43,9 @@
 %input-text {
 
   &>input {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     display: block;
     width: 100%;
     height: 64px;
@@ -83,7 +74,12 @@
       padding-top: 36px;
     }
     &:not(:placeholder-shown)~label{
-      font-size: 14px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      height: 2rem;
+      width: 60%;
+      font-size: 0.875rem;
       top: 6px;
       left: 20px;
       color: $greyscale_label;
@@ -142,14 +138,14 @@
 
 }
 %input-text-error > input{
-  display: block;
-  width: 325px;
-  height: 64px;
+  // display: block;
+  // width: 325px;
+  // height: 64px;
   background: $error_light;
-  border-radius: 16px;
+  // border-radius: 16px;
   color: $greyscale_body;
-  padding: 20px;
-  outline: none;
+  // padding: 20px;
+  // outline: none;
   &::placeholder{
     color: transparent;
   }
@@ -161,15 +157,15 @@
   }
   &:not(:placeholder-shown){
     border: 2px solid $error_default;
-    font-size: 16px;
+    // font-size: 16px;
     // background: transparent;
     color: $greyscale_body;
-    padding-top: 36px;
+    // padding-top: 36px;
   }
   &:not(:placeholder-shown)~label{
-    font-size: 14px;
-    top: 6px;
-    left: 20px;
+    // font-size: 14px;
+    // top: 6px;
+    // left: 20px;
     color: $error_dark;
   }
   &~label{
@@ -177,14 +173,14 @@
   }
 }
 %input-text-success > input{
-  display: block;
-  width: 325px;
-  height: 64px;
+  // display: block;
+  // width: 325px;
+  // height: 64px;
   background: $success_light;
-  border-radius: 16px;
+  // border-radius: 16px;
   color: $greyscale_body;
-  padding: 20px;
-  outline: none;
+  // padding: 20px;
+  // outline: none;
   &::placeholder{
     color: transparent;
   }
@@ -196,15 +192,15 @@
   }
   &:not(:placeholder-shown){
     border: 2px solid $success_default;
-    font-size: 16px;
+    // font-size: 16px;
     // background: transparent;
     color: $greyscale_body;
-    padding-top: 36px;
+    // padding-top: 36px;
   }
   &:not(:placeholder-shown)~label{
-    font-size: 14px;
-    top: 6px;
-    left: 20px;
+    // font-size: 14px;
+    // top: 6px;
+    // left: 20px;
     color: $success_dark;
   }
   &~label{
@@ -236,5 +232,5 @@
   position: relative;
   margin: 5px 2px 5px 5px;
   width: 100%;
-  text-align: center;
+  text-align: justify;
 }

@@ -24,7 +24,7 @@ import { connect } from 'react-redux';
 import { updateState, initialState, logoutRequest } from '../actions';
 import '../assets/styles/App.scss';
 
-const App = ({ isLogged, api, updateState, initialState, logoutRequest }) => {
+const App = ({ isLogged, updateState, initialState, logoutRequest }) => {
   const socket = io();
   useEffect(()=>{
     socket.on('change', ()=>{

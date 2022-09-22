@@ -12,7 +12,7 @@ const Ayuda = ({ history }) => {
 
   return (
     <>
-      <Layout title='Canjear' to='/' >
+      <Layout title='Canjear' to='/catalogo' >
         <div className='noTengo'>
           <p>Canjea tu código</p>
           <Input Ref={code} type='text' placeholder='Código' name='code'/>

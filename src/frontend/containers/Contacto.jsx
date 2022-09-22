@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Layout from '../components/layouts/Layout';
+import Copy from '../components/forms/Input-copy';
 
 const Contacto = ({ varsBingo }) => {
   return (
@@ -20,10 +21,9 @@ const Contacto = ({ varsBingo }) => {
               {
                 varsBingo.contacto.map((e, index)=>{
                   return (
-                    <tr key={index}>
-                      <td className='td__start'>{e[0]}</td>
-                      <td className='td__end'>{e[1]}</td>
-                    </tr>
+                    <Copy key={index} placeholder={e[0]}>
+                      {e[1]}
+                    </Copy>
                   );
                 })
               }

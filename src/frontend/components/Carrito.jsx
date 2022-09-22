@@ -30,6 +30,14 @@ const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemT
     addItemToCarrito({ serie: id.serie, title: id.title, precio: id.precio });
   };
 
+  const verCompraHandler = () => {
+    if (compras.canvasUrl) {
+      history.push('/ordenes');
+    } else {
+      initPayHandler();
+    }
+  };
+
   const subtractCarritoHandle = (id, cantidad)=>{
     removeItemToCarrito({ serie: id.serie, title: id.title, precio: id.precio });
     if (cantidad <= 0) {
@@ -81,6 +89,14 @@ const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemT
                   </tr>
                 </tfoot>
               </table>
+              <br />
+              <hr />
+              <div>
+                <button>
+                  agregar código de referido {'>'}
+                </button>
+              </div>
+              <hr />
             </> :
             <>
             </>
@@ -89,7 +105,7 @@ const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemT
       <div className='carrito__footer'>
         {
           compras['user'] ?
-            <Button onClick={initPayHandler} >Ver Compra</Button> :
+            <Button onClick={verCompraHandler} >Ver Compra</Button> :
             <Button onClick={initPayHandler} >Pagar { varsBingo.pago.simbolo + numberWithCommas(totalPrecio) + ' ' + varsBingo.pago.moneda}</Button>
         }
       </div>

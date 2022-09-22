@@ -20,7 +20,7 @@ const Canje = ({ getCode, history, canjearCode }) => {
       if (!e.getCode[0]) {
         return setDataCode({ active: 'nop' });
       }
-      setDataCode(e.getCode[0]);
+      return setDataCode(e.getCode[0]);
     }, (e)=>{
       console.log(e);
     });
@@ -38,7 +38,7 @@ const Canje = ({ getCode, history, canjearCode }) => {
 
   return (
     <>
-      <Layout title='Canjear' to='/' >
+      <Layout title='Canjear' to='/catalogo' >
         <div className='noTengo'>
           <p>Canjea tu código: <b>{code}</b></p>
           <p style={{ color: dataCode ? dataCode?.active === '' ? '#008A00' : '#CA024F' : 'black' }}>{dataCode ? dataCode?.active === '' ? 'Habilitado' : 'No Habilitado' : '...'}</p>
