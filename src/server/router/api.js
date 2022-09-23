@@ -11,6 +11,22 @@ module.exports = function (app) {
     return request(`/api/code/code/${req.params.code}`, 'get', null, token, res);
   });
 
+  router.get('/admin/orden', async (req, res)=>{
+    const { token } = req.cookies;
+    return request('/api/orden', 'get', null, token, res);
+  });
+
+  router.post('/admin/end-orden', async (req, res)=>{
+    const { token } = req.cookies;
+    const { id, pagado, comment } = req.body;
+    return request(`/api/orden/end/${id}`, 'post', { pagado, comment, correo: true }, token, res);
+  });
+
+  // router.get('/admin/orden', async (req, res)=>{
+  //   const { token } = req.cookies;
+  //   return request('/api/orden', 'get', null, token, res);
+  // });
+
   router.post('/code/:code', async (req, res)=>{
     const { token } = req.cookies;
     return request(`/api/code/canjear/${req.params.code}`, 'post', null, token, res);

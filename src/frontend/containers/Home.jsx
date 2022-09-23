@@ -41,10 +41,6 @@ const App = ({ load, varsBingo, pedidos, play, user, updateState, logoutRequest 
   };
 
   const logoutHandler = ()=>{
-    document.cookie = 'token=';
-    document.cookie = 'email=';
-    document.cookie = 'name=';
-    document.cookie = 'id=';
     logoutRequest();
     setMenu(false);
     setFocusHeader(true);

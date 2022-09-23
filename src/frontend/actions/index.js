@@ -1,7 +1,13 @@
 import request from '../utils/request';
+const axios = require('axios');
 
 export const addItemToCarrito = (payload) =>({
   type: 'ADD_ITEM_TO_CARRITO',
+  payload,
+});
+
+export const addReferidoToCarrito = (payload) =>({
+  type: 'ADD_REFERIDO_TO_CARRITO',
   payload,
 });
 
@@ -49,16 +55,22 @@ export const logoutRequest = (payload) => {
   console.log('logout');
   return async (dispatch) => {
     try {
-      await axios({
+      const l = await axios({
         method: 'get',
         url: '/auth/logout',
       });
+      document.cookie = 'email=; path=/; max-age=0';
+      document.cookie = 'name=; path=/; max-age=0';
+      document.cookie = 'id=; path=/; max-age=0';
+      document.cookie = 'token=; path=/; max-age=0';
 
+      console.log(l);
       dispatch(logoutDispatchRequest(payload));
-      document.location.href = '/';
+      // document.location.href = '/';
 
     } catch ({ response: error }) {
-      document.location.href = '/';
+      console.log(error);
+      // document.location.href = '/';
     }
   };
 };
@@ -97,7 +109,7 @@ export const singUp = (payload, fnCallBack, fnErrorCallback) => {
   };
 };
 
-export const singIn = ({ email, password }, fnCallback, fnErrorCallback) => {
+export const singIn = ({ email, password }, fnCallback, fnErrorCallback, socket) => {
   return async (dispatch) => {
     const req = await request('/auth/sign-in', 'post', null, dispatch, null, { auth: {
       username: email,
@@ -108,6 +120,11 @@ export const singIn = ({ email, password }, fnCallback, fnErrorCallback) => {
       document.cookie = `email=${data.user.email}; path=/;`;
       document.cookie = `name=${data.user.name}; path=/;`;
       document.cookie = `id=${data.user.id}; path=/;`;
+      socket.removeAllListeners();
+      socket.on(data.user.id, ()=>{
+        updateState();
+        socket.emit('ok');
+      });
       dispatch(registerRequest(data.user));
       dispatch(initialState());
       fnCallback(data.user);
@@ -115,12 +132,13 @@ export const singIn = ({ email, password }, fnCallback, fnErrorCallback) => {
   };
 };
 
-export const createOrden = (compra, totalPago) => {
+export const createOrden = (compra, referido, totalPago) => {
   return async (dispatch) => {
     const req = await request('/api/createOrden', 'post', {
       'compra': compra,
       'totalPago': totalPago,
       'tipoDePago': 'transferencia',
+      referido,
     }, dispatch, null);
     if (!req.err) {
       dispatch(resetStatusCarrito());
@@ -176,6 +194,28 @@ export const canjearCode = (code, fnCallback, fnErrorCallback) => {
     if (!req.err) {
       const { data } = req.req;
       dispatch(updateState());
+      fnCallback(data);
+    }
+  };
+};
+
+export const getAdminVars = (fnCallback, fnErrorCallback) => {
+  return async (dispatch) => {
+    const req = await request('/api/admin/orden', 'get', null, dispatch, null, {}, fnErrorCallback);
+    if (!req.err) {
+      const { data } = req.req;
+      // dispatch(updateState());
+      fnCallback(data);
+    }
+  };
+};
+
+export const terminarOrden = (id, pagado, comment, fnCallback, fnErrorCallback) => {
+  return async (dispatch) => {
+    const req = await request('/api/admin/end-orden', 'post', { id, pagado, comment, correo: true }, dispatch, null, {}, fnErrorCallback);
+    if (!req.err) {
+      const { data } = req.req;
+      // dispatch(updateState());
       fnCallback(data);
     }
   };

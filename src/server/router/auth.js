@@ -25,13 +25,15 @@ module.exports = function (app) {
 
           const { token, ...user } = data;
           res.cookie('token', token, {
-            httpOnly: !config.dev,
-            secure: !config.dev,
+            httpOnly: true,
+            secure: true,
+            path: '/',
           });
 
           res.cookie('isAdmin', user.user.isAdmin, {
-            httpOnly: !config.dev,
-            secure: !config.dev,
+            httpOnly: true,
+            secure: true,
+            path: '/',
           });
 
           return res.json(user).status(200);
@@ -43,8 +45,18 @@ module.exports = function (app) {
   });
 
   router.get('/logout', (req, res, next) => {
-    res.cookie('token', '');
-    res.cookie('isAdmin', '');
+    res.cookie('token', '', {
+      httpOnly: true,
+      secure: true,
+      path: '/',
+    });
+
+    res.cookie('isAdmin', '', {
+      httpOnly: true,
+      secure: true,
+      path: '/',
+    });
+
     res.json({
       message: 'ok',
     }).status(200);

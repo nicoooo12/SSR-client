@@ -29,6 +29,7 @@
   color: $greyscale_label;
   align-items: center;
   @extend %Typography-text-LL;
+  font-weight: 500;
 }
 
 .tarjeta__title{

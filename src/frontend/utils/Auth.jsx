@@ -2,10 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { logoutRequest } from '../actions';
 
-const Auth = ({ logoutRequest, user, login, admin, children, ...props }, t) => {
+const Auth = ({ logoutRequest, user, login, admin, children, ...props }) => {
   if (login) {
-    if (document.cookie.match(/token=([a-zA-Z.\-0-9]*)([;]|$)/g) && document.cookie.match(/token=([a-zA-Z.\-0-9]*)([;]|$)/g)[0] === 'token=;') {
-      logoutRequest();
+    if (
+      document.cookie.match(/token=([a-zA-Z.\-0-9]*)([;]|$)/g) &&
+      (
+        document.cookie.match(/token=([a-zA-Z.\-0-9]*)([;]|$)/g)[0] === 'token=;' ||
+        document.cookie.match(/token=([a-zA-Z.\-0-9]*)([;]|$)/g)[0] === 'token='
+      )
+    ) {
+      props.history.push(`/sign-in?redirect=${props.history.location.pathname}`);
     }
     // if (!user.id) {
     //   props.history.push('/');
@@ -13,7 +19,7 @@ const Auth = ({ logoutRequest, user, login, admin, children, ...props }, t) => {
   }
 
   if (admin) {
-    const isAdmin = document.cookie ? document.cookie.match(/isAdmin=([a-z0-9]*)([;]|$)/g)[1] : false;
+    const isAdmin = document.cookie.match(/isAdmin=([a-z0-9]*)([;]|$)/g) ? document.cookie.match(/isAdmin=([a-z0-9]*)([;]|$)/g)[1] : false;
     if (isAdmin === 'false') {
       props.history.push('/');
     }

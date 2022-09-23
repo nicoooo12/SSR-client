@@ -1,12 +1,13 @@
 import React from 'react';
 import Icon from '../display/Icon';
 import '../../assets/styles/components/forms/Input.scss';
-const App = ({ type, placeholder, name, text = '', onChange, autoComplete = 'true', Ref })=> {
+const App = ({ type, placeholder, name, value = '', text = '', onChange, autoComplete = 'true', Ref })=> {
 
   const Input = React.createRef(Input);
 
   const delHandler = ()=> {
     Input.current.value = '';
+    onChange();
   };
 
   return (
@@ -19,6 +20,7 @@ const App = ({ type, placeholder, name, text = '', onChange, autoComplete = 'tru
         id={placeholder}
         placeholder={placeholder}
         ref={Input}
+        defaultValue={value}
       />
       <div>
         <button onClick={delHandler} type='button' tabIndex='-1'>

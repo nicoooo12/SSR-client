@@ -17,6 +17,10 @@ import Ayuda from '../containers/Ayuda';
 import Contacto from '../containers/Contacto';
 import Admin from '../containers/admin/Index';
 import Tests from '../containers/Tests';
+import AdminPlay from '../containers/admin/Play';
+import AdminMetrics from '../containers/admin/Metrics';
+import AdminCartones from '../containers/admin/Cartones';
+import AdminOrden from '../containers/admin/Orden';
 // import pay from '../containers/pagoPrueba';
 import NotFound from '../containers/NotFound';
 import { io } from 'socket.io-client';
@@ -24,14 +28,15 @@ import { connect } from 'react-redux';
 import { updateState, initialState, logoutRequest } from '../actions';
 import '../assets/styles/App.scss';
 
-const App = ({ isLogged, updateState, initialState, logoutRequest }) => {
+const App = ({ isLogged, updateState, initialState, user }) => {
   const socket = io();
   useEffect(()=>{
     socket.on('change', ()=>{
       updateState();
       socket.emit('ok');
     });
-    socket.on(isLogged ? isLogged : 'change-noSignIn', ()=>{
+    console.log('socket: ', user?.id ? user.id : 'change-noSignIn');
+    socket.on(user?.id ? user.id : 'change-noSignIn', ()=>{
       updateState();
       socket.emit('ok');
     });
@@ -121,6 +126,46 @@ const App = ({ isLogged, updateState, initialState, logoutRequest }) => {
 
         <Route
           exact
+          path='/admin/metrics'
+          render={(props)=> (
+            <Auth login admin {...props}>
+              <AdminMetrics socket={socket} />
+            </Auth>
+          )
+          }
+        />
+        <Route
+          exact
+          path='/admin/metrics/:id'
+          render={(props)=> (
+            <Auth login admin {...props}>
+              <AdminOrden socket={socket} />
+            </Auth>
+          )
+          }
+        />
+        <Route
+          exact
+          path='/admin/cartones'
+          render={(props)=> (
+            <Auth login admin {...props}>
+              <AdminCartones />
+            </Auth>
+          )
+          }
+        />
+        <Route
+          exact
+          path='/admin/play'
+          render={(props)=> (
+            <Auth login admin {...props}>
+              <AdminPlay socket={socket} />
+            </Auth>
+          )
+          }
+        />
+        <Route
+          exact
           path='/admin'
           render={(props)=> (
             <Auth login admin {...props}>
@@ -146,10 +191,16 @@ const App = ({ isLogged, updateState, initialState, logoutRequest }) => {
     </BrowserRouter>);
 };
 
+const mapStateToProps = (state)=>{
+  return {
+    user: state.user,
+  };
+};
+
 const mapDispatchToProps = {
   updateState,
   initialState,
   logoutRequest,
 };
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

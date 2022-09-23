@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { connect } from 'react-redux';
 
@@ -25,6 +25,7 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
       statusNextCarrito();
     }
   };
+  const [option, setOption] = useState(0);
   const startPay = ()=>{
     if (!misOrdenes.user) {
       console.log('[startPay]');
@@ -37,7 +38,7 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
         return { serie: e.serie, cantidad: e.cantidad };
 
       });
-      createOrden(carro, totalPago);
+      createOrden(carro, carrito.referido, totalPago);
       setStatusCarrito(2);
     }
   };
@@ -103,38 +104,84 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
                   <th className='th__start'>Correo </th>
                   <th className='th__end'>example@example.com</th>
                 </tr> */}
+                <div style={{ textAlign: 'center' }}>
+                  {
+                    varsBingo.pago[0] ?
+                      <>
+                        {
+                          varsBingo.pago.map((e, i)=>{
+                            return (
+                              <Button
+                                key={i}
+                                typebutton='subtle'
+                                size='small'
+                                autoLogin={false}
+                                onClick={()=> {setOption(i);}}
+                              >Opción {i + 1}</Button>);
+                          })
+                        }
+                        {/* <Button typebutton='subtle' size='small' autoLogin={false}>Opción 2</Button> */}
+                      </> : <></>
+                  }
+                </div>
               </thead>
               <tbody>
                 <tr>
-                  <Copy placeholder='Numero de cuenta:'>
-                    {varsBingo.pago.numCuenta}
-                  </Copy>
-                  <Copy placeholder='Rut:'>
-                    {varsBingo.pago.rut}
-                  </Copy>
-                  <Copy placeholder='Titular:'>
-                    {varsBingo.pago.titular}
-                  </Copy>
-                  <Copy placeholder='Banco:'>
-                    {varsBingo.pago.banco}
-                  </Copy>
-                  <Copy placeholder='Correo:'>
-                    {varsBingo.pago.correo}
-                  </Copy>
-                  <Copy placeholder='Motivo:'>
-                    {varsBingo.pago.motivo}
-                  </Copy>
+                  {
+                    varsBingo.pago[0] ?
+                      <>
+                        <Copy placeholder='Numero de cuenta:'>
+                          {varsBingo.pago[option].numCuenta}
+                        </Copy>
+                        <Copy placeholder='Rut:'>
+                          {varsBingo.pago[option].rut}
+                        </Copy>
+                        <Copy placeholder='Titular:'>
+                          {varsBingo.pago[option].titular}
+                        </Copy>
+                        <Copy placeholder='Banco:'>
+                          {varsBingo.pago[option].banco}
+                        </Copy>
+                        <Copy placeholder='Correo:'>
+                          {varsBingo.pago[option].correo}
+                        </Copy>
+                        <Copy placeholder='Referido:'>
+                          {misOrdenes.referido}
+                        </Copy>
+                      </> :
+                      <>
+                        <Copy placeholder='Numero de cuenta:'>
+                          {varsBingo.pago.numCuenta}
+                        </Copy>
+                        <Copy placeholder='Rut:'>
+                          {varsBingo.pago.rut}
+                        </Copy>
+                        <Copy placeholder='Titular:'>
+                          {varsBingo.pago.titular}
+                        </Copy>
+                        <Copy placeholder='Banco:'>
+                          {varsBingo.pago.banco}
+                        </Copy>
+                        <Copy placeholder='Correo:'>
+                          {varsBingo.pago.correo}
+                        </Copy>
+                        <Copy placeholder='Referido:'>
+                          {misOrdenes.referido}
+                        </Copy>
+
+                      </>
+                  }
                 </tr>
               </tbody>
               <tfoot>
                 <tr>
                   <td className='td__start'>Monto a Pagar: </td>
                   <td className='td__end'>
-                    {varsBingo.pago.simbolo}{
+                    {varsBingo.simbolo}{
                       misOrdenes['totalPago'] ?
                         <>{numberWithCommas(misOrdenes.totalPago)}</> :
                         <>Cargando ...</>
-                    } {varsBingo.pago.moneda}
+                    } {varsBingo.moneda}
                   </td>
                 </tr>
               </tfoot>

@@ -6,6 +6,7 @@ module.exports = function (app, socket) {
   app.use('/sockets', router);
 
   router.post('/updateInfo', async function (req, res, next) {
+    socket.to('admin').emit('change');
     socket.emit('change');
     res.json({
       message: 'ok',
@@ -13,6 +14,7 @@ module.exports = function (app, socket) {
   });
 
   router.post('/updateInfo/:user', async function (req, res, next) {
+    socket.to('admin').emit('change');
     socket.emit([req.params.user]);
     res.json({
       message: 'ok',

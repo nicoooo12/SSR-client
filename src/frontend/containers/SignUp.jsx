@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 
 import { singUp, setRedirect } from '../actions';
@@ -7,15 +7,10 @@ import Button from '../components/forms/Button';
 import Layout from '../components/layouts/Layout';
 
 import '../assets/styles/containers/signIn-up.scss';
+import { useLocation } from 'react-router-dom';
 
 const App = ({ singUp, history, redirect, setRedirect })=> {
-  const [first, setFirst] = useState(true);
-  useEffect(()=>{
-    if (first) {
-      setFirst(false);
-      document.querySelector('#react').scrollTo(0, 0);
-    }
-  }, []);
+  const query = new URLSearchParams(useLocation().search);
 
   const [form, setValues] = useState({
     email: '',
@@ -83,8 +78,8 @@ const App = ({ singUp, history, redirect, setRedirect })=> {
     if (inputRepeatPassword.current.className !== 'input-error' & inputName.current.className !== 'input-error' & inputEmail.current.className !== 'input-error' & inputPassword.current.className !== 'input-error') {
       delete form.repeatPassword;
       singUp(form, ()=>{
-        if (redirect) {
-          history.push(redirect);
+        if (query.get('redirect')) {
+          history.push(`${query.get('redirect')}`);
         } else {
           history.push('/');
         }
@@ -124,7 +119,7 @@ const App = ({ singUp, history, redirect, setRedirect })=> {
           <Input Ref={inputPassword} type='password' autoComplete='false' placeholder='Contraseña' name='password' onChange={updateInput} current-password text='Crea una contraseña de mínimo 8 caracteres.'/>
           <Input Ref={inputRepeatPassword} type='password' autoComplete='false' placeholder='Contraseña (otra vez)' name='repeatPassword' onChange={updateInput} current-password text='Repite tu contraseña. Es importante no olvidarse...'/>
           <p>
-            Ya tienes cuenta ? Ingresa <Button onClick={()=>{history.push('/sign-in');}} typebutton='text' >Aquí</Button>
+            Ya tienes cuenta ? Ingresa <Button onClick={()=>{history.push(`/sign-in${query.get('redirect') ? '?redirect=' + query.get('redirect') : ''}`);}} typebutton='text' >Aquí</Button>
           </p>
           <Button type='submit' onClick={clickHandler}>Registrarme</Button>
         </form>

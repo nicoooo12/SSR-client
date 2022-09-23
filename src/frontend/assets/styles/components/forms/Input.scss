@@ -234,3 +234,9 @@
   width: 100%;
   text-align: justify;
 }
+
+*::-webkit-calendar-picker-indicator {
+  display: none;
+  background-color: inherit;
+  opacity: 0;
+}

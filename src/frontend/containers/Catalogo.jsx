@@ -21,6 +21,8 @@ const Catalogo = ({ setStatusCarrito, catalogos, carrito, varsBingo, history }) 
     totalPrecio += (element.precio * element.cantidad);
   });
 
+  const typePremio = ['Carton Completo', 'Letra', 'Linea'];
+
   return (
     <>
       <Layout title='Catalogo' to='/' >
@@ -47,10 +49,20 @@ const Catalogo = ({ setStatusCarrito, catalogos, carrito, varsBingo, history }) 
                     precio={item.precio}
                     serie={item.serie}
                     mensaje={item?.mensaje}
-                    premios={item.premios.filter((e)=>e.nombre !== ' ').map((e, i)=>i === 0 ? `${e.nombre} ` : `~ ${e.nombre}`)}
+                    premios={item.premios.filter((e)=>e.nombre !== ' ').map((e, i)=>{
+                      if (item.serie === 0) {
+                        return i === 0 ? `${e.nombre} ` : `~ ${e.nombre}`;
+                      }
+                      if (i === 0) {
+                        return <><b>{typePremio[i]}:</b> {e.nombre}</>;
+                      }
+                      return <><br/><b>{typePremio[i]}:</b> {e.nombre}</>;
+
+                    })}
                   />
                 ),
             )
+
             }
           </>
         }

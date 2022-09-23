@@ -114,6 +114,10 @@ const Play = ({ user, history, play, misCartones, catalogos, socket }) => {
   useEffect(()=>{
     socket.removeAllListeners();
     curiosityMessage();
+    socket.on(user?.id ? user.id : 'change-noSignIn', ()=>{
+      updateState();
+      socket.emit('ok');
+    });
     socket.on('connected', (estado, serie)=>{
       setKey(estado);
       setSerie(serie);

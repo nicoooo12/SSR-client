@@ -12,7 +12,10 @@ import Admin from '../containers/admin/Index';
 import Tests from '../containers/Tests';
 import Canjear from '../containers/Canjear';
 import CanjearByCode from '../containers/CanjearByCode';
-
+import AdminPlay from '../containers/admin/Play';
+import AdminMetrics from '../containers/admin/Metrics';
+import AdminOrden from '../containers/admin/Orden';
+import AdminCartones from '../containers/admin/Cartones';
 // import pay from '../containers/pagoPrueba';
 import NotFound from '../containers/NotFound';
 
@@ -76,7 +79,22 @@ const routers = (isLogged)=>{
     {
       exact: true,
       path: '/admin/play',
-      component: Admin,
+      component: AdminPlay,
+    },
+    {
+      exact: true,
+      path: '/admin/cartones',
+      component: AdminCartones,
+    },
+    {
+      exact: true,
+      path: '/admin/metrics',
+      component: AdminMetrics,
+    },
+    {
+      exact: true,
+      path: '/admin/metrics/:id',
+      component: AdminOrden,
     },
     {
       exact: true,

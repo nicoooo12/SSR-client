@@ -1,5 +1,5 @@
 const axios = require('axios');
-import { logoutRequest, setError } from '../actions';
+import { logoutRequest } from '../actions';
 const request = async (url, method, data, dispatch, payload, opt = {}, fnCallbackError = ()=>{}) => {
   try {
     const req = await axios({
@@ -21,7 +21,7 @@ const request = async (url, method, data, dispatch, payload, opt = {}, fnCallbac
     }
 
     fnCallbackError(error);
-    dispatch(setError({ message: error.data }));
+    // dispatch(setError({ message: error.data }));
     return {
       err: true,
     };

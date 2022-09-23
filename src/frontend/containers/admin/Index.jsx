@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import Footer from '../../components/Footer';
@@ -17,13 +17,6 @@ import '../../assets/styles/containers/menu.scss';
 import '../../assets/styles/containers/Home.scss';
 
 const App = ({ load, varsBingo, pedidos, play, user, updateState, logoutRequest })=> {
-  const [first, setFirst] = useState(true);
-  useEffect(()=>{
-    if (first) {
-      setFirst(false);
-      document.querySelector('#react').scrollTo(0, 0);
-    }
-  }, []);
   const [menu, setMenu] = useState(false);
   const menuHandler = ()=>{
     if (menu) {
@@ -36,10 +29,6 @@ const App = ({ load, varsBingo, pedidos, play, user, updateState, logoutRequest 
   };
 
   const logoutHandler = ()=>{
-    document.cookie = 'token=';
-    document.cookie = 'email=';
-    document.cookie = 'name=';
-    document.cookie = 'id=';
     logoutRequest();
     setMenu(false);
     setFocusHeader(true);
@@ -171,7 +160,7 @@ const App = ({ load, varsBingo, pedidos, play, user, updateState, logoutRequest 
                             user.id ?
                               <>
                                 <div className='contentItem'>
-                                  <Link to='/catalogo'>
+                                  <Link to='/admin/metrics'>
                                     <div className='itemHome'>
                                       <div>
                                         <Icon type='metrics' width='30' height='30' stroke='#4700AB' strokeWidth='2'/>
@@ -179,7 +168,7 @@ const App = ({ load, varsBingo, pedidos, play, user, updateState, logoutRequest 
                                       <p>Métricas</p>
                                     </div>
                                   </Link>
-                                  <Link to='cartones'>
+                                  <Link to='/admin/cartones'>
                                     <div className='itemHome'>
                                       <div>
                                         <Icon type='plass' width='35' height='35' stroke='#4700AB' strokeWidth='2'/>
@@ -187,7 +176,7 @@ const App = ({ load, varsBingo, pedidos, play, user, updateState, logoutRequest 
                                       <p>Generar cartones</p>
                                     </div>
                                   </Link>
-                                  <Link to='ordenes'>
+                                  <Link to='/admin/play'>
                                     <div className='itemHome'>
                                       <div>
                                         <Icon type='play' width='35' height='35' stroke='#4700AB' strokeWidth='2'/>

@@ -5,7 +5,7 @@ import Icon from '../display/Icon';
 
 import '../../assets/styles/components/headers/Layout.scss';
 
-const Layout = ({ children, title = 'title', to = '/' }) => {
+const Layout = ({ children, title = 'title', to = '/', ayuda = null }) => {
   useEffect(()=>{
     window.scroll({ top: 0 });
   }, []);
@@ -20,7 +20,19 @@ const Layout = ({ children, title = 'title', to = '/' }) => {
               </Link>
             </div>
             <div className='layout_base_title'>Bingoloteando</div>
-            <div className='layout_base_message'><Icon strokeWidth='2.5' type='help2' /></div>
+            <div className='layout_base_message'>
+              {
+                ayuda ?
+                  <>
+                    <div onClick={()=>{}}>
+                      <Icon strokeWidth='2.5' stroke='#FCFCFC' type='help2' />
+                    </div>
+                  </> :
+                  <Link to={'/help'} >
+                    <Icon strokeWidth='2.5' stroke='#FCFCFC' type='help2' />
+                  </Link>
+              }
+            </div>
           </div>
           <div className='layout_main_title-content'>
             <h1 className='layout_main_title-text'>
