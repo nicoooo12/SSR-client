@@ -21,6 +21,13 @@ module.exports = function (app, socket) {
     });
   });
 
+  router.post('/updateInfo/entradas', async function (req, res, next) {
+    socket.emit('entradas');
+    res.json({
+      message: 'ok',
+    });
+  });
+
   socket.on('connect', (io)=>{
     io.on('admin', ()=>{
       io.join('admin');

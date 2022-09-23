@@ -212,6 +212,7 @@ export const getAdminVars = (fnCallback, fnErrorCallback) => {
 
 export const terminarOrden = (id, pagado, comment, fnCallback, fnErrorCallback) => {
   return async (dispatch) => {
+    pagado = +pagado;
     const req = await request('/api/admin/end-orden', 'post', { id, pagado, comment, correo: true }, dispatch, null, {}, fnErrorCallback);
     if (!req.err) {
       const { data } = req.req;

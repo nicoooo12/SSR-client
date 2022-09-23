@@ -15,11 +15,14 @@ const App = ({ children, placeholder, text = '' })=> {
   return (
     <div className='input'>
       <input
+        // autoComplete={autoComplete}
         type='text'
+        // name={name}
+        // onChange={onChange}
         value={children}
         id={placeholder}
         placeholder={placeholder}
-        list='datalistOptions'
+        // ref={Input}
       />
       <div>
         <button className='copyButton' onClick={copyHandler} type='button' tabIndex='-1'>
@@ -27,13 +30,6 @@ const App = ({ children, placeholder, text = '' })=> {
         </button>
       </div>
       <label htmlFor={placeholder} >{placeholder}</label>
-      <datalist id='datalistOptions'>
-        <option value='San Francisco' />
-        <option value='New York' />
-        <option value='Seattle' />
-        <option value='Los Angeles' />
-        <option value='Chicago' />
-      </datalist>
       <p>{text}</p>
     </div>
   );

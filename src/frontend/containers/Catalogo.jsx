@@ -77,7 +77,7 @@ const Catalogo = ({ setStatusCarrito, catalogos, carrito, varsBingo, history }) 
                     <div className='bubble'>{totalCarrito}</div>
                   </div>
                 </div>
-                <div className='payText' >{varsBingo.pago.simbolo + numberWithCommas(totalPrecio) + ' ' + varsBingo.pago.moneda}</div>
+                <div className='payText' >{varsBingo.simbolo + numberWithCommas(totalPrecio) + ' ' + varsBingo.moneda}</div>
                 <Link to='/compra' onClick={()=>{setStatusCarrito(0);}}>
                   <div className='pagar'>
                     <span>Pagar</span>
