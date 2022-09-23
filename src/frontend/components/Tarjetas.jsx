@@ -24,7 +24,7 @@ const App = ({ title, subTitle, precio, serie, premios, mensaje, addItemToCarrit
       <div className='tarjeta__content'>
         <div className='tarjeta__title'>
           <h1 >{title}</h1>
-          <Badges>{varsBingo.pago.simbolo + numberWithCommas(precio) + ' ' + varsBingo.pago.moneda}</Badges>
+          <Badges>{varsBingo.simbolo + numberWithCommas(precio) + ' ' + varsBingo.moneda}</Badges>
         </div>
         <div className='tarjeta__premios'>
           <small>

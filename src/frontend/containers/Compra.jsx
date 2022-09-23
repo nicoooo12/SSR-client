@@ -26,6 +26,8 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
     }
   };
   const [option, setOption] = useState(0);
+  const [referido, setReferido] = useState(0);
+
   const startPay = ()=>{
     if (!misOrdenes.user) {
       console.log('[startPay]');
@@ -38,7 +40,7 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
         return { serie: e.serie, cantidad: e.cantidad };
 
       });
-      createOrden(carro, carrito.referido, totalPago);
+      createOrden(carro, referido, totalPago);
       setStatusCarrito(2);
     }
   };
@@ -56,7 +58,7 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
       contentHeader = (
         <>
           <Layout to='/catalogo' title='Pago'>
-            <Carrito history={history} />
+            <Carrito setReferido={setReferido} history={history} />
           </Layout>
         </>
       );

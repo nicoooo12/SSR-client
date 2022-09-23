@@ -30,12 +30,6 @@ module.exports = function (app) {
             path: '/',
           });
 
-          res.cookie('isAdmin', user.user.isAdmin, {
-            httpOnly: true,
-            secure: true,
-            path: '/',
-          });
-
           return res.json(user).status(200);
         });
       } catch (error) {
@@ -46,12 +40,6 @@ module.exports = function (app) {
 
   router.get('/logout', (req, res, next) => {
     res.cookie('token', '', {
-      httpOnly: true,
-      secure: true,
-      path: '/',
-    });
-
-    res.cookie('isAdmin', '', {
       httpOnly: true,
       secure: true,
       path: '/',

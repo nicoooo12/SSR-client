@@ -4,6 +4,8 @@ import Layout from '../../components/layouts/Layout';
 import { connect } from 'react-redux';
 import { getAdminVars } from '../../actions';
 import { Link } from 'react-router-dom';
+import numberWithCommas from '../../utils';
+
 const Metrics = ({ socket, user, getAdminVars, varsBingo }) => {
 
   const getOrdenes = () => {
@@ -36,8 +38,8 @@ const Metrics = ({ socket, user, getAdminVars, varsBingo }) => {
       <Layout to='/admin' title='Métricas'>
         <div className='noTengo'>
           <h1>Bingo</h1>
-          <p>Dinero Total Recaudado: <b>{varsBingo.pago.simbolo}0 {varsBingo.pago.moneda}</b></p>
-          <p>Total Cartones comprados: <b>0</b></p>
+          <p>Dinero Total Recaudado: <b>{varsBingo.simbolo}{numberWithCommas(varsBingo.montoTotal)} {varsBingo.moneda}</b></p>
+          <p>Total Cartones comprados: <b>{varsBingo.catonesComprados}</b></p>
         </div>
         <div className='noTengo'>
           <h1>Ordenes</h1>

@@ -125,6 +125,7 @@ export const singIn = ({ email, password }, fnCallback, fnErrorCallback, socket)
         updateState();
         socket.emit('ok');
       });
+      console.log(data.user);
       dispatch(registerRequest(data.user));
       dispatch(initialState());
       fnCallback(data.user);
@@ -137,8 +138,8 @@ export const createOrden = (compra, referido, totalPago) => {
     const req = await request('/api/createOrden', 'post', {
       'compra': compra,
       'totalPago': totalPago,
+      'referido': referido,
       'tipoDePago': 'transferencia',
-      referido,
     }, dispatch, null);
     if (!req.err) {
       dispatch(resetStatusCarrito());
@@ -161,6 +162,7 @@ export const initialState = () => {
     const req = await request('/api/initialState', 'post', null, dispatch, null);
     if (!req.err) {
       const { data } = req.req;
+      console.log(data);
       dispatch(updateStateReducer({ ...data, load: true }));
     }
   };
@@ -171,6 +173,7 @@ export const updateState = () => {
     const req = await request('/api/getState', 'post', null, dispatch, null);
     if (!req.err) {
       const { data } = req.req;
+      console.log(data);
       dispatch(updateStateReducer(data));
     }
   };

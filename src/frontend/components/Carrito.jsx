@@ -10,7 +10,7 @@ import DropDown from '../components/forms/DropDown';
 
 import '../assets/styles/components/Carrito.scss';
 
-const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemToCarrito, desactiveCarrito, history, varsBingo })=> {
+const App = ({ setReferido, setStatusCarrito, carrito, compras, addItemToCarrito, removeItemToCarrito, desactiveCarrito, history, varsBingo })=> {
   const referido = React.createRef(referido);
 
   let totalCarrito = 0;
@@ -28,7 +28,7 @@ const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemT
   }, [compras]);
   const initPayHandler = ()=>{
     if (referido.current.children[0].value !== '') {
-      addReferidoToCarrito(referido.current.children[0].value);
+      setReferido(referido.current.children[0].value);
       setStatusCarrito(1);
     } else {
       referido.current.className = 'input-error';
@@ -97,7 +97,7 @@ const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemT
                               <p>{e.cantidad}</p>
                           }
                         </td>
-                        <td className='td__precio'>{varsBingo.pago.simbolo + numberWithCommas(e.precio)}</td>
+                        <td className='td__precio'>{varsBingo.simbolo + numberWithCommas(e.precio)}</td>
                       </tr>
                     );
                   })}
@@ -106,7 +106,7 @@ const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemT
                   <tr>
                     <td className='td__title'>Total</td>
                     <td className='td__button'>{totalCarrito}</td>
-                    <td className='td__precio'>{varsBingo.pago.simbolo + numberWithCommas(totalPrecio)}</td>
+                    <td className='td__precio'>{varsBingo.simbolo + numberWithCommas(totalPrecio)}</td>
                   </tr>
                 </tfoot>
               </table>
@@ -131,7 +131,7 @@ const App = ({ setStatusCarrito, carrito, compras, addItemToCarrito, removeItemT
         {
           compras['user'] ?
             <Button onClick={verCompraHandler} >Ver Compra</Button> :
-            <Button autoLogin={false} disabled={!continuar} onClick={initPayHandler} >Pagar { varsBingo.pago.simbolo + numberWithCommas(totalPrecio) + ' ' + varsBingo.pago.moneda}</Button>
+            <Button autoLogin={false} disabled={!continuar} onClick={initPayHandler} >Pagar { varsBingo.simbolo + numberWithCommas(totalPrecio) + ' ' + varsBingo.moneda}</Button>
         }
         {
           console.log(continuar)
