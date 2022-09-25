@@ -102,7 +102,7 @@ const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logou
                       </div>
                     </li>
                     {
-                      entrada[0]._id ? (
+                      entrada[0] ? (
                         <>
                           <li>
                             Entrada
