@@ -34,6 +34,7 @@ const App = ({ singUp, history, redirect, setRedirect })=> {
       });
       event.target.value = nicoFinal.join(' ');
     } else if ([event.target.name][0] === 'email') {
+      event.target.name = event.target.name.toLocaleLowerCase();
       inputEmail.current.className = 'input';
     } else if ([event.target.name][0] === 'password') {
       inputPassword.current.className = 'input';

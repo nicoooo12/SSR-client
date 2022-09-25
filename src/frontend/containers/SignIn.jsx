@@ -26,6 +26,7 @@ const App = ({ singIn, history, redirect, setRedirect, socket })=> {
 
   const updateInput = (event) => {
     if (event.target.name === 'email') {
+      event.target.value = event.target.value.toLocaleLowerCase();
       email.current.className = 'input';
     }
     if (event.target.name === 'password') {
