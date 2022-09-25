@@ -42,6 +42,9 @@ const Canje = ({ getCode, history, canjearCode }) => {
         <div className='noTengo'>
           <p>Canjea tu código: <b>{code}</b></p>
           <p style={{ color: dataCode ? dataCode?.active === '' ? '#008A00' : '#CA024F' : 'black' }}>{dataCode ? dataCode?.active === '' ? 'Habilitado' : 'No Habilitado' : '...'}</p>
+          <p>{dataCode.user}</p>
+          <p>{dataCode.entrada ? 'Incluye entrada' : ''}</p>
+          <br />
           <div>{dataCode?.active === '' ? <Button onClick={clickHandler}>Canjear</Button> : <></>}</div>
         </div>
       </Layout>

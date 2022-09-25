@@ -73,10 +73,11 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
                 Para realizar el pago deberá realizar una transferencia
                 electrónica (Datos de la transacción se presentarán a
                 continuación) y posteriormente, comprobaremos tu transferencia con
-                el comprobante que tendrás que subir.
-                <br />
+                el comprobante que tendrás que subir. Asegúrate que el comprobante muestre claramente
+                el monto, la fecha y el numero de cuenta al cual se hizo la trasferencia.
+                {/* <br /> */}
                 {/* Escribe tu Rut para comprobar la transferencia una vez esta se realice. */}
-                <br />
+                {/* <br /> */}
                 {/* De no poder realizar la comprobación, se te notificará y tendrás
                 que subir un comprobante de manera manual. */}
                 <br />
@@ -132,6 +133,7 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
                   {
                     varsBingo.pago[0] ?
                       <>
+                        <h1 className='title'>{varsBingo.pago[option].title}</h1>
                         <Copy placeholder='Numero de cuenta:'>
                           {varsBingo.pago[option].numCuenta}
                         </Copy>

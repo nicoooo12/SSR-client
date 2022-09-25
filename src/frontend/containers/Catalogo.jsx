@@ -11,6 +11,7 @@ import numberWithCommas from '../utils';
 import { setStatusCarrito } from '../actions';
 
 import '../assets/styles/containers/Catalogo.scss';
+import _1 from '../assets/images/auspicio.png';
 
 const Catalogo = ({ setStatusCarrito, catalogos, carrito, varsBingo, history }) => {
 
@@ -26,6 +27,7 @@ const Catalogo = ({ setStatusCarrito, catalogos, carrito, varsBingo, history }) 
   return (
     <>
       <Layout title='Catalogo' to='/' >
+        <img src={_1} alt='' className='img' />
         {
           <>
             {catalogos.sort(function (a, b) {

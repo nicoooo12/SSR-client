@@ -1,4 +1,4 @@
-@import './Vars.scss';
+@import './Index.scss';
 *{
   font-family: 'Poppins', sans-serif;
   border: 0;
@@ -70,4 +70,23 @@ button {
         -ms-user-select: text; /* Internet Explorer/Edge */
             user-select: text; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+}
+
+.img{
+  width: 75%;
+  height: auto;
+  border-radius: 20px;
+  margin-bottom: 1rem;;
+}
+
+@media (max-width: $mediaWidth1){
+  .img{
+    width: 100%;
+  } 
+}
+
+.title {
+  text-align: center;
+  margin: 2rem;
+  @extend %Typography-text-DS;
 }

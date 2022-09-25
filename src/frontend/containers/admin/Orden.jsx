@@ -75,6 +75,7 @@ const Metrics = ({ history, socket, user, getAdminVars, terminarOrden }) => {
                 <Copy placeholder='username' >{orden.username}</Copy>
                 <Copy placeholder='username' >{orden.fecha ? new Date(orden.fecha) : ''}</Copy>
                 <Copy placeholder='estado' >{orden.estado === 2 ? 'Iniciada' : 'En revisión'}</Copy>
+                <Copy placeholder='referido' >{orden.referido}</Copy>
                 <Copy placeholder='total a pagar' >{orden.totalPago}</Copy>
                 <Input Ref={totalPagado} placeholder='total pagado' />
                 <Input Ref={message} placeholder='mensaje' value='todo bien'/>

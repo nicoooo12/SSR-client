@@ -16,6 +16,9 @@ import AdminPlay from '../containers/admin/Play';
 import AdminMetrics from '../containers/admin/Metrics';
 import AdminOrden from '../containers/admin/Orden';
 import AdminCartones from '../containers/admin/Cartones';
+import Entrada from '../containers/Entrada';
+import Password from '../containers/Password';
+import PasswordRecupera from '../containers/Password-Recupera';
 // import pay from '../containers/pagoPrueba';
 import NotFound from '../containers/NotFound';
 
@@ -53,6 +56,16 @@ const routers = (isLogged)=>{
     },
     {
       exact: true,
+      path: '/password',
+      component: Password,
+    },
+    {
+      exact: true,
+      path: '/password/:email/:code',
+      component: PasswordRecupera,
+    },
+    {
+      exact: true,
       path: '/sign-up',
       component: SignUp,
     },
@@ -70,6 +83,11 @@ const routers = (isLogged)=>{
       exact: true,
       path: '/help',
       component: Ayuda,
+    },
+    {
+      exact: true,
+      path: '/entrada',
+      component: Entrada,
     },
     {
       exact: true,

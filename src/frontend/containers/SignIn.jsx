@@ -6,6 +6,8 @@ import Input from '../components/forms/Input';
 import Button from '../components/forms/Button';
 import Layout from '../components/layouts/Layout';
 
+import { Link } from 'react-router-dom';
+
 import '../assets/styles/containers/signIn-up.scss';
 import { useLocation } from 'react-router-dom';
 
@@ -80,6 +82,12 @@ const App = ({ singIn, history, redirect, setRedirect, socket })=> {
           {errComponent}
           <Input Ref={email} type='text' placeholder='Email' name='email' onChange={updateInput}/>
           <Input Ref={password} type='password' autoComplete='false' placeholder='Contraseña' name='password' onChange={updateInput} current-password />
+          <p>
+            <Link to='/password'>
+              Olvide mi contraseña
+            </Link>
+          </p>
+          <br />
           <p>
             No tienes cuenta ? Crear una <Button onClick={()=>{history.push(`/sign-up${query.get('redirect') ? '?redirect=' + query.get('redirect') : ''}`);}} typebutton='text' >Aquí</Button>
           </p>

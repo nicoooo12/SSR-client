@@ -225,3 +225,24 @@ export const terminarOrden = (id, pagado, comment, fnCallback, fnErrorCallback) 
   };
 };
 
+export const forgottenPassword = (email, fnCallback, fnErrorCallback) => {
+  return async (dispatch) => {
+    const req = await request('/api/forgottenPassword', 'post', { email }, dispatch, null, {}, fnErrorCallback);
+    if (!req.err) {
+      const { data } = req.req;
+      // dispatch(updateState());
+      fnCallback(data);
+    }
+  };
+};
+
+export const resetPassword = (email, code, password, fnCallback, fnErrorCallback) => {
+  return async (dispatch) => {
+    const req = await request('/api/resetPassword', 'post', { email, code, password }, dispatch, null, {}, fnErrorCallback);
+    if (!req.err) {
+      const { data } = req.req;
+      // dispatch(updateState());
+      fnCallback(data);
+    }
+  };
+};

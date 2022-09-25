@@ -22,6 +22,16 @@ module.exports = function (app) {
     return request(`/api/orden/end/${id}`, 'post', { pagado, comment, correo: true }, token, res);
   });
 
+  router.post('/forgottenPassword', async (req, res)=>{
+    const { email } = req.body;
+    return request('/api/auth/forgottenPassword', 'post', { email }, null, res);
+  });
+
+  router.post('/resetPassword', async (req, res)=>{
+    const { email, code, password } = req.body;
+    return request('/api/auth/resetPassword', 'post', { email, code, password }, null, res);
+  });
+
   // router.get('/admin/orden', async (req, res)=>{
   //   const { token } = req.cookies;
   //   return request('/api/orden', 'get', null, token, res);

@@ -9,7 +9,7 @@
   top: 70px;
   position: relative;
   &>.img{
-    width: 100%;
+    width: 80%;
     height: auto;
     border-radius: 20px;
   }
@@ -85,6 +85,9 @@
 
 @media (max-width: $mediaWidth1){
   .banner-img{
+    &>.img {
+      width: 100%;
+    }
     margin: 10px 10px;
     &>.button, &>a>.button{
       top: -40px;

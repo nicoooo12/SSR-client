@@ -21,6 +21,9 @@ import AdminPlay from '../containers/admin/Play';
 import AdminMetrics from '../containers/admin/Metrics';
 import AdminCartones from '../containers/admin/Cartones';
 import AdminOrden from '../containers/admin/Orden';
+import Entrada from '../containers/Entrada';
+import Password from '../containers/Password';
+import PasswordRecupera from '../containers/Password-Recupera';
 // import pay from '../containers/pagoPrueba';
 import NotFound from '../containers/NotFound';
 import { io } from 'socket.io-client';
@@ -65,6 +68,26 @@ const App = ({ isLogged, updateState, initialState, user }) => {
           render={(props)=> (
             <Auth login {...props}>
               <Compra />
+            </Auth>
+          )
+          }
+        />
+        <Route
+          exact
+          path='/password'
+          render={(props)=> (
+            <Auth {...props}>
+              <Password />
+            </Auth>
+          )
+          }
+        />
+        <Route
+          exact
+          path='/password/:email/:code'
+          render={(props)=> (
+            <Auth {...props}>
+              <PasswordRecupera />
             </Auth>
           )
           }
@@ -175,12 +198,21 @@ const App = ({ isLogged, updateState, initialState, user }) => {
           }
         />
         {/* <Route exact path='/admin/play' component={<>play</>} /> */}
-
+        <Route
+          exact
+          path='/entrada'
+          render={(props)=> (
+            <Auth login {...props}>
+              <Entrada />
+            </Auth>
+          )
+          }
+        />
         <Route
           exact
           path='/test'
           render={(props)=> (
-            <Auth login {...props}>
+            <Auth login admin {...props}>
               <Tests socket={socket} />
             </Auth>
           )

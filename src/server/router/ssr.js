@@ -22,12 +22,12 @@ const setResponse = (html, preloadedState, nonce) => (`
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
     <link rel="stylesheet" href="/main.css">
-  
+    <link rel="icon" type="image/png" href="/assets/B.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <title>Beta</title>
+    <title>Bingoloteando</title>
   </head>
   <body>
     <div id="react">${html}</div>

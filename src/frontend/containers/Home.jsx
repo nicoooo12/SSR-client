@@ -17,8 +17,9 @@ import '../assets/styles/components/Header.scss';
 import '../assets/styles/containers/menu.scss';
 import '../assets/styles/containers/Home.scss';
 
-const App = ({ load, varsBingo, pedidos, play, user, updateState, logoutRequest })=> {
+const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logoutRequest })=> {
   const [first, setFirst] = useState(true);
+  console.log(entrada);
   useEffect(()=>{
     if (first) {
       setFirst(false);
@@ -100,6 +101,20 @@ const App = ({ load, varsBingo, pedidos, play, user, updateState, logoutRequest 
                         </Link>
                       </div>
                     </li>
+                    {
+                      entrada[0]._id ? (
+                        <>
+                          <li>
+                            Entrada
+                            <div style={{ transform: 'rotate(180deg)' }}>
+                              <Link to='/entrada'>
+                                <ButtonIcon size='small' typebutton='subtle' />
+                              </Link>
+                            </div>
+                          </li>
+                        </>
+                      ) : <></>
+                    }
                     <li>
                       Ayuda
                       <div style={{ transform: 'rotate(180deg)' }}>
@@ -281,6 +296,7 @@ const mapSateToProps = (state)=>{
     play: state.play,
     load: state.load,
     varsBingo: state.vars,
+    entrada: state.entrada,
   };
 };
 
