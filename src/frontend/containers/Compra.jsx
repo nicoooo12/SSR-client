@@ -120,7 +120,7 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
                                 size='small'
                                 autoLogin={false}
                                 onClick={()=> {setOption(i);}}
-                              >Opción {i + 1}</Button>);
+                              >{varsBingo.pago[i].title}</Button>);
                           })
                         }
                         {/* <Button typebutton='subtle' size='small' autoLogin={false}>Opción 2</Button> */}
