@@ -103,7 +103,7 @@
     transition: .15s ease-in-out;
   }
 
-  &>div{
+  &>:nth-child(2){
     // color: $primary_default;
     @extend %Typography-text-TS;
     display: none;
@@ -133,6 +133,17 @@
         top: 0px;
         position: relative;
       }
+    }
+  }
+
+  &>div{
+    // align-self: flex-start;
+    margin: 0.5rem;
+    display: flex;
+    width: 95%;
+    justify-content: flex-start;
+    &>label{
+      margin: 0 1rem;
     }
   }
 

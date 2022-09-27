@@ -11,7 +11,7 @@ const Metrics = ({ socket, user, getAdminVars, varsBingo }) => {
   const getOrdenes = () => {
     getAdminVars((e)=>{
       console.log(e);
-      setOrdenes(e);
+      setData(e);
     }, ()=>{});
   };
 
@@ -27,19 +27,18 @@ const Metrics = ({ socket, user, getAdminVars, varsBingo }) => {
     getOrdenes();
   }, []);
 
-  const [ordenes, setOrdenes] = useState([]);
-
-  // useEffect(()=>{
-  //   console.log(ordenes);
-  // }, ordenes);
+  const [data, setData] = useState([]);
 
   return (
     <>
       <Layout to='/admin' title='Métricas'>
         <div className='noTengo'>
           <h1>Bingo</h1>
-          <p>Dinero Total Recaudado: <b>{varsBingo.simbolo}{numberWithCommas(varsBingo.montoTotal)} {varsBingo.moneda}</b></p>
-          <p>Total Cartones comprados: <b>{varsBingo.catonesComprados}</b></p>
+          <p>Dinero Total Recaudado: <b>{varsBingo.simbolo}{numberWithCommas(data.recaudado ? data.recaudado : 0)} {varsBingo.moneda}</b></p>
+          <p>Códigos canjeados: <b>{data?.codesCanjeados}</b></p>
+          <p>Cartones comprados: <b>{data?.cartonesComprados - data?.codesCanjeados * 3}</b></p>
+          <p>Cartones canjeados: <b>{data?.codesCanjeados * 3}</b></p>
+          <p>Cartones totales: <b>{data.cartonesComprados}</b></p>
         </div>
         <div className='noTengo'>
           <h1>Ordenes</h1>
@@ -54,7 +53,7 @@ const Metrics = ({ socket, user, getAdminVars, varsBingo }) => {
             </thead>
             <tbody style={{ textAlign: 'center' }}>
               {
-                ordenes.map((e, index)=>{
+                data.ordenes?.map((e, index)=>{
                   return (
                     <>
                       <tr key={index}>

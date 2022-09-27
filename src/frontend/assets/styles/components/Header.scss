@@ -154,16 +154,32 @@
     // top: 20px;
     @extend %Typography-text-LL;
   }
-  &>.lastIcon{
-    // margin-right: 10px;
-    transition: 1s all;
-    width: 42px;
-    display: inline-block;
-    z-index: 1000000000000000000;
-    position: relative;
-    // top: 20px;
-    color: $greyscale_off-white;
+}
+.userName{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: $greyscale_off-white;
+  overflow: hidden;
+  &>h1{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    @extend %Typography-text-TS;
+    margin-right: 1.5rem;
+    margin-left: 1.5rem;
   }
+}
+
+.lastIcon{
+  // margin-right: 10px;
+  transition: 1s all;
+  width: 42px;
+  display: inline-block;
+  z-index: 1000000000000000000;
+  position: relative;
+  // top: 20px;
+  color: $greyscale_off-white;
 }
 
 // .header{

@@ -62,14 +62,20 @@ const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logou
               {
                 user.id ?
                   <>
-                    {/* <li>
-                      Cuenta
-                      <div style={{ transform: 'rotate(180deg)' }}>
-                        <Link to='/cuenta'>
-                          <ButtonIcon size='small' typebutton='subtle' />
-                        </Link>
-                      </div>
-                    </li> */}
+                    {
+                      user.admin ? (
+                        <>
+                          <li>
+                      admin
+                            <div style={{ transform: 'rotate(180deg)' }}>
+                              <Link to='/admin'>
+                                <ButtonIcon size='small' typebutton='subtle' />
+                              </Link>
+                            </div>
+                          </li>
+                        </>
+                      ) : (<></>)
+                    }
                     <li>
                       Jugar
                       <div style={{ transform: 'rotate(180deg)' }}>
@@ -163,8 +169,11 @@ const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logou
                 <div className='banner'> </div>
                 <div className='content'>
                   <h1>Bingoloteando</h1>
-                  <div className='lastIcon' onClick={menuHandler}>
-                    <Icon type='list' width='24' height='24'/>
+                  <div className='userName'>
+                    <h1>{user.name}</h1>
+                    <div className='lastIcon' onClick={menuHandler}>
+                      <Icon type='list' width='24' height='24'/>
+                    </div>
                   </div>
                 </div>
                 <div className='info'>

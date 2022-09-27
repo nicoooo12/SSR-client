@@ -5,6 +5,8 @@ const App = ({ type, placeholder, name, value = '', text = '', onChange, autoCom
 
   const Input = React.createRef(Input);
 
+  const d = +new Date();
+
   const delHandler = ()=> {
     Input.current.value = '';
     onChange();
@@ -28,6 +30,15 @@ const App = ({ type, placeholder, name, value = '', text = '', onChange, autoCom
         </button>
       </div>
       <label htmlFor={placeholder} >{placeholder}</label>
+      {
+        type === 'password' ?
+          <div>
+            <input type='checkbox' name='' id={'password-view-' + d} onClick={(e)=>{
+              if (e.target.checked) {Input.current.type = 'text';} else {Input.current.type = 'password';}
+            }}
+            /> <label htmlFor={'password-view-' + d}>Mostrar contraseña</label>
+          </div> : <></>
+      }
       <p>{text}</p>
     </div>
   );

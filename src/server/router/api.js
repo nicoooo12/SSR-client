@@ -13,7 +13,7 @@ module.exports = function (app) {
 
   router.get('/admin/orden', async (req, res)=>{
     const { token } = req.cookies;
-    return request('/api/orden', 'get', null, token, res);
+    return request('/api/admin', 'get', null, token, res);
   });
 
   router.post('/admin/end-orden', async (req, res)=>{
