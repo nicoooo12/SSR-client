@@ -36,6 +36,7 @@ const Metrics = ({ socket, user, getAdminVars, varsBingo }) => {
           <h1>Bingo</h1>
           <p>Dinero Total Recaudado: <b>{varsBingo.simbolo}{numberWithCommas(data.recaudado ? data.recaudado : 0)} {varsBingo.moneda}</b></p>
           <p>Códigos canjeados: <b>{data?.codesCanjeados}</b></p>
+          <p>Ordenes Terminadas: <b>{data?.totalOrdenesTerminadas}</b></p>
           <p>Cartones comprados: <b>{data?.cartonesComprados - data?.codesCanjeados * 3}</b></p>
           <p>Cartones canjeados: <b>{data?.codesCanjeados * 3}</b></p>
           <p>Cartones totales: <b>{data.cartonesComprados}</b></p>
