@@ -20,7 +20,7 @@ const Metrics = ({ history, socket, user, getAdminVars, terminarOrden }) => {
     getAdminVars((w)=>{
       console.log(w);
       const e = w.filter((t)=>{
-        return t.user === id;
+        return t.orden.user === id;
       })[0];
       setOrden(e);
     }, ()=>{
