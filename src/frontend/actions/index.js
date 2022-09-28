@@ -100,9 +100,9 @@ export const setError = (payload) => ({
   payload,
 });
 
-export const singUp = (payload, fnCallBack, fnErrorCallback) => {
+export const singUp = (payload, fnCallBack, fnErrorCallback, socket) => {
   return async (dispatch) => {
-    const req = await request('/auth/sign-up', 'post', payload, dispatch, payload, {}, fnErrorCallback);
+    const req = await request('/auth/sign-up', 'post', payload, dispatch, payload, {}, fnErrorCallback, socket);
     if (!req.err) {
       dispatch(singIn({ email: payload.email, password: payload.password }, fnCallBack, fnErrorCallback));
     }
@@ -120,12 +120,12 @@ export const singIn = ({ email, password }, fnCallback, fnErrorCallback, socket)
       document.cookie = `email=${data.user.email}; path=/;`;
       document.cookie = `name=${data.user.name}; path=/;`;
       document.cookie = `id=${data.user.id}; path=/;`;
-      socket.removeAllListeners();
-      socket.on(data.user.id, ()=>{
+      socket?.removeAllListeners();
+      socket?.on(data.user.id, ()=>{
         updateState();
         socket.emit('ok');
       });
-      console.log(data.user);
+      console.log('[user]: ' + data.user);
       dispatch(registerRequest(data.user));
       dispatch(initialState());
       fnCallback(data.user);

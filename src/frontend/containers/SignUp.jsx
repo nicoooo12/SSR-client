@@ -9,7 +9,7 @@ import Layout from '../components/layouts/Layout';
 import '../assets/styles/containers/signIn-up.scss';
 import { useLocation } from 'react-router-dom';
 
-const App = ({ singUp, history, redirect, setRedirect })=> {
+const App = ({ singUp, history, redirect, setRedirect, socket })=> {
   const query = new URLSearchParams(useLocation().search);
 
   const [form, setValues] = useState({
@@ -103,7 +103,7 @@ const App = ({ singUp, history, redirect, setRedirect })=> {
             setErrComponent(<h1>Lo sentimos, hubo un error interno. Intentalo más tarde.</h1>);
             break;
         }
-      });
+      }, socket);
     } else {
       setErrComponent(<h1>Rellene los parámetros correctamente.</h1>);
     }

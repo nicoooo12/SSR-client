@@ -143,7 +143,7 @@ const App = ({ isLogged, updateState, initialState, user }) => {
           }
         />
         <Route exact path='/sign-in' render={(props) => <SignIn socket={socket} {...props} />}/>
-        <Route exact path='/sign-up' component={SignUp} />
+        <Route exact path='/sign-up' render={(props) => <SignUp socket={socket} {...props} />} />
         <Route exact path='/help' component={Ayuda} />
         <Route exact path='/contacto' component={Contacto} />
 
