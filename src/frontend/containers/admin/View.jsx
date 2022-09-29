@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 const App = ({ user, history, catalogo, socket })=> {
 
-  const [lanzados, setLanzados] = useState([0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  const [lanzados, setLanzados] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const [restantes, setRestantes] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const [recuento, setRecuento] = useState([]);
   const [message, setMessage] = useState({ active: false, title: '', text: '' });
@@ -79,9 +79,26 @@ const App = ({ user, history, catalogo, socket })=> {
     console.log(n);
     const current = lanzados;
     current[n] = lanzados[n] === 0 ? 1 : 0;
-    console.log(current);
     setRestantes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     setLanzados(current);
+    setUltimaC(ultimaB);
+    setUltimaC2(ultimaB2);
+    setUltimaB(ultimaA);
+    setUltimaB2(ultimaA2);
+    let ult2;
+    if (n <= 15) {
+      ult2 = 'B';
+    } else if (n <= 30) {
+      ult2 = 'I';
+    } else if (n <= 45) {
+      ult2 = 'N';
+    } else if (n <= 60) {
+      ult2 = 'G';
+    } else {
+      ult2 = 'O';
+    }
+    setUltimaA2(ult2);
+    setUltimaA(n + 1);
   };
 producction
   useEffect(()=>{
