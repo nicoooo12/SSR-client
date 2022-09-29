@@ -13,6 +13,9 @@ import { connect } from 'react-redux';
 
 const Play = ({ user, socket, catalogo, play, changeEstadoPLay, changeSeriePlay }) => {
 
+  const InputSerie = React.createRef(InputSerie);
+  const InputNumero = React.createRef(InputNumero);
+
   const [serie, setSerie] = useState(play.serieJuego);
   const [estado, setEstado] = useState(play.estado);
 
@@ -22,8 +25,20 @@ const Play = ({ user, socket, catalogo, play, changeEstadoPLay, changeSeriePlay 
     changeEstadoPLay(n);
   };
 
+  const changeSeriePlayHandler = () => {
+    const n = +InputSerie.current.children[0].value;
+    console.log(n);
+    socket.emit('play', estado, n);
+    setSerie(n);
+    changeSeriePlay(n, ()=>{}, ()=>{});
+  };
+
   useEffect(()=>{
     socket.removeAllListeners();
+    socket.on(user.id, ()=>{
+      updateState();
+      socket.emit('ok');
+    });
     socket.emit('admin');
     socket.on('change', ()=>{
       updateState();
@@ -69,14 +84,14 @@ const Play = ({ user, socket, catalogo, play, changeEstadoPLay, changeSeriePlay 
           </div>
           <div>
             <h2>Serie: </h2>
-            <DropDown placeholder='hola' value={catalogo?.filter((e)=>e.serie === serie)[0].titulo}>
+            <DropDown Ref={InputSerie} placeholder='hola' value={serie}>
               {
                 catalogo?.map((e, i)=>{
-                  return <option value={e.titulo} key={i} />;
+                  return <option label={e.titulo} value={e.serie} key={i} />;
                 })
               }
             </DropDown>
-            <Button autoLogin={false} size={'small'} typebutton={'primary'} >Change</Button>
+            <Button autoLogin={false} size={'small'} typebutton={'primary'} onClick={changeSeriePlayHandler} >Change</Button>
             <br />
             <br />
             <hr />
@@ -99,8 +114,8 @@ const Play = ({ user, socket, catalogo, play, changeEstadoPLay, changeSeriePlay 
           <div>
             <h2>Juego: </h2>
             <div>
-              <Input placeholder={'Numero'}/>
-              <Button onClick={()=>{socket.emit('colorear_', 1);}} autoLogin={false} size={'small'} type='submit' typebutton={'primary'} >Cantar</Button>
+              <Input Ref={InputNumero} placeholder={'Numero'}/>
+              <Button onClick={()=>{socket.emit('colorear_', +InputNumero.current.children[0].value);}} autoLogin={false} size={'small'} type='submit' typebutton={'primary'} >Cantar</Button>
             </div>
             <Button autoLogin={false} size={'small'} typebutton={'secondary'} >Bingo!</Button>
             <Button autoLogin={false} size={'small'} typebutton={'secondary'} >Rechazar</Button>
