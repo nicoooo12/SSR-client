@@ -24,6 +24,7 @@ import AdminOrden from '../containers/admin/Orden';
 import Entrada from '../containers/Entrada';
 import Password from '../containers/Password';
 import PasswordRecupera from '../containers/Password-Recupera';
+import View from '../containers/admin/View';
 // import pay from '../containers/pagoPrueba';
 import NotFound from '../containers/NotFound';
 import { io } from 'socket.io-client';
@@ -153,6 +154,16 @@ const App = ({ isLogged, updateState, initialState, user }) => {
           render={(props)=> (
             <Auth login admin {...props}>
               <AdminMetrics socket={socket} />
+            </Auth>
+          )
+          }
+        />
+        <Route
+          exact
+          path='/admin/view'
+          render={(props)=> (
+            <Auth login admin {...props}>
+              <View socket={socket} />
             </Auth>
           )
           }

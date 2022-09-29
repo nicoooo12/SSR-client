@@ -6,6 +6,16 @@ const request = require('../utils/request');
 module.exports = function (app) {
   app.use('/api', router);
 
+  router.post('/playEstado', async (req, res)=>{
+    const { token } = req.cookies;
+    return request(`/api/play/estado/${req.body.estado}`, 'put', null, token, res);
+  });
+
+  router.post('/playSerie', async (req, res)=>{
+    const { token } = req.cookies;
+    return request(`/api/play/serie/${req.body.serie}`, 'put', null, token, res);
+  });
+
   router.get('/code/:code', async (req, res)=>{
     const { token } = req.cookies;
     return request(`/api/code/code/${req.params.code}`, 'get', null, token, res);

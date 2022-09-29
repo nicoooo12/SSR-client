@@ -35,6 +35,9 @@ module.exports = function (app, socket) {
     io.on('soyBingo', ()=>{
       io.join('bingo');
     });
+    io.on('colorear_', (n)=>{
+      socket.emit('colorear', n);
+    });
     io.on('connectPlay', async ()=>{
       // const play = await PlayService.getPlay();
       // socket.to(io.id).emit('connected', play.estado, play.serieJuego);

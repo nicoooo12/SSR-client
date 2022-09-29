@@ -19,6 +19,7 @@ import AdminCartones from '../containers/admin/Cartones';
 import Entrada from '../containers/Entrada';
 import Password from '../containers/Password';
 import PasswordRecupera from '../containers/Password-Recupera';
+import View from '../containers/admin/View';
 // import pay from '../containers/pagoPrueba';
 import NotFound from '../containers/NotFound';
 
@@ -103,6 +104,11 @@ const routers = (isLogged)=>{
       exact: true,
       path: '/admin/cartones',
       component: AdminCartones,
+    },
+    {
+      exact: true,
+      path: '/admin/view',
+      component: View,
     },
     {
       exact: true,

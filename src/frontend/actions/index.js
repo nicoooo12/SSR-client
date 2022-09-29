@@ -246,3 +246,25 @@ export const resetPassword = (email, code, password, fnCallback, fnErrorCallback
     }
   };
 };
+
+export const changeEstadoPLay = (estado, fnCallback, fnErrorCallback) => {
+  return async (dispatch) => {
+    const req = await request('/api/playEstado', 'post', { estado }, dispatch, null, {}, fnErrorCallback);
+    if (!req.err) {
+      const { data } = req.req;
+      dispatch(updateState());
+      fnCallback(data);
+    }
+  };
+};
+
+export const changeSeriePlay = (serie, fnCallback, fnErrorCallback) => {
+  return async (dispatch) => {
+    const req = await request('/api/playSerie', 'post', { serie }, dispatch, null, {}, fnErrorCallback);
+    if (!req.err) {
+      const { data } = req.req;
+      dispatch(updateState());
+      fnCallback(data);
+    }
+  };
+};

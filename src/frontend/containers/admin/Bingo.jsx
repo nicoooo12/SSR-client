@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 const App = ({ user, history, catalogo, socket })=> {
+  if (!user.id) {
+    history.push('/');
+  }
 
-  const [lanzados, setLanzados] = useState([0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  const [lanzados, setLanzados] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const [restantes, setRestantes] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const [recuento, setRecuento] = useState([]);
   const [message, setMessage] = useState({ active: false, title: '', text: '' });
@@ -74,23 +77,10 @@ const App = ({ user, history, catalogo, socket })=> {
     socket.emit('Lanzado', change);
   };
 
-  const colorear = (n) => {
-    n = n - 1;
-    console.log(n);
-    const current = lanzados;
-    current[n] = lanzados[n] === 0 ? 1 : 0;
-    console.log(current);
-    setRestantes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-    setLanzados(current);
-  };
-
   useEffect(()=>{
     socket.removeAllListeners();
     // console.log('hi world');
     socket.emit('soyBingo');
-    socket.on('colorear', (n) =>{
-      colorear(n);
-    });
     socket.on('init', (serie, numPremio)=>{
       const play = catalogo.filter((e)=>{return e.serie === serie;})[0];
       console.log(play, numPremio);
