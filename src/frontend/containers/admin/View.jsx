@@ -5,7 +5,7 @@ const App = ({ user, history, catalogo, socket })=> {
 
   const [lanzados, setLanzados] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const [restantes, setRestantes] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-  const [recuento, setRecuento] = useState([]);
+  const [recuento, setRecuento] = useState(['-', '-', '-']);
   const [message, setMessage] = useState({ active: false, title: '', text: '' });
   const [colorP, setColorP] = useState('black');
   const [colorS, setColorS] = useState('#ED2E7E');
@@ -13,10 +13,10 @@ const App = ({ user, history, catalogo, socket })=> {
   const [premio, setPremio] = useState('-');
   const [ultimaA, setUltimaA] = useState('-');
   const [ultimaB, setUltimaB] = useState('-');
-  const [ultimaC, setUltimaC] = useState('-');
+  // const [ultimaC, setUltimaC] = useState('-');
   const [ultimaA2, setUltimaA2] = useState('');
   const [ultimaB2, setUltimaB2] = useState('');
-  const [ultimaC2, setUltimaC2] = useState('');
+  // const [ultimaC2, setUltimaC2] = useState('');
   const [reCount, setReCount] = useState(0);
   const bg = '#F7F7FC';
 
@@ -74,34 +74,36 @@ const App = ({ user, history, catalogo, socket })=> {
     socket.emit('Lanzado', change);
   };
 
-  const colorear = (n) => {
-    n = n - 1;
-    console.log(n);
-    const current = lanzados;
-    current[n] = lanzados[n] === 0 ? 1 : 0;
-    setRestantes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-    setLanzados(current);
-    setUltimaC(ultimaB);
-    setUltimaC2(ultimaB2);
-    setUltimaB(ultimaA);
-    setUltimaB2(ultimaA2);
-    let ult2;
-    if (n <= 15) {
-      ult2 = 'B';
-    } else if (n <= 30) {
-      ult2 = 'I';
-    } else if (n <= 45) {
-      ult2 = 'N';
-    } else if (n <= 60) {
-      ult2 = 'G';
-    } else {
-      ult2 = 'O';
-    }
-    setUltimaA2(ult2);
-    setUltimaA(n + 1);
-  };
-producction
   useEffect(()=>{
+    const colorear = (n) => {
+      n = n - 1;
+      // console.log(n);
+      const current = lanzados;
+      current[n] = lanzados[n] === 0 ? 1 : 0;
+      // console.log(current);
+      setRestantes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+      setLanzados(current);
+
+      setUltimaC(ultimaB);
+      setUltimaC2(ultimaB2);
+      setUltimaB(ultimaA);
+      setUltimaB2(ultimaA2);
+      let ult2;
+      if ((n + 1) <= 15) {
+        ult2 = 'B';
+      } else if ((n + 1) <= 30) {
+        ult2 = 'I';
+      } else if ((n + 1) <= 45) {
+        ult2 = 'N';
+      } else if ((n + 1) <= 60) {
+        ult2 = 'G';
+      } else {
+        ult2 = 'O';
+      }
+      setUltimaA2(ult2);
+      setUltimaA(n + 1);
+      setRecuento([...recuento.push(`${ult2}${(n + 1)}`)]);
+    };
     socket.removeAllListeners();
     // console.log('hi world');
     socket.emit('soyBingo');
@@ -174,7 +176,7 @@ producction
       setMessage({ active: true, title: `Felicidades! ${user} es el ganador de esta ronda`, text: `Premio: ${premio}` });
     });
 
-  }, [lanzados, message]);
+  }, [lanzados, message, recuento]);
 
   return (
     <>
@@ -185,9 +187,10 @@ producction
               <h1>{message.title}</h1>
               <p>{message.text}</p>
             </> :
-            <table className='table tb-border table-bordered align-middle' style={{ height: '100%', fontSize: '35px', border: colorP }}>
+            <table className='table tb-border table-bordered align-middle' style={{ height: '100%', width: '100%', fontSize: '35px', border: colorP }}>
               <tbody style={{ textAlign: 'center' }}>
                 <tr>
+                  { console.log(recuento)}
                   <td scope='col' className='color' style={{ backgroundColor: colorP, color: 'white', fontWeight: 'bold' }}>B</td>
                   <td scope='col' className='num' style={{ background: restantes[0] === 1 ? colorS : lanzados[0] === 1 ? colorP : bg, color: restantes[0] === 1 ? 'white' : lanzados[0] === 1 ? 'white' : 'black' }} >1</td>
                   <td scope='col' className='num' style={{ background: restantes[1] === 1 ? colorS : lanzados[1] === 1 ? colorP : bg, color: restantes[1] === 1 ? 'white' : lanzados[1] === 1 ? 'white' : 'black' }} >2</td>
@@ -325,20 +328,23 @@ producction
                 </td>
                 <td className='td-ult fw-light' style={{ left: '80px', width: '200px', background: bg }}>
                   <div className='my-3'>
-                    <span id='numeroLanzadoA'>{ultimaA2}</span>
-                    <span id='numeroLanzadoB'>{ultimaA}</span>
+                    <span id='numeroLanzadoA'>{recuento[recuento.length - 1]}</span>
+                    {/* <span id='numeroLanzadoA'>{ultimaA2}</span>
+                    <span id='numeroLanzadoB'>{ultimaA}</span> */}
                   </div>
                 </td>
                 <td className='td-ult fw-light' style={{ left: '268px', width: '200px', background: bg }}>
                   <div className='my-3'>
-                    <span id='numeroLanzado2A'>{ultimaB2}</span>
-                    <span id='numeroLanzado2B'>{ultimaB}</span>
+                    <span id='numeroLanzadoA'>{recuento[recuento.length - 2]}</span>
+                    {/* <span id='numeroLanzado2A'>{ultimaB2}</span>
+                    <span id='numeroLanzado2B'>{ultimaB}</span> */}
                   </div>
                 </td>
                 <td className='td-ult fw-light' style={{ left: '456px', width: '200px', background: bg }}>
                   <div className='my-3'>
-                    <span id='numeroLanzado3A' >{ultimaC2}</span>
-                    <span id='numeroLanzado3B' >{ultimaC}</span>
+                    <span id='numeroLanzadoA'>{recuento[recuento.length - 3]}</span>
+                    {/* <span id='numeroLanzado3A' >{ultimaC2}</span>
+                    <span id='numeroLanzado3B' >{ultimaC}</span> */}
                   </div>
                 </td>
               </tr>

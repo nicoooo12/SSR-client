@@ -18,6 +18,8 @@ const Play = ({ user, socket, catalogo, play, changeEstadoPLay, changeSeriePlay 
 
   const [serie, setSerie] = useState(play.serieJuego);
   const [estado, setEstado] = useState(play.estado);
+  const [bingo, setBingo] = useState([]);
+  const [lanzados, setLanzados] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
   const changeEstadoPLayHandler = (n) => {
     socket.emit('play', n, serie);
@@ -45,6 +47,11 @@ const Play = ({ user, socket, catalogo, play, changeEstadoPLay, changeSeriePlay 
     });
     socket.on(user?.id ? user.id : 'change-noSignIn', ()=>{
       updateState();
+    });
+    socket.on('play', (username, data, number, id)=>{
+      // console.log(bingo);
+      // console.log([...bingo, { username, data, number, id }]);
+      setBingo([...bingo, { username, data, number, id }]);
     });
   }, []);
 
@@ -100,11 +107,13 @@ const Play = ({ user, socket, catalogo, play, changeEstadoPLay, changeSeriePlay 
           </div>
           <div>
             <h2>Pantalla: </h2>
-            <Button autoLogin={false} size={'small'} typebutton={'secondary'} >Init</Button>
-            <Button autoLogin={false} size={'small'} typebutton={'secondary'} >Get State</Button>
-            <Button autoLogin={false} size={'small'} typebutton={'secondary'} >Send State</Button>
-            <Button autoLogin={false} size={'small'} typebutton={'secondary'} >Reset</Button>
-            <Button autoLogin={false} size={'small'} typebutton={'secondary'} >Finish</Button>
+            <Button autoLogin={false} size={'small'} typebutton={'secondary'} onClick={()=>{socket.emit('Init', serie, 1);}}>Premio 1</Button>
+            <Button autoLogin={false} size={'small'} typebutton={'secondary'} onClick={()=>{socket.emit('Init', serie, 2);}}>Premio 2</Button>
+            <Button autoLogin={false} size={'small'} typebutton={'secondary'} onClick={()=>{socket.emit('Init', serie, 3);}}>Premio 3</Button>
+            {/* <Button autoLogin={false} size={'small'} typebutton={'secondary'} >Get State</Button> */}
+            {/* <Button autoLogin={false} size={'small'} typebutton={'secondary'} >Send State</Button> */}
+            <Button autoLogin={false} size={'small'} typebutton={'secondary'} onClick={()=>{confirm('seguro que quieres restaurar todo ?') ? socket.emit('Reset') : false;}} >Reset</Button>
+            <Button autoLogin={false} size={'small'} typebutton={'secondary'} onClick={()=>{socket.emit('End');}} >Finish</Button>
             <br />
             <br />
             <hr />
@@ -125,6 +134,13 @@ const Play = ({ user, socket, catalogo, play, changeEstadoPLay, changeSeriePlay 
         </div>
         <div className='noTengo'>
           <h1>Validar cartones</h1>
+          {
+            bingo.map((e, i)=>{
+              return <>
+                a
+              </>;
+            })
+          }
         </div>
       </Layout>
     </>
