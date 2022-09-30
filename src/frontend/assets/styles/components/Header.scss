@@ -267,6 +267,7 @@
 .headerHome{
   top:0;
   &>.contentHeaderHome{
+    position: relative;
     &>.banner{
       position:absolute;
       width: 100%;
