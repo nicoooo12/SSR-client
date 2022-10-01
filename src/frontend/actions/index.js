@@ -280,9 +280,9 @@ export const cartones = (code, fnCallback, fnErrorCallback) => {
   };
 };
 
-export const entradas = (serie, fnCallback, fnErrorCallback) => {
+export const entradas = (id, fnCallback, fnErrorCallback) => {
   return async (dispatch) => {
-    const req = await request('/api/entradas', 'post', { serie }, dispatch, null, {}, fnErrorCallback);
+    const req = await request('/api/entradas', 'post', { id }, dispatch, null, {}, fnErrorCallback);
     if (!req.err) {
       const { data } = req.req;
       dispatch(updateState());

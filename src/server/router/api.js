@@ -11,6 +11,14 @@ module.exports = function (app) {
     return request(`/api/play/estado/${req.body.estado}`, 'put', null, token, res);
   });
 
+  router.post('/cartones', async (req, res)=>{
+    const { token } = req.cookies;
+    return request(`/api/cartones/code/${req.body.code}`, 'get', null, token, res);
+  });
+  router.post('/entradas', async (req, res)=>{
+    const { token } = req.cookies;
+    return request(`/api/entradas/usar/${req.body.id}`, 'post', null, token, res);
+  });
   router.post('/playSerie', async (req, res)=>{
     const { token } = req.cookies;
     return request(`/api/play/serie/${req.body.serie}`, 'put', null, token, res);

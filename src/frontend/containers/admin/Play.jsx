@@ -9,11 +9,12 @@ import Carton from '../../components/Carton2';
 import {
   changeEstadoPLay,
   changeSeriePlay,
+  cartones,
 } from '../../actions';
 
 import { connect } from 'react-redux';
 
-const Play = ({ user, socket, catalogo, play, changeEstadoPLay, changeSeriePlay }) => {
+const Play = ({ user, cartones, socket, catalogo, play, changeEstadoPLay, changeSeriePlay }) => {
 
   const InputSerie = React.createRef(InputSerie);
   const InputNumero = React.createRef(InputNumero);
@@ -148,8 +149,14 @@ const Play = ({ user, socket, catalogo, play, changeEstadoPLay, changeSeriePlay 
         </div>
         <div className='noTengo'>
           <h1>Validar cartones {bingo.length}</h1>
-          <Input Ref={InputCodigo} placeholder={'Numero'}/>
-          <Button autoLogin={false} size={'small'} typebutton={'secondary'} >Buscar</Button>
+          <Input Ref={InputCodigo} placeholder={'Code'}/>
+          <Button onClick={()=>{
+            cartones(InputCodigo.current.children[0].value, (e)=>{
+              console.log(e);
+              // setRevision(e);
+            }, (e)=>{console.log(e);});
+          }} autoLogin={false} size={'small'} typebutton={'secondary'}
+          >Buscar</Button>
           {/* data, number, id */}
           <hr />
           <br />
@@ -197,6 +204,7 @@ const mapStateToProps = (state)=>{
 const mapDispatchToProps = {
   changeEstadoPLay,
   changeSeriePlay,
+  cartones,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Play);

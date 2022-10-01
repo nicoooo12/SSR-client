@@ -184,7 +184,7 @@ const Play = ({ user, history, play, misCartones, catalogos, socket }) => {
         );
       }
       return (
-        <Layout to='/' >
+        <Layout to='/' title='' >
           <div className='play' >
             <div className='carton'>
               <div className='carton__title-content'>

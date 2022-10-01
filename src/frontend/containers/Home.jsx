@@ -37,6 +37,58 @@ const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logou
     }
   };
 
+  // ----
+  useEffect(()=>{
+
+    //===
+    // VARIABLES
+    //===
+    const DATE_TARGET = new Date('10/1/2022 3:00 PM');
+    // DOM for render
+    const SPAN_DAYS = document.querySelector('span#days');
+    const SPAN_HOURS = document.querySelector('span#hours');
+    const SPAN_MINUTES = document.querySelector('span#minutes');
+    const SPAN_SECONDS = document.querySelector('span#seconds');
+    // Milliseconds for the calculations
+    const MILLISECONDS_OF_A_SECOND = 1000;
+    const MILLISECONDS_OF_A_MINUTE = MILLISECONDS_OF_A_SECOND * 60;
+    const MILLISECONDS_OF_A_HOUR = MILLISECONDS_OF_A_MINUTE * 60;
+    const MILLISECONDS_OF_A_DAY = MILLISECONDS_OF_A_HOUR * 24;
+
+    //===
+    // FUNCTIONS
+    //===
+
+    /**
+ * Method that updates the countdown and the sample
+ */
+    function updateCountdown() {
+    // Calcs
+      const NOW = new Date();
+      const DURATION = DATE_TARGET - NOW;
+      const REMAINING_DAYS = Math.floor(DURATION / MILLISECONDS_OF_A_DAY);
+      const REMAINING_HOURS = Math.floor((DURATION % MILLISECONDS_OF_A_DAY) / MILLISECONDS_OF_A_HOUR);
+      const REMAINING_MINUTES = Math.floor((DURATION % MILLISECONDS_OF_A_HOUR) / MILLISECONDS_OF_A_MINUTE);
+      const REMAINING_SECONDS = Math.floor((DURATION % MILLISECONDS_OF_A_MINUTE) / MILLISECONDS_OF_A_SECOND);
+      // Thanks Pablo Monteserín (https://pablomonteserin.com/cuenta-regresiva/)
+
+      // Render
+      SPAN_DAYS.textContent = REMAINING_DAYS;
+      SPAN_HOURS.textContent = REMAINING_HOURS;
+      SPAN_MINUTES.textContent = REMAINING_MINUTES;
+      SPAN_SECONDS.textContent = REMAINING_SECONDS;
+    }
+
+    //===
+    // INIT
+    //===
+    updateCountdown();
+    // Refresh every second
+    setInterval(updateCountdown, MILLISECONDS_OF_A_SECOND);
+  });
+
+  // ----
+
   const clickHandler = ()=>{
     document.querySelector('#react').scrollTo(0, document.querySelector('header').offsetHeight);
   };
@@ -189,6 +241,32 @@ const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logou
                         </div>
                       </div>
                     </Link>
+                    <div className='countDown'>
+                      <p>
+                        {
+                          (new Date('10/1/2022 2:45 PM') < new Date()) ? <></> :
+                            <>
+                              <span id='days' /> días / <span id='hours' /> horas / <span id='minutes' /> minutos / <span id='seconds' /> segundos
+                            </>
+                        }
+                      </p>
+                    </div>
+                    <div className='buttons'>
+                      <Link to={'/play'}>
+                        <Button autoLogin={false}>Jugar!</Button>
+                      </Link>
+                      {
+                        (new Date('10/1/2022 2:45 PM') < new Date()) ?
+                          <>
+                            <a href={(new Date('10/1/2021 2:45 PM') < new Date()) ? 'https://pucv-cl.zoom.us/j/98741573889?pwd=dU54WlpqVGxFcldqdFluK2JwVkpsZz09' : ''} target='_blank' rel='noopener noreferrer'>
+                              <Button autoLogin={false} disabled={false} color={'#005BD4'}>Zoom</Button>
+                            </a>
+                          </> :
+                          <>
+                            <Button autoLogin={false} disabled={true} color={'#005BD4'}>Zoom</Button>
+                          </>
+                      }
+                    </div>
                     {
                       load ?
                         <>
