@@ -246,29 +246,33 @@ const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logou
                     <div className='countDown'>
                       <p>
                         {
-                          (new Date('10/1/2022 2:45 PM') < new Date()) ? <></> :
+                          (new Date('10/1/2022 3:00 PM') < new Date()) ? <></> :
                             <>
                               <span id='days' /> días / <span id='hours' /> horas / <span id='minutes' /> minutos / <span id='seconds' /> segundos
                             </>
                         }
                       </p>
                     </div>
-                    <div className='buttons'>
-                      <Link to={'/play'}>
-                        <Button autoLogin={false}>Jugar!</Button>
-                      </Link>
-                      {
-                        (new Date('10/1/2022 2:45 PM') < new Date()) ?
-                          <>
-                            <a href={(new Date('10/1/2021 2:45 PM') < new Date()) ? 'https://pucv-cl.zoom.us/j/98741573889?pwd=dU54WlpqVGxFcldqdFluK2JwVkpsZz09' : ''} target='_blank' rel='noopener noreferrer'>
-                              <Button autoLogin={false} disabled={false} color={'#005BD4'}>Zoom</Button>
-                            </a>
-                          </> :
-                          <>
-                            <Button autoLogin={false} disabled={true} color={'#005BD4'}>Zoom</Button>
-                          </>
-                      }
-                    </div>
+                    {
+                      user.id ? <>
+                        <div className='buttons'>
+                          <Link to={'/play'}>
+                            <Button autoLogin={false}>Jugar!</Button>
+                          </Link>
+                          {
+                            (new Date('10/1/2022 2:45 PM') < new Date()) ?
+                              <>
+                                <a href={'https://pucv-cl.zoom.us/j/98741573889?pwd=dU54WlpqVGxFcldqdFluK2JwVkpsZz09'} target='_blank' rel='noopener noreferrer'>
+                                  <Button autoLogin={false} disabled={false} color={'#005BD4'}>Zoom</Button>
+                                </a>
+                              </> :
+                              <>
+                                <Button autoLogin={false} disabled={true} color={'#005BD4'}>Zoom</Button>
+                              </>
+                          }
+                        </div>
+                      </> : <></>
+                    }
                     {
                       load ?
                         <>

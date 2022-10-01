@@ -142,6 +142,7 @@ const Play = ({ user, cartones, socket, catalogo, play, changeEstadoPLay, change
               >Cantar</Button>
             </div>
             <Button autoLogin={false} size={'small'} typebutton={'secondary'} onClick={()=>{socket.emit('BingoS');}} >Bingo!</Button>
+            <Button autoLogin={false} size={'small'} typebutton={'secondary'} onClick={()=>{socket.emit('BingoGanador');}} >Ganador!</Button>
             <Button autoLogin={false} size={'small'} typebutton={'secondary'} onClick={()=>{socket.emit('BingoReject');}} >Rechazar</Button>
             {/* <Button autoLogin={false} size={'small'} typebutton={'secondary'} >Lanzar</Button> */}
 
@@ -153,7 +154,7 @@ const Play = ({ user, cartones, socket, catalogo, play, changeEstadoPLay, change
           <Button onClick={()=>{
             cartones(InputCodigo.current.children[0].value, (e)=>{
               console.log(e);
-              // setRevision(e);
+              setRevision(<><h1 className='select'>{e[0].user}</h1><Carton lanzados={lanzados} data={e[0].data} serie={e[0].serie} /></>);
             }, (e)=>{console.log(e);});
           }} autoLogin={false} size={'small'} typebutton={'secondary'}
           >Buscar</Button>

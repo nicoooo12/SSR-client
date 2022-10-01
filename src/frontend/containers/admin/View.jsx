@@ -175,7 +175,7 @@ const App = ({ user, history, catalogo, socket })=> {
     });
 
     socket.on('bingoGanador', async (user)=>{
-      setMessage({ active: true, title: `Felicidades! ${user} es el ganador de esta ronda`, text: `Premio: ${premio}` });
+      setMessage({ active: true, title: user ? `Felicidades! ${user} es el ganador de esta ronda` : 'Tenemos un ganador!', text: `Premio: ${premio}` });
     });
 
   }, [lanzados, message]);
