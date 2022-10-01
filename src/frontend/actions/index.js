@@ -268,3 +268,25 @@ export const changeSeriePlay = (serie, fnCallback, fnErrorCallback) => {
     }
   };
 };
+
+export const cartones = (code, fnCallback, fnErrorCallback) => {
+  return async (dispatch) => {
+    const req = await request('/api/cartones', 'post', { code }, dispatch, null, {}, fnErrorCallback);
+    if (!req.err) {
+      const { data } = req.req;
+      dispatch(updateState());
+      fnCallback(data);
+    }
+  };
+};
+
+export const entradas = (serie, fnCallback, fnErrorCallback) => {
+  return async (dispatch) => {
+    const req = await request('/api/entradas', 'post', { serie }, dispatch, null, {}, fnErrorCallback);
+    if (!req.err) {
+      const { data } = req.req;
+      dispatch(updateState());
+      fnCallback(data);
+    }
+  };
+};

@@ -555,7 +555,7 @@ const Play = ({ user, history, play, misCartones, catalogos, socket }) => {
                             </table>
                             <div className='foot'>
                               <Button size='small' color={color1} onClick={(o)=>{socket.emit('Bingo', user.name, e.data, index); socket.on('bingoReject', (e)=>{if (e === index) {o(); alert('Ups! Parece que no :C No te rindas, revisa bien tus cartones y suerte para la proxima!!');}}); socket.on('resetAllBingo', ()=>{o();});}} >Bingo!</Button>
-                              <Badges>Numero: {index} </Badges>
+                              <Badges>Código: {e.code} </Badges>
                             </div>
                           </div>);
                       }).filter((e)=>{

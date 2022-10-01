@@ -18,7 +18,7 @@ const App = ({ user, history, catalogo, socket })=> {
   const [premio, setPremio] = useState('-');
   const [ultimaA, setUltimaA] = useState('-');
   const [ultimaB, setUltimaB] = useState('-');
-  const [ultimaC, setUltimaC] = useState('-');
+  const [setUltimaC] = useState('-');
   const [reCount, setReCount] = useState(0);
   const bg = '#F7F7FC';
 
@@ -147,6 +147,7 @@ const App = ({ user, history, catalogo, socket })=> {
     });
 
     socket.on('getState', async ()=>{
+      console.log(lanzados);
       socket.emit('ReturnGetState', lanzados);
     });
 

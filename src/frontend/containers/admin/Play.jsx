@@ -17,8 +17,9 @@ const Play = ({ user, socket, catalogo, play, changeEstadoPLay, changeSeriePlay 
 
   const InputSerie = React.createRef(InputSerie);
   const InputNumero = React.createRef(InputNumero);
+  const InputCodigo = React.createRef(InputCodigo);
 
-  const [Revision, setRevision] = useState(<></>);
+  const [Revision, setRevision] = useState(false);
   const [serie, setSerie] = useState(play.serieJuego);
   const [estado, setEstado] = useState(play.estado);
   const [bingo, setBingo] = useState([]);
@@ -56,6 +57,7 @@ const Play = ({ user, socket, catalogo, play, changeEstadoPLay, changeSeriePlay 
       setBingo([...bingo, { username, data, number, id }]);
     });
     socket.on('returnGetState', (data)=>{
+      console.log(data);
       setLanzados(data);
     });
   }, []);
@@ -134,30 +136,44 @@ const Play = ({ user, socket, catalogo, play, changeEstadoPLay, changeSeriePlay 
                 current[n] = lanzados[n] === 0 ? 1 : 0;
                 setLanzados(current);
                 socket.emit('colorear_', n);
+                InputNumero.current.children[0].value = '';
               }} autoLogin={false} size={'small'} type='submit' typebutton={'primary'}
               >Cantar</Button>
             </div>
-            <Button autoLogin={false} size={'small'} typebutton={'secondary'} >Bingo!</Button>
-            <Button autoLogin={false} size={'small'} typebutton={'secondary'} >Rechazar</Button>
+            <Button autoLogin={false} size={'small'} typebutton={'secondary'} onClick={()=>{socket.emit('BingoS');}} >Bingo!</Button>
+            <Button autoLogin={false} size={'small'} typebutton={'secondary'} onClick={()=>{socket.emit('BingoReject');}} >Rechazar</Button>
             {/* <Button autoLogin={false} size={'small'} typebutton={'secondary'} >Lanzar</Button> */}
 
           </div>
         </div>
         <div className='noTengo'>
           <h1>Validar cartones {bingo.length}</h1>
+          <Input Ref={InputCodigo} placeholder={'Numero'}/>
+          <Button autoLogin={false} size={'small'} typebutton={'secondary'} >Buscar</Button>
           {/* data, number, id */}
+          <hr />
+          <br />
+          <br />
+          <br />
+          {
+            Revision ?
+              <Button typebutton={'secondary'} autoLogin={false} size={'small'} onClick={()=>{setRevision(false);}}>Cerrar</Button> : <></>
+          }
           {
             Revision
           }
           <hr />
+          <br />
+          <br />
+          <br />
           {
-            bingo.map((e, i)=>{
+            bingo.map((e, index)=>{
               return (
-                <div key={i}>
+                <div key={index}>
                   {e.username}:
                   <Button autoLogin={false} size={'small'} typebutton={'secondary'} onClick={()=>{socket.emit('BingoS', e.username);}} >Bingo!</Button>
                   <Button autoLogin={false} size={'small'} typebutton={'secondary'} onClick={()=>{setRevision(<Carton lanzados={lanzados} data={e.data} serie={e.serie} />);}} >Revisar</Button>
-                  <Button autoLogin={false} size={'small'} typebutton={'secondary'} onClick={()=>{console.log(e.id); socket.emit('BingoReject', e.id);}}>Rechazar</Button>
+                  <Button autoLogin={false} size={'small'} typebutton={'secondary'} onClick={()=>{console.log(e.id); socket.emit('BingoReject', e.id, e.number); setBingo(bingo.filter((o, i)=>i !== index));}}>Rechazar</Button>
                   <Button autoLogin={false} size={'small'} typebutton={'secondary'} onClick={()=>{socket.emit('BingoGanador', e.username);}}>Ganador!</Button>
                   <hr />
                 </div>
