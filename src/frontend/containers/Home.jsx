@@ -73,10 +73,12 @@ const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logou
       // Thanks Pablo Monteserín (https://pablomonteserin.com/cuenta-regresiva/)
 
       // Render
-      SPAN_DAYS.textContent = REMAINING_DAYS;
-      SPAN_HOURS.textContent = REMAINING_HOURS;
-      SPAN_MINUTES.textContent = REMAINING_MINUTES;
-      SPAN_SECONDS.textContent = REMAINING_SECONDS;
+      if (!menu) {
+        SPAN_DAYS.textContent = REMAINING_DAYS;
+        SPAN_HOURS.textContent = REMAINING_HOURS;
+        SPAN_MINUTES.textContent = REMAINING_MINUTES;
+        SPAN_SECONDS.textContent = REMAINING_SECONDS;
+      }
     }
 
     //===
