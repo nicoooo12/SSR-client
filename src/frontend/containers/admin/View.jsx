@@ -2,21 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 const App = ({ user, history, catalogo, socket })=> {
+  const UltimasA = React.createRef(UltimasA);
+  const UltimasB = React.createRef(UltimasB);
+  const UltimasC = React.createRef(UltimasC);
 
   const [lanzados, setLanzados] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const [restantes, setRestantes] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  const [configuration, setConfiguration] = useState([[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]);
   const [recuento, setRecuento] = useState(['-', '-', '-']);
   const [message, setMessage] = useState({ active: false, title: '', text: '' });
   const [colorP, setColorP] = useState('black');
+  const [icon, setIcon] = useState('');
   const [colorS, setColorS] = useState('#ED2E7E');
   const [titulo, setTitulo] = useState('-');
   const [premio, setPremio] = useState('-');
   const [ultimaA, setUltimaA] = useState('-');
   const [ultimaB, setUltimaB] = useState('-');
-  // const [ultimaC, setUltimaC] = useState('-');
-  const [ultimaA2, setUltimaA2] = useState('');
-  const [ultimaB2, setUltimaB2] = useState('');
-  // const [ultimaC2, setUltimaC2] = useState('');
+  const [ultimaC, setUltimaC] = useState('-');
   const [reCount, setReCount] = useState(0);
   const bg = '#F7F7FC';
 
@@ -74,51 +76,57 @@ const App = ({ user, history, catalogo, socket })=> {
     socket.emit('Lanzado', change);
   };
 
+  const colorear = async (n, recuento) => {
+    n = n - 1;
+    const current = lanzados;
+    current[n] = lanzados[n] === 0 ? 1 : 0;
+    let ult2;
+    if ((n + 1) <= 15) {
+      ult2 = 'B';
+    } else if ((n + 1) <= 30) {
+      ult2 = 'I';
+    } else if ((n + 1) <= 45) {
+      ult2 = 'N';
+    } else if ((n + 1) <= 60) {
+      ult2 = 'G';
+    } else {
+      ult2 = 'O';
+    }
+    // console.log(UltimasC);
+    UltimasC.current.innerText = UltimasB.current.innerText;
+    UltimasB.current.innerText = UltimasA.current.innerText;
+    UltimasA.current.innerText = `${ult2}${(n + 1)}`;
+    // setUltimaC(ultimaB);
+    // setUltimaB(ultimaA);
+    // setUltimaA(`${ult2}${(n + 1)}`);
+    // console.log(recuento);
+    // setRecuento([recuento[1], recuento[2], `${ult2}${(n + 1)}`]);
+    setLanzados(current);
+    setRestantes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  };
   useEffect(()=>{
-    const colorear = (n) => {
-      n = n - 1;
-      // console.log(n);
-      const current = lanzados;
-      current[n] = lanzados[n] === 0 ? 1 : 0;
-      // console.log(current);
-      setRestantes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-      setLanzados(current);
-
-      setUltimaC(ultimaB);
-      setUltimaC2(ultimaB2);
-      setUltimaB(ultimaA);
-      setUltimaB2(ultimaA2);
-      let ult2;
-      if ((n + 1) <= 15) {
-        ult2 = 'B';
-      } else if ((n + 1) <= 30) {
-        ult2 = 'I';
-      } else if ((n + 1) <= 45) {
-        ult2 = 'N';
-      } else if ((n + 1) <= 60) {
-        ult2 = 'G';
-      } else {
-        ult2 = 'O';
-      }
-      setUltimaA2(ult2);
-      setUltimaA(n + 1);
-      setRecuento([...recuento.push(`${ult2}${(n + 1)}`)]);
-    };
     socket.removeAllListeners();
-    // console.log('hi world');
     socket.emit('soyBingo');
     socket.on('colorear', (n) =>{
-      colorear(n);
+      colorear(n, recuento);
     });
-    socket.on('init', (serie, numPremio)=>{
+    socket.on('config', async (e)=> {
+      setConfiguration(e);
+    });
+  });
+  useEffect(()=>{
+    socket.removeAllListeners();
+    // console.log('hi world');
+    socket.on('init', async (serie, numPremio)=>{
       const play = catalogo.filter((e)=>{return e.serie === serie;})[0];
       console.log(play, numPremio);
       setPremio(play.premios[numPremio - 1].nombre);
       setColorP(play.color);
       setColorS('#ED2E7E');
       setTitulo(play.titulo);
+      setIcon(play.icon);
     });
-    socket.on('lanzar', ()=>{
+    socket.on('lanzar', async ()=>{
       lanzar(lanzados);
     });
     socket.on('end', ()=>{
@@ -129,35 +137,28 @@ const App = ({ user, history, catalogo, socket })=> {
     socket.on('sendState', (data)=>{
       setLanzados(data);
     });
-    socket.on('reset', ()=>{
+    socket.on('reset', async ()=>{
       setLanzados([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
       setRestantes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
       setColorP('black');
       setColorS('black');
-      setTitulo('-');
-      setPremio('-');
-      setUltimaA('-');
-      setUltimaB('-');
-      setUltimaC('-');
-      setUltimaA2('');
-      setUltimaB2('');
-      setUltimaC2('');
+      setRecuento(['-', '-', '-']);
       setMessage({ active: false, title: '', text: '' });
     });
 
-    socket.on('getState', ()=>{
+    socket.on('getState', async ()=>{
       socket.emit('ReturnGetState', lanzados);
     });
 
-    socket.on('bingo', (user)=>{
-      setMessage({ active: true, title: `${user} dice Bingo!! ✨`, text: 'Estamos revisando el carton...' });
+    socket.on('bingo', async (user)=>{
+      setMessage({ active: true, title: user ? `${user} dice Bingo!! ✨${icon}` : `Bingoooo!! ✨${icon}`, text: 'Estamos revisando el carton...' });
     });
 
-    socket.on('re-count', ()=>{
+    socket.on('re-count', async ()=>{
       if (reCount < recuento.length) {
         setReCount(reCount + 1);
         setMessage({ active: true, title: recuento[reCount], text: '' });
-        console.log(reCount);
+        // console.log(reCount);
       } else {
         setReCount(0);
         setMessage({ active: false, title: '', text: '' });
@@ -176,21 +177,16 @@ const App = ({ user, history, catalogo, socket })=> {
       setMessage({ active: true, title: `Felicidades! ${user} es el ganador de esta ronda`, text: `Premio: ${premio}` });
     });
 
-  }, [lanzados, message, recuento]);
+  }, [lanzados, message]);
 
   return (
     <>
       <div className='mx-5' id='cp' >
         <div className='item-center align-middle' style={{ position: 'relative', height: '470px', width: '1702px', marginTop: '25px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', transition: 'all 1s' }}>
-          { message.active ?
-            <>
-              <h1>{message.title}</h1>
-              <p>{message.text}</p>
-            </> :
+          {
             <table className='table tb-border table-bordered align-middle' style={{ height: '100%', width: '100%', fontSize: '35px', border: colorP }}>
               <tbody style={{ textAlign: 'center' }}>
                 <tr>
-                  { console.log(recuento)}
                   <td scope='col' className='color' style={{ backgroundColor: colorP, color: 'white', fontWeight: 'bold' }}>B</td>
                   <td scope='col' className='num' style={{ background: restantes[0] === 1 ? colorS : lanzados[0] === 1 ? colorP : bg, color: restantes[0] === 1 ? 'white' : lanzados[0] === 1 ? 'white' : 'black' }} >1</td>
                   <td scope='col' className='num' style={{ background: restantes[1] === 1 ? colorS : lanzados[1] === 1 ? colorP : bg, color: restantes[1] === 1 ? 'white' : lanzados[1] === 1 ? 'white' : 'black' }} >2</td>
@@ -290,15 +286,15 @@ const App = ({ user, history, catalogo, socket })=> {
         <div className='item-center align-middle' style={{ position: 'relative', height: '100px', width: '100px', marginTop: '25px' }}> </div>
 
         <div className='item-center align-middle' style={{ position: 'relative', height: '163px', width: '529px', marginTop: '25px', display: 'inline-block' }}>
-          <table className='table tb-border table-bordered' style={{ border: colorP, height: '100%', width: '100%', fontSize: '20px' }}>
+          <table className='table tb-border table-bordered' style={{ textAlign: 'center', border: colorP, height: '100%', width: '100%', fontSize: '20px' }}>
             <tbody>
-              <tr className='color text-center' style={{ backgroundColor: colorP, color: 'white', fontWeight: 'bold', height: '10px' }}>
+              <tr className='color text-center' style={{ height: '85px', backgroundColor: colorP, color: 'white', fontWeight: 'bold' }}>
                 <td>
                 Premio
                 </td>
               </tr>
-              <tr className='text-center' style={{ fontSize: '25px' }}>
-                <td id='pre' style={{ background: bg }}>
+              <tr className='text-center' style={{ fontSize: '25px', fontWeight: '500' }}>
+                <td id='pre' style={{ background: bg, padding: '2rem' }}>
                   {premio}
                 </td>
               </tr>
@@ -306,7 +302,7 @@ const App = ({ user, history, catalogo, socket })=> {
           </table>
         </div>
         <div className='item-center align-middle' style={{ margin: '20px', position: 'relative', height: '84px', width: '594px', marginTop: '25px', display: 'inline-block' }}>
-          <table className='table tb-border table-bordered inv' style={{ border: colorP, height: '100%', width: '100%', fontSize: '20px' }}>
+          <table className='table tb-border table-bordered inv' style={{ textAlign: 'center', border: colorP, height: '100%', width: '100%', fontSize: '20px' }}>
             <tbody>
               <tr className='color text-center' style={{ backgroundColor: colorP, color: 'white', fontWeight: 'bold', height: '10px' }}>
                 <td style={{ background: colorP }}>
@@ -317,34 +313,37 @@ const App = ({ user, history, catalogo, socket })=> {
           </table>
         </div>
 
-        <div className='item-center align-middle ms-5' style={{ position: 'absolute', height: '350px', width: '100px', marginTop: '25px', top: '38%', left: '14%' }}>
-          <table className='align-middle text-center table tb-border table-bordered' style={{ border: colorP, height: '100%', width: '100%', fontSize: '70px' }}>
+        <div className='item-center align-middle ms-5' style={{ position: 'absolute', height: '', width: '', marginTop: '25px', top: '500px', left: '0' }}>
+          <table className='align-middle text-center table tb-border table-bordered' style={{ textAlign: 'center', border: colorP, height: '100%', width: '100%', fontSize: '70px' }}>
             <tbody>
-              <tr style={{ top: '30%', position: 'absolute', height: '155px', width: '720px' }}>
+              <tr style={{ top: '30%', height: '155px', width: '720px' }}>
                 <td className='color td-ult' style={{ backgroundColor: colorP, padding: 0, color: 'white', fontWeight: 'bold', width: '120px!important', fontSize: '30px!important' }}>
-                  <div style={{ transform: 'rotate(-90deg)' }}>
+                  <div>
                     Ultimas
                   </div>
                 </td>
-                <td className='td-ult fw-light' style={{ left: '80px', width: '200px', background: bg }}>
+              </tr>
+              <tr style={{ top: '30%', height: '155px', width: '720px' }}>
+                <td className='td-ult fw-light' style={{ top: '80px', width: '200px', background: bg }}>
                   <div className='my-3'>
-                    <span id='numeroLanzadoA'>{recuento[recuento.length - 1]}</span>
-                    {/* <span id='numeroLanzadoA'>{ultimaA2}</span>
-                    <span id='numeroLanzadoB'>{ultimaA}</span> */}
+                    {/* <span id='numeroLanzadoA'>{recuento[recuento.length - 1]}</span> */}
+                    <span ref={UltimasA} id='numeroLanzadoB'>-</span>
                   </div>
                 </td>
-                <td className='td-ult fw-light' style={{ left: '268px', width: '200px', background: bg }}>
+              </tr>
+              <tr style={{ top: '30%', height: '155px', width: '720px' }}>
+                <td className='td-ult fw-light' style={{ top: '268px', width: '200px', background: bg }}>
                   <div className='my-3'>
-                    <span id='numeroLanzadoA'>{recuento[recuento.length - 2]}</span>
-                    {/* <span id='numeroLanzado2A'>{ultimaB2}</span>
-                    <span id='numeroLanzado2B'>{ultimaB}</span> */}
+                    {/* <span id='numeroLanzadoA'>{recuento[recuento.length - 2]}</span> */}
+                    <span ref={UltimasB} id='numeroLanzado2B'>-</span>
                   </div>
                 </td>
-                <td className='td-ult fw-light' style={{ left: '456px', width: '200px', background: bg }}>
+              </tr>
+              <tr style={{ top: '30%', height: '155px', width: '720px' }}>
+                <td className='td-ult fw-light' style={{ top: '456px', width: '200px', background: bg }}>
                   <div className='my-3'>
-                    <span id='numeroLanzadoA'>{recuento[recuento.length - 3]}</span>
-                    {/* <span id='numeroLanzado3A' >{ultimaC2}</span>
-                    <span id='numeroLanzado3B' >{ultimaC}</span> */}
+                    {/* <span id='numeroLanzadoA'>{recuento[recuento.length - 3]}</span> */}
+                    <span ref={UltimasC} id='numeroLanzado3B' >-</span>
                   </div>
                 </td>
               </tr>
@@ -353,53 +352,79 @@ const App = ({ user, history, catalogo, socket })=> {
         </div>
 
         <div className='item-center align-middle mb-4' style={{ position: 'relative', width: '529px', marginTop: '25px', display: 'inline-block' }}>
-          <table className='table tb-border table-bordered' style={{ border: colorP, height: '100%', width: '100%', fontSize: '20px' }}>
+          <table className='table tb-border table-bordered' style={{ textAlign: 'center', border: colorP, height: '100%', width: '100%', fontSize: '20px' }}>
             <thead>
-              <tr className='color text-center' style={{ backgroundColor: colorP, color: 'white', fontWeight: 'bold', height: '10px' }}>
+              <tr className='color text-center' style={{ backgroundColor: colorP, color: 'white', fontWeight: 'bold' }}>
                 <td colSpan='5'>
                 Configuración
+                </td>
+              </tr>
+              <tr className='color text-center' style={{ backgroundColor: colorP, color: 'white', fontWeight: 'bold' }}>
+                <td colSpan='1' style={{ width: '100px', height: '50px' }}>
+                B
+                </td>
+                <td colSpan='1'>
+                I
+                </td>
+                <td colSpan='1'>
+                N
+                </td>
+                <td colSpan='1'>
+                G
+                </td>
+                <td colSpan='1'>
+                O
                 </td>
               </tr>
             </thead>
             <tbody>
               <tr className='text-center' style={{ fontSize: '25px' }}>
-                <td id='pre' style={{ background: bg }}>o</td>
-                <td id='pre' style={{ background: bg }}>o</td>
-                <td id='pre' style={{ background: bg }}>o</td>
-                <td id='pre' style={{ background: bg }}>o</td>
-                <td id='pre' style={{ background: bg }}>o</td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[0][0] === 1 ? colorP : bg }}> </td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[0][1] === 1 ? colorP : bg }}> </td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[0][2] === 1 ? colorP : bg }}> </td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[0][3] === 1 ? colorP : bg }}> </td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[0][4] === 1 ? colorP : bg }}> </td>
               </tr>
               <tr className='text-center' style={{ fontSize: '25px' }}>
-                <td id='pre' style={{ background: bg }}>o</td>
-                <td id='pre' style={{ background: bg }}>o</td>
-                <td id='pre' style={{ background: bg }}>o</td>
-                <td id='pre' style={{ background: bg }}>o</td>
-                <td id='pre' style={{ background: bg }}>o</td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[1][0] === 1 ? colorP : bg }}> </td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[1][1] === 1 ? colorP : bg }}> </td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[1][2] === 1 ? colorP : bg }}> </td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[1][3] === 1 ? colorP : bg }}> </td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[1][4] === 1 ? colorP : bg }}> </td>
               </tr>
               <tr className='text-center' style={{ fontSize: '25px' }}>
-                <td id='pre' style={{ background: bg }}>o</td>
-                <td id='pre' style={{ background: bg }}>o</td>
-                <td id='pre' style={{ background: bg }}>o</td>
-                <td id='pre' style={{ background: bg }}>o</td>
-                <td id='pre' style={{ background: bg }}>o</td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[2][0] === 1 ? colorP : bg }}> </td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[2][1] === 1 ? colorP : bg }}> </td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[2][2] === 1 ? colorP : bg }}> </td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[2][3] === 1 ? colorP : bg }}> </td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[2][4] === 1 ? colorP : bg }}> </td>
               </tr>
               <tr className='text-center' style={{ fontSize: '25px' }}>
-                <td id='pre' style={{ background: bg }}>o</td>
-                <td id='pre' style={{ background: bg }}>o</td>
-                <td id='pre' style={{ background: bg }}>o</td>
-                <td id='pre' style={{ background: bg }}>o</td>
-                <td id='pre' style={{ background: bg }}>o</td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[3][0] === 1 ? colorP : bg }}> </td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[3][1] === 1 ? colorP : bg }}> </td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[3][2] === 1 ? colorP : bg }}> </td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[3][3] === 1 ? colorP : bg }}> </td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[3][4] === 1 ? colorP : bg }}> </td>
               </tr>
               <tr className='text-center' style={{ fontSize: '25px' }}>
-                <td id='pre' style={{ background: bg }}>x</td>
-                <td id='pre' style={{ background: bg }}>x</td>
-                <td id='pre' style={{ background: bg }}>x</td>
-                <td id='pre' style={{ background: bg }}>x</td>
-                <td id='pre' style={{ background: bg }}>x</td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[4][0] === 1 ? colorP : bg }}> </td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[4][1] === 1 ? colorP : bg }}> </td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[4][2] === 1 ? colorP : bg }}> </td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[4][3] === 1 ? colorP : bg }}> </td>
+                <td id='pre' style={{ width: '100px', height: '100px', background: configuration[4][4] === 1 ? colorP : bg }}> </td>
               </tr>
             </tbody>
           </table>
-          <p className=''>Linea</p>
+        </div>
+
+        <div className='item-center align-middle' style={{ textAlign: 'center', top: '100px', position: 'relative', height: '470px', width: '1702px', marginTop: '25px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', flexDirection: 'column', transition: 'all 1s', background: message.active ? `${colorP}eb` : 'transparent' }}>
+          {
+            message.active ?
+              <>
+                <h1 style={{ fontSize: '3.5rem' }}>{message.title}</h1>
+                <p style={{ fontSize: '2rem' }}>{message.text}</p>
+              </> : <></>
+          }
         </div>
 
       </div>

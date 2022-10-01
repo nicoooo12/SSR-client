@@ -1,6 +1,10 @@
 // import React from 'react';
+// import ReactDOM from 'react-dom';
 import Swal from 'sweetalert2';
 // import withReactContent from 'sweetalert2-react-content';
+// import withReactContent from 'sweetalert2-react-content';
+// import * as htmlparser2 from 'htmlparser2';
+// const mySwal = withReactContent(Swal);
 
 const alert = Swal.mixin({
   toast: true,
@@ -36,5 +40,13 @@ export const error = (title) => {
     title,
   });
 };
+
+// export const show = (title, content) => {
+//   ReactDOM.render(document.getElementById('modals'), <h1>test</h1>);
+//   return Swal.fire({
+//     title,
+//     html: '<div id="model"></div>',
+//   });
+// };
 
 export default Alert;
