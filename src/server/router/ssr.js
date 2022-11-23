@@ -61,7 +61,7 @@ const renderApp = async (req, res) => {
       // console.log(initialStateServer.data.user, initialStateServer.data.vars);
       initialStateServer.data.user = { ...initialStateServer.data.user };
       const nacion = initialStateServer.data.vars.naciones.findIndex((e)=>e.name === initialStateServer.data.user.pais);
-      // console.log(initialStateServer.data.vars.naciones[nacion]);
+      // console.log(initialStateServer.data.user);
       initialStateServer.data.vars = {
         ...initialStateServer.data.vars,
         pago: initialStateServer.data.vars.naciones[nacion].pago,

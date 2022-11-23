@@ -85,7 +85,7 @@ const App = ({ singUp, history, redirect, setRedirect, socket })=> {
       inputCountry.current.className = 'input-success';
     }
 
-    if (inputRepeatPassword.current.className !== 'input-error' & inputName.current.className !== 'input-error' & inputEmail.current.className !== 'input-error' & inputPassword.current.className !== 'input-error') {
+    if (inputCountry.current.className !== 'input-error' & inputRepeatPassword.current.className !== 'input-error' & inputName.current.className !== 'input-error' & inputEmail.current.className !== 'input-error' & inputPassword.current.className !== 'input-error') {
       delete form.repeatPassword;
       singUp(form, ()=>{
         if (query.get('redirect')) {
