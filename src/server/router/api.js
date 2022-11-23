@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const axios = require('axios');
+const config = require('../../../config');
 
 const request = require('../utils/request');
 
@@ -71,9 +73,49 @@ module.exports = function (app) {
   router.post('/initialState', async (req, res, next)=>{
     const { token } = req.cookies;
     if (token) {
-      return await request('/api/initialState', 'get', null, token, res);
+      const { data: initialStateServer } = await axios({
+        method: 'get',
+        headers: token ? { Authorization: `Bearer ${token}` } : { },
+        url: `${config.apiUrl}/api/initialState`,
+      });
+
+      if (initialStateServer.data.vars.internacional) {
+        // console.log(initialStateServer.data.user, initialStateServer.data.vars);
+        initialStateServer.data.user = { ...initialStateServer.data.user };
+        const nacion = initialStateServer.data.vars.naciones.findIndex((e)=>e.name === initialStateServer.data.user.pais);
+        // console.log(initialStateServer.data.vars.naciones[nacion]);
+        initialStateServer.data.vars = {
+          ...initialStateServer.data.vars,
+          pago: initialStateServer.data.vars.naciones[nacion].pago,
+          moneda: initialStateServer.data.vars.naciones[nacion].moneda,
+          simbolo: initialStateServer.data.vars.naciones[nacion].simbolo,
+          cambio: initialStateServer.data.vars.naciones[nacion].cambio,
+        };
+      }
+      const initialState = {
+        'user': { ...initialStateServer.data.user },
+        'redirect': '',
+        'cartonesUser': [...initialStateServer.data.cartonesUser],
+        'ordenes': {
+          enProgreso: { ...initialStateServer.data.ordenes.enProgreso },
+          terminadas: [...initialStateServer.data.ordenes.terminadas],
+        },
+        'catalogos': [...initialStateServer.data.catalogos],
+        'play': { ...initialStateServer.data.play },
+        'carrito': {
+          active: false,
+          state: 0,
+          data: [],
+        },
+        'vars': {
+          // api: config.apiUrl,
+          ...initialStateServer.data.vars,
+        },
+        'load': true,
+      };
+      res.status(200).json(initialState);
     }
-    return await request('/api/initialState', 'get', null, undefined, res);
+    // return await request('/api/initialState', 'get', null, undefined, res);
   });
 
   router.post('/createOrden', async (req, res, next)=>{

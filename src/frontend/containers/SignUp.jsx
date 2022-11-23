@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { singUp, setRedirect } from '../actions';
 import Input from '../components/forms/Input';
+import DropDown from '../components/forms/DropDown2';
 import Button from '../components/forms/Button';
 import Layout from '../components/layouts/Layout';
 
@@ -24,6 +25,7 @@ const App = ({ singUp, history, redirect, setRedirect, socket })=> {
   const inputEmail = useRef('');
   const inputPassword = useRef('');
   const inputRepeatPassword = useRef('');
+  const inputCountry = useRef('');
 
   const updateInput = (event) => {
     if ([event.target.name][0] === 'name') {
@@ -40,6 +42,8 @@ const App = ({ singUp, history, redirect, setRedirect, socket })=> {
       inputPassword.current.className = 'input';
     } else if ([event.target.name][0] === 'repeatPassword') {
       inputRepeatPassword.current.className = 'input';
+    } else if ([event.target.name][0] === 'datalistOptions-País') {
+      inputCountry.current.className = 'input';
     }
     setValues({
       ...form,
@@ -74,6 +78,11 @@ const App = ({ singUp, history, redirect, setRedirect, socket })=> {
       inputRepeatPassword.current.className = 'input-error';
     } else {
       inputRepeatPassword.current.className = 'input-success';
+    }
+    if (inputCountry.current.firstElementChild.value === '') {
+      inputCountry.current.className = 'input-error';
+    } else {
+      inputCountry.current.className = 'input-success';
     }
 
     if (inputRepeatPassword.current.className !== 'input-error' & inputName.current.className !== 'input-error' & inputEmail.current.className !== 'input-error' & inputPassword.current.className !== 'input-error') {
@@ -117,6 +126,13 @@ const App = ({ singUp, history, redirect, setRedirect, socket })=> {
           {errComponent}
           <Input Ref={inputName} type='text' placeholder='Nombre y apellido' name='name' onChange={updateInput} text='Este nombre sera ocupado para identificar al usuario. También se mostrará al momento de jugar.' />
           <Input Ref={inputEmail} type='email' placeholder='Email' name='email' onChange={updateInput} text='A traves de este medio nos comunicaremos contigo, asegurate de que sea el correcto.' />
+          <DropDown Ref={inputCountry} onChange={updateInput} text={'Selecciona tu país, esto tendrá efectos en la moneda de uso.'} placeholder='Pais'>
+            <option value={''} defaultChecked>Seleccione una opción</option>
+            <option value={'Chile'} >Chile</option>
+            <option value={'Argentina'} >Argentina</option>
+            <option value={'Paraguay'} >Paraguay</option>
+            <option value={'Uruguay'} >Uruguay</option>
+          </DropDown>
           <Input Ref={inputPassword} type='password' autoComplete='false' placeholder='Contraseña' name='password' onChange={updateInput} current-password text='Crea una contraseña de mínimo 8 caracteres.'/>
           <Input Ref={inputRepeatPassword} type='password' autoComplete='false' placeholder='Contraseña (otra vez)' name='repeatPassword' onChange={updateInput} current-password text='Repite tu contraseña. Es importante no olvidarse...'/>
           <p>

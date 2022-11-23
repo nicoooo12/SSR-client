@@ -11,7 +11,7 @@ import numberWithCommas from '../utils';
 import { setStatusCarrito } from '../actions';
 
 import '../assets/styles/containers/Catalogo.scss';
-import _1 from '../assets/images/auspicio.png';
+// import _1 from '../assets/images/auspicio.png';
 
 const Catalogo = ({ setStatusCarrito, catalogos, carrito, varsBingo, history }) => {
 
@@ -27,7 +27,7 @@ const Catalogo = ({ setStatusCarrito, catalogos, carrito, varsBingo, history }) 
   return (
     <>
       <Layout title='Catalogo' to='/' >
-        <img src={_1} alt='' className='img' />
+        {/* <img src={_1} alt='' className='img' /> */}
         {
           <>
             {catalogos.sort(function (a, b) {
@@ -53,7 +53,10 @@ const Catalogo = ({ setStatusCarrito, catalogos, carrito, varsBingo, history }) 
                     mensaje={item?.mensaje}
                     premios={item.premios.filter((e)=>e.nombre !== ' ').map((e, i)=>{
                       if (item.serie === 0) {
-                        return i === 0 ? `${e.nombre} ` : `~ ${e.nombre}`;
+                        if (e.nombre) {
+                          return i === 0 ? `${e.nombre} ` : `~ ${e.nombre}`;
+                        }
+                        return '';
                       }
                       if (i === 0) {
                         return <><b>{typePremio[i]}:</b> {e.nombre}</>;
@@ -79,7 +82,7 @@ const Catalogo = ({ setStatusCarrito, catalogos, carrito, varsBingo, history }) 
                     <div className='bubble'>{totalCarrito}</div>
                   </div>
                 </div>
-                <div className='payText' >{varsBingo.simbolo + numberWithCommas(totalPrecio) + ' ' + varsBingo.moneda}</div>
+                <div className='payText' >{varsBingo.simbolo + numberWithCommas(totalPrecio * varsBingo.cambio) + ' ' + varsBingo.moneda}</div>
                 <Link to='/compra' onClick={()=>{setStatusCarrito(0);}}>
                   <div className='pagar'>
                     <span>Pagar</span>

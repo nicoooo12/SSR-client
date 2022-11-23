@@ -57,6 +57,20 @@ const renderApp = async (req, res) => {
       url: `${config.apiUrl}/api/initialState`,
     });
 
+    if (initialStateServer.data.vars.internacional) {
+      // console.log(initialStateServer.data.user, initialStateServer.data.vars);
+      initialStateServer.data.user = { ...initialStateServer.data.user };
+      const nacion = initialStateServer.data.vars.naciones.findIndex((e)=>e.name === initialStateServer.data.user.pais);
+      // console.log(initialStateServer.data.vars.naciones[nacion]);
+      initialStateServer.data.vars = {
+        ...initialStateServer.data.vars,
+        pago: initialStateServer.data.vars.naciones[nacion].pago,
+        moneda: initialStateServer.data.vars.naciones[nacion].moneda,
+        simbolo: initialStateServer.data.vars.naciones[nacion].simbolo,
+        cambio: initialStateServer.data.vars.naciones[nacion].cambio,
+      };
+    }
+
     initialState = {
       'user': { ...initialStateServer.data.user },
       'redirect': '',
@@ -73,7 +87,7 @@ const renderApp = async (req, res) => {
         data: [],
       },
       'vars': {
-        api: config.apiUrl,
+        // api: config.apiUrl,
         ...initialStateServer.data.vars,
       },
       'load': true,
@@ -99,7 +113,7 @@ const renderApp = async (req, res) => {
         data: [],
       },
       'vars': {
-        api: config.apiUrl,
+        // api: config.apiUrl,
       },
       'load': false,
     };

@@ -76,7 +76,7 @@ const Ordenes = ({ setStatusCarrito, cancelarMiOrden, history, enProgreso, termi
                     </tr>
                     <tr>
                       <td className='td__start'>Pago total:</td>
-                      <td className='td__end'>{varsBingo.simbolo}{numberWithCommas(enProgreso.totalPago)} {varsBingo.moneda}</td>
+                      <td className='td__end'>{varsBingo.simbolo}{numberWithCommas(enProgreso.totalPago * varsBingo.cambio)} {varsBingo.moneda}</td>
                     </tr>
                     <tr>
                       <td className='td__start'>Comprobante:</td>
@@ -133,7 +133,7 @@ const Ordenes = ({ setStatusCarrito, cancelarMiOrden, history, enProgreso, termi
                                 <tr key={index}>
                                   <td className='td__start'>{catalogo.filter((r)=>{return r.serie === e.serie;})[0].titulo}</td>
                                   <td className='td__end'>x{e.cantidad}</td>
-                                  <td className='td__end'>{varsBingo.simbolo}{catalogo.filter((r)=>{return r.serie === e.serie;})[0].precio * e.cantidad} {varsBingo.pago.moneda}</td>
+                                  <td className='td__end'>{varsBingo.simbolo}{catalogo.filter((r)=>{return r.serie === e.serie;})[0].precio * e.cantidad * varsBingo.cambio} {varsBingo.pago.moneda}</td>
                                 </tr>
                               );
                             })
@@ -142,11 +142,11 @@ const Ordenes = ({ setStatusCarrito, cancelarMiOrden, history, enProgreso, termi
                         <tfoot>
                           <tr>
                             <td className='td__start'>Total a pagar:</td>
-                            <td className='td__end'>{varsBingo.simbolo}{e.pago} {varsBingo.pago.moneda}</td>
+                            <td className='td__end'>{varsBingo.simbolo}{e.pago * varsBingo.cambio} {varsBingo.pago.moneda}</td>
                           </tr>
                           <tr>
                             <td className='td__start'>Total pagado:</td>
-                            <td className='td__end'>{varsBingo.simbolo}{e.pagado} {varsBingo.pago.moneda}</td>
+                            <td className='td__end'>{varsBingo.simbolo}{e.pagado * varsBingo.cambio} {varsBingo.pago.moneda}</td>
                           </tr>
                           <tr>
                             <td className='td__start'>Fecha:</td>

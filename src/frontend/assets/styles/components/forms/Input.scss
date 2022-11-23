@@ -41,8 +41,11 @@
 //   @extend %Typography-text-TS;
 // }
 %input-text {
-
-  &>input {
+  &>select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  &>input,>select {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -148,13 +151,13 @@
   }
 
 }
-%input-text-error > input{
+%input-text-error > input, %input-text-error > select{
   // display: block;
   // width: 325px;
   // height: 64px;
   background: $error_light;
   // border-radius: 16px;
-  color: $greyscale_body;
+  color: $error_dark!important;
   // padding: 20px;
   // outline: none;
   &::placeholder{
@@ -183,13 +186,13 @@
     color: $error_dark;
   }
 }
-%input-text-success > input{
+%input-text-success > input, %input-text-success > select{
   // display: block;
   // width: 325px;
   // height: 64px;
   background: $success_light;
   // border-radius: 16px;
-  color: $greyscale_body;
+  // color: $greyscale_body;
   // padding: 20px;
   // outline: none;
   &::placeholder{

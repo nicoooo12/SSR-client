@@ -6,7 +6,7 @@ import IncrementStepper from './forms/IncrementStepper';
 import Button from './forms/Button';
 import { addItemToCarrito, removeItemToCarrito, desactiveCarrito, setRedirect, setStatusCarrito, addReferidoToCarrito } from '../actions';
 import numberWithCommas from '../utils';
-import DropDown from '../components/forms/DropDown';
+// import DropDown from '../components/forms/DropDown';
 
 import '../assets/styles/components/Carrito.scss';
 
@@ -19,7 +19,7 @@ const App = ({ setReferido, setStatusCarrito, carrito, compras, addItemToCarrito
     totalCarrito += (element.cantidad);
     totalPrecio += (element.precio * element.cantidad);
   });
-  const [continuar, setContinuar] = useState(false);
+  // const [continuar, setContinuar] = useState(false);
   const [err, setErro] = useState('');
   useEffect(()=>{
     if (compras['user']) {
@@ -27,12 +27,12 @@ const App = ({ setReferido, setStatusCarrito, carrito, compras, addItemToCarrito
     }
   }, [compras]);
   const initPayHandler = ()=>{
-    if (referido.current.children[0].value !== '') {
-      setReferido(referido.current.children[0].value);
-      setStatusCarrito(1);
-    } else {
-      referido.current.className = 'input-error';
-    }
+    setReferido('test');
+    setStatusCarrito(1);
+    // if (referido.current.children[0].value !== '') {
+    // } else {
+    //   referido.current.className = 'input-error';
+    // }
   };
 
   const addCarritoHandle = (id, cantidad)=>{
@@ -54,17 +54,17 @@ const App = ({ setReferido, setStatusCarrito, carrito, compras, addItemToCarrito
     }
   };
 
-  const changeHandler = () => {
-    console.log(referido.current.children[0].value);
-    referido.current.className = 'input';
-    if (referido.current.children[0].value) {
-      setContinuar(true);
-    } else {
-      setContinuar(false);
-    }
-  };
+  // const changeHandler = () => {
+  //   console.log(referido.current.children[0].value);
+  //   referido.current.className = 'input';
+  //   if (referido.current.children[0].value) {
+  //     setContinuar(true);
+  //   } else {
+  //     setContinuar(false);
+  //   }
+  // };
 
-  const referidos = ['No referido', 'Fernanda Acevedo', 'Maximiliano Agüero', 'Kiara Álvarez', 'María José Amo', 'Sofía Campos', 'Matías Cubillos ', 'Martina Devia', 'Angela Díaz', 'Javiera Díaz', 'Benjamín Duque', 'Nerina Farías', 'Beatriz González', 'Lucca Haase', 'Sophia Husmann', 'Kathrin Kittel', 'Maite Larrondo', 'Luciano Montoya', 'Julián Oñate', 'Camila Oyaneder', 'Florencia Pérez', 'Olivia Rodríguez', 'Pablo Saavedra', 'Vicente Sánchez', 'Trinidad Santibáñez', 'Luciana Silva', 'Vjera Suazo', 'María Isidora Vásquez', 'Valentina Zurita', 'María Paz Asenjo', 'Iker Bolados', 'Amelia Bórquez', 'Pedro Cortes', 'Sofia Carolina Daza', 'Amanda Díaz', 'Helena Díaz', 'Magdalena Escobar', 'Gustavo Espinoza', 'Paula González', 'Amalia Jeison', 'Francisca Mardones', 'Matilda Marín', 'Emilia Martínez', 'Sofía Massú', 'Agustín Melis', 'Marcelo Morales', 'Ignacio Oportus', 'Emilia Orellana', 'Rosario Palacios', 'Ignacio Peña', 'Rosario Quezada', 'José Tomás Rath', 'Nicolás Sejas', 'Josefa Semler', 'Antonia Paz Tapia', 'Martina Ternicien', 'Jesús Daniel Uzcanga'];
+  // const referidos = ['No referido', 'Fernanda Acevedo', 'Maximiliano Agüero', 'Kiara Álvarez', 'María José Amo', 'Sofía Campos', 'Matías Cubillos ', 'Martina Devia', 'Angela Díaz', 'Javiera Díaz', 'Benjamín Duque', 'Nerina Farías', 'Beatriz González', 'Lucca Haase', 'Sophia Husmann', 'Kathrin Kittel', 'Maite Larrondo', 'Luciano Montoya', 'Julián Oñate', 'Camila Oyaneder', 'Florencia Pérez', 'Olivia Rodríguez', 'Pablo Saavedra', 'Vicente Sánchez', 'Trinidad Santibáñez', 'Luciana Silva', 'Vjera Suazo', 'María Isidora Vásquez', 'Valentina Zurita', 'María Paz Asenjo', 'Iker Bolados', 'Amelia Bórquez', 'Pedro Cortes', 'Sofia Carolina Daza', 'Amanda Díaz', 'Helena Díaz', 'Magdalena Escobar', 'Gustavo Espinoza', 'Paula González', 'Amalia Jeison', 'Francisca Mardones', 'Matilda Marín', 'Emilia Martínez', 'Sofía Massú', 'Agustín Melis', 'Marcelo Morales', 'Ignacio Oportus', 'Emilia Orellana', 'Rosario Palacios', 'Ignacio Peña', 'Rosario Quezada', 'José Tomás Rath', 'Nicolás Sejas', 'Josefa Semler', 'Antonia Paz Tapia', 'Martina Ternicien', 'Jesús Daniel Uzcanga'];
 
   return (
     <div className='carrito-2'>
@@ -97,7 +97,7 @@ const App = ({ setReferido, setStatusCarrito, carrito, compras, addItemToCarrito
                               <p>{e.cantidad}</p>
                           }
                         </td>
-                        <td className='td__precio'>{varsBingo.simbolo + numberWithCommas(e.precio)}</td>
+                        <td className='td__precio'>{varsBingo.simbolo + numberWithCommas(e.precio * varsBingo.cambio)}</td>
                       </tr>
                     );
                   })}
@@ -106,22 +106,22 @@ const App = ({ setReferido, setStatusCarrito, carrito, compras, addItemToCarrito
                   <tr>
                     <td className='td__title'>Total</td>
                     <td className='td__button'>{totalCarrito}</td>
-                    <td className='td__precio'>{varsBingo.simbolo + numberWithCommas(totalPrecio)}</td>
+                    <td className='td__precio'>{varsBingo.simbolo + numberWithCommas(totalPrecio * varsBingo.cambio)}</td>
                   </tr>
                 </tfoot>
               </table>
-              <br />
-              <hr />
+              {/* <br /> */}
+              {/* <hr /> */}
               <div>
-                <DropDown onChange={changeHandler} Ref={referido} text={'Este campo es obligatorio'} placeholder='Referido'>
+                {/* <DropDown onChange={changeHandler} Ref={referido} text={'Este campo es obligatorio'} placeholder='Referido'>
                   {
                     referidos.map((r, index) => {
                       return <><option value={r} key={index} /></>;
                     })
                   }
-                </DropDown>
+                </DropDown> */}
               </div>
-              <hr />
+              {/* <hr /> */}
             </> :
             <>
             </>
@@ -131,10 +131,7 @@ const App = ({ setReferido, setStatusCarrito, carrito, compras, addItemToCarrito
         {
           compras['user'] ?
             <Button onClick={verCompraHandler} >Ver Compra</Button> :
-            <Button autoLogin={false} disabled={!continuar} onClick={initPayHandler} >Pagar { varsBingo.simbolo + numberWithCommas(totalPrecio) + ' ' + varsBingo.moneda}</Button>
-        }
-        {
-          console.log(continuar)
+            <Button autoLogin={false} onClick={initPayHandler} >Pagar { varsBingo.simbolo + numberWithCommas(totalPrecio * varsBingo.cambio) + ' ' + varsBingo.moneda}</Button>
         }
       </div>
     </div>

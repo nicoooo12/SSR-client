@@ -149,9 +149,9 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
                         <Copy placeholder='Correo:'>
                           {varsBingo.pago[option].correo}
                         </Copy>
-                        <Copy placeholder='Referido:'>
+                        {/* <Copy placeholder='Referido:'>
                           {misOrdenes.referido}
-                        </Copy>
+                        </Copy> */}
                       </> :
                       <>
                         <Copy placeholder='Numero de cuenta:'>
@@ -169,9 +169,9 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
                         <Copy placeholder='Correo:'>
                           {varsBingo.pago.correo}
                         </Copy>
-                        <Copy placeholder='Referido:'>
+                        {/* <Copy placeholder='Referido:'>
                           {misOrdenes.referido}
-                        </Copy>
+                        </Copy> */}
 
                       </>
                   }
@@ -183,7 +183,7 @@ const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatu
                   <td className='td__end'>
                     {varsBingo.simbolo}{
                       misOrdenes['totalPago'] ?
-                        <>{numberWithCommas(misOrdenes.totalPago)}</> :
+                        <>{numberWithCommas(misOrdenes.totalPago * varsBingo.cambio)}</> :
                         <>Cargando ...</>
                     } {varsBingo.moneda}
                   </td>

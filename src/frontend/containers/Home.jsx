@@ -19,7 +19,10 @@ import '../assets/styles/containers/Home.scss';
 
 const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logoutRequest })=> {
   const [first, setFirst] = useState(true);
-  console.log(entrada);
+  const fecha = varsBingo.fecha_;
+  const [zoom, setZoom] = useState((new Date(fecha) - 900000 < (new Date())));
+  const [inicio, setInicio] = useState((new Date(fecha) < new Date()));
+
   useEffect(()=>{
     if (first) {
       setFirst(false);
@@ -36,14 +39,13 @@ const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logou
       setFocusHeader(true);
     }
   };
-
   // ----
   useEffect(()=>{
 
     //===
     // VARIABLES
     //===
-    const DATE_TARGET = new Date('10/1/2022 3:00 PM');
+    const DATE_TARGET = new Date(fecha);
     // DOM for render
     const SPAN_DAYS = document.querySelector('span#days');
     const SPAN_HOURS = document.querySelector('span#hours');
@@ -71,9 +73,10 @@ const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logou
       const REMAINING_MINUTES = Math.floor((DURATION % MILLISECONDS_OF_A_HOUR) / MILLISECONDS_OF_A_MINUTE);
       const REMAINING_SECONDS = Math.floor((DURATION % MILLISECONDS_OF_A_MINUTE) / MILLISECONDS_OF_A_SECOND);
       // Thanks Pablo Monteserín (https://pablomonteserin.com/cuenta-regresiva/)
-
+      setZoom((new Date(fecha) - 900000 < (new Date())));
+      setInicio((new Date(fecha) < new Date()));
       // Render
-      if (!menu) {
+      if (!menu && (new Date(fecha) > new Date())) {
         SPAN_DAYS.textContent = REMAINING_DAYS;
         SPAN_HOURS.textContent = REMAINING_HOURS;
         SPAN_MINUTES.textContent = REMAINING_MINUTES;
@@ -243,35 +246,41 @@ const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logou
                         </div>
                       </div>
                     </Link>
-                    <div className='countDown'>
-                      <p>
-                        {
-                          (new Date('10/1/2022 3:00 PM') < new Date()) ? <></> :
-                            <>
-                              <span id='days' /> días / <span id='hours' /> horas / <span id='minutes' /> minutos / <span id='seconds' /> segundos
-                            </>
-                        }
-                      </p>
-                    </div>
                     {
-                      user.id ? <>
-                        <div className='buttons'>
-                          <Link to={'/play'}>
-                            <Button autoLogin={false}>Jugar!</Button>
-                          </Link>
+                      (
+                        <>
+                          <div className='countDown' style={{ display: user.id ? 'block' : 'none' }}>
+                            <p>
+                              {
+                                inicio ? <>Ya empezamos!</> :
+                                  <>
+                                    <span id='days' /> días / <span id='hours' /> horas / <span id='minutes' /> minutos / <span id='seconds' /> segundos
+                                  </>
+                              }
+                            </p>
+                          </div>
                           {
-                            (new Date('10/1/2022 2:45 PM') < new Date()) ?
-                              <>
-                                <a href={'https://pucv-cl.zoom.us/j/98741573889?pwd=dU54WlpqVGxFcldqdFluK2JwVkpsZz09'} target='_blank' rel='noopener noreferrer'>
-                                  <Button autoLogin={false} disabled={false} color={'#005BD4'}>Zoom</Button>
-                                </a>
-                              </> :
-                              <>
-                                <Button autoLogin={false} disabled={true} color={'#005BD4'}>Zoom</Button>
-                              </>
+                            user.id ? <>
+                              <div className='buttons' style={{ marginTop: '0rem' }}>
+                                <Link to={'/play'}>
+                                  <Button autoLogin={false}>Jugar!</Button>
+                                </Link>
+                                {
+                                  zoom ?
+                                    <>
+                                      <a href={varsBingo.zoom} target='_blank' rel='noopener noreferrer'>
+                                        <Button autoLogin={false} disabled={false} color={'#005BD4'}>Zoom</Button>
+                                      </a>
+                                    </> :
+                                    <>
+                                      <Button autoLogin={false} disabled={true} color={'#005BD4'}>Zoom</Button>
+                                    </>
+                                }
+                              </div>
+                            </> : <></>
                           }
-                        </div>
-                      </> : <></>
+                        </>
+                      )
                     }
                     {
                       load ?
@@ -389,7 +398,7 @@ const mapSateToProps = (state)=>{
     play: state.play,
     load: state.load,
     varsBingo: state.vars,
-    entrada: state.entrada,
+    entrada: [],
   };
 };
 
