@@ -105,7 +105,7 @@ const App = ({ user, history, catalogo, socket })=> {
     setRestantes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   };
   useEffect(()=>{
-    socket.removeAllListeners();
+    // socket.removeAllListeners();
     socket.emit('soyBingo');
     socket.on('colorear', (n) =>{
       colorear(n, recuento);
@@ -113,9 +113,9 @@ const App = ({ user, history, catalogo, socket })=> {
     socket.on('config', async (e)=> {
       setConfiguration(e);
     });
-  });
+  }, [socket]);
   useEffect(()=>{
-    socket.removeAllListeners();
+    // socket.removeAllListeners();
     // console.log('hi world');
     socket.on('init', async (serie, numPremio)=>{
       const play = catalogo.filter((e)=>{return e.serie === serie;})[0];
@@ -178,7 +178,7 @@ const App = ({ user, history, catalogo, socket })=> {
       setMessage({ active: true, title: user ? `Felicidades! ${user} es el ganador de esta ronda` : 'Tenemos un ganador!', text: `Premio: ${premio}` });
     });
 
-  }, [lanzados, message]);
+  }, [socket, lanzados, message]);
 
   return (
     <>

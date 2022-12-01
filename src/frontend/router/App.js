@@ -32,8 +32,8 @@ import { connect } from 'react-redux';
 import { updateState, initialState, logoutRequest } from '../actions';
 import '../assets/styles/App.scss';
 
+const socket = io();
 const App = ({ isLogged, updateState, initialState, user }) => {
-  const socket = io();
   useEffect(()=>{
     socket.on('change', ()=>{
       updateState();
@@ -45,7 +45,7 @@ const App = ({ isLogged, updateState, initialState, user }) => {
       socket.emit('ok');
     });
     initialState();
-  }, []);
+  }, [socket]);
 
   return (
     <BrowserRouter>

@@ -16,7 +16,7 @@ const Metrics = ({ socket, user, getAdminVars, varsBingo }) => {
   };
 
   useEffect(()=>{
-    socket.removeAllListeners();
+    // socket.removeAllListeners();
     socket.emit('admin');
     socket.on('change', ()=>{
       getOrdenes();
@@ -25,7 +25,7 @@ const Metrics = ({ socket, user, getAdminVars, varsBingo }) => {
       updateState();
     });
     getOrdenes();
-  }, []);
+  }, [socket]);
 
   const [data, setData] = useState([]);
 

@@ -18,6 +18,10 @@ import { statusNextCarrito, setStatusCarrito, createOrden } from '../actions';
 import '../assets/styles/containers/Compra.scss';
 
 const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatusCarrito, statusNextCarrito }) => {
+  if (misOrdenes.estado < 3) {
+    history.push('/ordenes');
+  }
+
   const nextHandler = (num)=>{
     if (num || num === 0) {
       setStatusCarrito(carrito.state + num);

@@ -112,7 +112,8 @@ const Play = ({ user, history, play, misCartones, catalogos, socket }) => {
   };
 
   useEffect(()=>{
-    socket.removeAllListeners();
+    // socket.removeAllListeners();
+    console.log(socket);
     curiosityMessage();
     socket.on(user?.id ? user.id : 'change-noSignIn', ()=>{
       updateState();
@@ -142,7 +143,7 @@ const Play = ({ user, history, play, misCartones, catalogos, socket }) => {
       setColor2(catalogos.filter((e)=>e.serie === play.serieJuego)[0].color);
       setFirst(false);
     }
-  }, []);
+  }, [socket]);
 
   switch (key) {
     case 0:

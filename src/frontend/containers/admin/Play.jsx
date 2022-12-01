@@ -61,7 +61,7 @@ const Play = ({ user, cartones, socket, catalogo, play, changeEstadoPLay, change
       console.log(data);
       setLanzados(data);
     });
-  }, []);
+  }, [socket]);
 
   return (
     <>
