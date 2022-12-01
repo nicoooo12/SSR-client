@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { connect } from 'react-redux';
 
@@ -18,9 +18,11 @@ import { statusNextCarrito, setStatusCarrito, createOrden } from '../actions';
 import '../assets/styles/containers/Compra.scss';
 
 const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatusCarrito, statusNextCarrito }) => {
-  if (misOrdenes.estado < 3) {
-    history.push('/ordenes');
-  }
+  useEffect(()=>{
+    if (misOrdenes.estado <= 1) {
+      history.push('/ordenes');
+    }
+  }, [misOrdenes]);
 
   const nextHandler = (num)=>{
     if (num || num === 0) {
