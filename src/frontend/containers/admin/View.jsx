@@ -93,9 +93,9 @@ const App = ({ user, history, catalogo, socket })=> {
       ult2 = 'O';
     }
     // console.log(UltimasC);
-    UltimasC.current.innerText = UltimasB.current.innerText;
-    UltimasB.current.innerText = UltimasA.current.innerText;
-    UltimasA.current.innerText = `${ult2}${(n + 1)}`;
+//     UltimasC.current.innerText = UltimasB.current.innerText;
+//     UltimasB.current.innerText = UltimasA.current.innerText;
+//     UltimasA.current.innerText = `${ult2}${(n + 1)}`;
     // setUltimaC(ultimaB);
     // setUltimaB(ultimaA);
     // setUltimaA(`${ult2}${(n + 1)}`);
