@@ -162,7 +162,7 @@ const App = ({ isLogged, updateState, initialState, user }) => {
           exact
           path='/admin/view'
           render={(props)=> (
-            <Auth login {...props}>
+            <Auth {...props}>
               <View socket={socket} />
             </Auth>
           )
