@@ -347,23 +347,34 @@
         background: $greyscale_input;
         box-shadow: 0px 52px 118px rgba(0, 0, 0, 0.12);
         text-align: center;
-        text-align: -webkit-center;
+        // text-align: -webkit-center;
         
         &>.countDown>p{
           color: black;
           top: -15px;
+          width: 100%;
         }
         &>.buttons{
           margin: 3rem;
         }
 
-        &>a{
+        &>.logout>a{
+          width: auto!important;
+          height: auto!important;
+        }
+        &>div{
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          top: -90px!important;
+          text-align: unset;
+          &>a{
+          z-index: 1000;
           width: 170px;
           height: 170px;
-          top: -90px;
-          display: block;
           position: relative;
           text-decoration: none;
+          text-align: unset;
           &>.circule{
             // top: -90px;
             position: relative;
@@ -371,32 +382,43 @@
             width: 170px;
             height: 170px;
             border-radius: 100%;
+            text-align: unset;
             &>div{
-              top: 5px;
+              top:5px;
+              left: 5px;
               position: relative;
               transition: all 5s;
               background: linear-gradient(114.44deg, #EB0055 0%, #FFFA80 100%);
               width: 160px;
               height: 160px;
+              // margin: 5px;
               border-radius: 100%;
+              text-align: unset;
               &>div{
-                top: 7.5px;
+                top:10px;
+                left: 10px;
+                // margin: 7.5px;
                 position: relative;
                 background: $greyscale_input;
-                width: 145px;
-                height: 145px;
+                width: 140px;
+                height: 140px;
                 border-radius: 100%;
                 overflow: hidden;
+                text-align: unset;
                 &>img{
-                  top: 0px;
+                  text-align: unset;
+                  top:5px;
+                  // left: 5px;
                   // top: 5px;
                   position: relative;
-                  width: 145px;
-                  height: 145px;
+                  width: 130px;
+                  height: 130px;
+                  // margin: 5px;
                 }
               }
             }
           }
+        }
         }
         &>p{
           top: -40px;

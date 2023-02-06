@@ -24,9 +24,10 @@ module.exports = function (app) {
           }
 
           const { token, ...user } = data;
+          // console.log(data);
           res.cookie('token', token, {
             httpOnly: true,
-            secure: true,
+            // secure: true,
             path: '/',
           });
 
@@ -41,9 +42,10 @@ module.exports = function (app) {
   router.get('/logout', (req, res, next) => {
     res.cookie('token', '', {
       httpOnly: true,
-      secure: true,
+      // secure: true,
       path: '/',
     });
+    console.log('logout');
 
     res.json({
       message: 'ok',

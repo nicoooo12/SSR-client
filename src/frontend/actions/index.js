@@ -59,17 +59,18 @@ export const logoutRequest = (payload) => {
         method: 'get',
         url: '/auth/logout',
       });
+      console.log('logout');
       document.cookie = 'email=; path=/; max-age=0';
       document.cookie = 'name=; path=/; max-age=0';
       document.cookie = 'id=; path=/; max-age=0';
-      document.cookie = 'token=; path=/; max-age=0';
+      // document.cookie = 'token=; path=/; max-age=0';
 
-      console.log(l);
+      console.log('[??]', l);
       dispatch(logoutDispatchRequest(payload));
       // document.location.href = '/';
 
-    } catch ({ response: error }) {
-      console.log(error);
+    } catch (error) {
+      console.log('[err]', error);
       // document.location.href = '/';
     }
   };
@@ -116,16 +117,18 @@ export const singIn = ({ email, password }, fnCallback, fnErrorCallback, socket)
       password,
     } }, fnErrorCallback);
     if (!req.err) {
+      console.log(req.req);
       const { data } = req.req;
       document.cookie = `email=${data.user.email}; path=/;`;
       document.cookie = `name=${data.user.name}; path=/;`;
       document.cookie = `id=${data.user.id}; path=/;`;
-      socket?.removeAllListeners();
-      socket?.on(data.user.id, ()=>{
+      // socket?.removeAllListeners();
+      console.log('socket: ', data.user.id ? data.user.id : 'change-noSignIn');
+      socket.on(data.user.id, ()=>{
         updateState();
         socket.emit('ok');
       });
-      console.log('[user]: ' + data.user);
+      // console.log('[user]: ' + data.user);
       dispatch(registerRequest(data.user));
       dispatch(initialState());
       fnCallback(data.user);

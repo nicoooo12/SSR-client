@@ -58,10 +58,13 @@ const Catalogo = ({ setStatusCarrito, catalogos, carrito, varsBingo, history }) 
                         }
                         return '';
                       }
-                      if (i === 0) {
-                        return <><b>{typePremio[i]}:</b> {e.nombre}</>;
+                      if (e.nombre === '-' || e.nombre === ' ' || e.nombre === '' || e.nombre === undefined || e.nombre === null) {
+                        return '';
                       }
-                      return <><br/><b>{typePremio[i]}:</b> {e.nombre}</>;
+                      if (i === 0) {
+                        return <span key={i}><b>{typePremio[i]}:</b> {e.nombre}</span>;
+                      }
+                      return <span key={i}><br/><b>{typePremio[i]}:</b> {e.nombre}</span>;
 
                     })}
                   />

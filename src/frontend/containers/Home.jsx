@@ -22,6 +22,7 @@ const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logou
   const fecha = varsBingo.fecha_;
   const [zoom, setZoom] = useState((new Date(fecha) - 900000 < (new Date())));
   const [inicio, setInicio] = useState((new Date(fecha) < new Date()));
+  const [view, setView] = useState((new Date(fecha) - 86400000 < new Date()));
 
   useEffect(()=>{
     if (first) {
@@ -75,6 +76,7 @@ const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logou
       // Thanks Pablo Monteserín (https://pablomonteserin.com/cuenta-regresiva/)
       setZoom((new Date(fecha) - 900000 < (new Date())));
       setInicio((new Date(fecha) < new Date()));
+      setView((new Date(fecha) - 86400000 < new Date()));
       // Render
       if (!menu && (new Date(fecha) > new Date())) {
         SPAN_DAYS.textContent = REMAINING_DAYS;
@@ -237,30 +239,33 @@ const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logou
                   <h1>{varsBingo.title}</h1>
                   <p>{varsBingo.subTitle}</p>
                   <Card>
-                    <Link to={play.estado !== 0 ? '/play' : ''}>
-                      <div className='circule' >
-                        <div style={{ background: play.estado !== 0 ? 'linear-gradient(114.44deg, #EB0055 0%, #FFFA80 100%)' : 'transparent' }}>
-                          <div>
-                            <img src={Img1}/>
+                    <div>
+                      <Link to={play.estado !== 0 ? '/play' : ''}>
+                        <div className='circule' >
+                          <div style={{ background: play.estado !== 0 ? 'linear-gradient(114.44deg, #EB0055 0%, #FFFA80 100%)' : 'transparent' }}>
+                            <div>
+                              <img src={Img1}/>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </Link>
+                      </Link>
+                    </div>
                     {
                       (
                         <>
                           <div className='countDown' style={{ display: user.id ? 'block' : 'none' }}>
-                            <p>
+                            <p style={{ marginBottom: '25px', marginTop: '20px' }}>{varsBingo.fecha}</p>
+                            <p style={{ marginTop: '10px' }}>
                               {
                                 inicio ? <>Ya empezamos!</> :
-                                  <>
+                                  <div className={!view ? 'disNone' : ''}>
                                     <span id='days' /> días / <span id='hours' /> horas / <span id='minutes' /> minutos / <span id='seconds' /> segundos
-                                  </>
+                                  </div>
                               }
                             </p>
                           </div>
                           {
-                            user.id ? <>
+                            user.id && view ? <>
                               <div className='buttons' style={{ marginTop: '0rem' }}>
                                 <Link to={'/play'}>
                                   <Button autoLogin={false}>Jugar!</Button>
@@ -327,13 +332,13 @@ const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logou
                                   </Link>
                                 </div>
 
-                                <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', position: 'initial !important', margin: '15px', width: '52px' }}>
+                                <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', position: 'initial !important', margin: '15px', width: '100%' }}>
                                   <Icon type='forward' width='45' height='45'/>
                                 </div>
                               </> :
                               <>
-                                <p>Para comprar tus cartones y poder jugar debes primero tener una cuenta.</p>
-                                <div>
+                                <p style={{ width: 'inherit!important', marginBottom: '80px!important' }}>Para comprar tus cartones y poder jugar debes primero tener una cuenta.</p>
+                                <div className='logout'>
                                   <Link to='/sign-up'>
                                     <Button>Registrarme</Button>
                                   </Link>
@@ -342,7 +347,7 @@ const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logou
                                   </Link>
                                 </div>
 
-                                <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', margin: '15px', width: '52px' }}>
+                                <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', margin: '15px', width: '100%' }}>
                                   <Icon type='forward' width='45' height='45'/>
                                 </div>
                               </>
@@ -374,7 +379,7 @@ const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logou
                               </div>
                             </Link>
                           </div>
-                          <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', margin: '15px', width: '52px' }}>
+                          <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', margin: '15px', width: '100%' }}>
                             <Icon type='forward' width='45' height='45'/>
                           </div>
                         </>

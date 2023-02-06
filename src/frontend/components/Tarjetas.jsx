@@ -27,11 +27,11 @@ const App = ({ title, subTitle, precio, serie, premios, mensaje, addItemToCarrit
           <Badges>{varsBingo.simbolo + numberWithCommas(precio * varsBingo.cambio) + ' ' + varsBingo.moneda}</Badges>
         </div>
         <div className='tarjeta__premios'>
-          <small>
+          <p>
             { premios }
-          </small>
+          </p>
         </div>
-        <p className='tarjeta__subTitle'>{subTitle}</p>
+        <small className='tarjeta__subTitle'>{subTitle}</small>
         <div className='tarjeta__componentsGroup'>
           <span className='tarjeta-info'>{mensaje}</span>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>

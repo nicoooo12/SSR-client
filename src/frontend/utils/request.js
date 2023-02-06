@@ -17,7 +17,7 @@ const request = async (url, method, data, dispatch, payload, opt = {}, fnCallbac
   } catch ({ response: error }) {
 
     if (error.data === 'Unauthorized') {
-      logoutRequest();
+      logoutRequest()(dispatch);
     }
 
     fnCallbackError(error);
