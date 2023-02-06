@@ -40,7 +40,7 @@ const Play = ({ user, cartones, socket, catalogo, play, changeEstadoPLay, change
     changeSeriePlay(n, ()=>{}, ()=>{});
   };
   useEffect(()=>{
-    socket.removeAllListeners();
+//     socket.removeAllListeners();
     socket.on(user.id, ()=>{
       updateState();
       socket.emit('ok');
