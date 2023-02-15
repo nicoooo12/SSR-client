@@ -5,16 +5,17 @@ import Button from '../components/forms/Button';
 import { connect } from 'react-redux';
 
 import { forgottenPassword } from '../actions';
-import Alert from '../utils/Alert';
+import Alert, { success } from '../utils/Alert';
 
-const Password = ({ forgottenPassword }) => {
+const Password = ({ forgottenPassword, history }) => {
   const email = React.createRef(email);
 
   const clickHandler = () => {
     forgottenPassword(
       email.current.children[0].value,
       (res) => {
-        Alert('email enviado');
+        success('email enviado');
+        history.push('/sign-in');
       },
       () => {
         Alert('algo salió mal...');

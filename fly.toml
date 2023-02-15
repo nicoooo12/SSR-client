@@ -1,6 +1,6 @@
-# fly.toml file generated for bingoloteando-ssr on 2023-02-05T22:33:31-03:00
+# fly.toml file generated for ssr-bingoloteando on 2023-02-05T23:53:42-03:00
 
-app = "bingoloteando-ssr"
+app = "ssr-bingoloteando"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []

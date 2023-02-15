@@ -105,7 +105,7 @@ export const singUp = (payload, fnCallBack, fnErrorCallback, socket) => {
   return async (dispatch) => {
     const req = await request('/auth/sign-up', 'post', payload, dispatch, payload, {}, fnErrorCallback, socket);
     if (!req.err) {
-      dispatch(singIn({ email: payload.email, password: payload.password }, fnCallBack, fnErrorCallback));
+      dispatch(singIn({ email: payload.email, password: payload.password }, fnCallBack, fnErrorCallback, socket));
     }
   };
 };

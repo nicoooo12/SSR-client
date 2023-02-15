@@ -337,7 +337,7 @@ const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logou
                                 </div>
                               </> :
                               <>
-                                <p style={{ width: 'inherit!important', marginBottom: '80px!important' }}>Para comprar tus cartones y poder jugar debes primero tener una cuenta.</p>
+                                <p id='p-home'>Para comprar tus cartones y poder jugar debes primero tener una cuenta.</p>
                                 <div className='logout'>
                                   <Link to='/sign-up'>
                                     <Button>Registrarme</Button>
