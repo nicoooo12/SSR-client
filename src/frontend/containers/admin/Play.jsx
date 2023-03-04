@@ -40,7 +40,7 @@ const Play = ({ user, cartones, socket, catalogo, play, changeEstadoPLay, change
     changeSeriePlay(n, ()=>{}, ()=>{});
   };
   useEffect(()=>{
-//     socket.removeAllListeners();
+  //     socket.removeAllListeners();
     socket.on(user.id, ()=>{
       updateState();
       socket.emit('ok');
@@ -49,6 +49,13 @@ const Play = ({ user, cartones, socket, catalogo, play, changeEstadoPLay, change
     socket.on('change', ()=>{
       updateState();
     });
+
+    document.addEventListener('keydown', (e)=>{
+      if (e.key === 'ArrowLeft') {
+        socket.emit('Lanzar');
+      }
+    });
+
     socket.on(user?.id ? user.id : 'change-noSignIn', ()=>{
       updateState();
     });

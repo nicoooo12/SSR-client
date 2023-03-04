@@ -266,7 +266,7 @@ const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logou
                           </div>
                           {
                             user.id && view ? <>
-                              <div className='buttons' style={{ marginTop: '0rem' }}>
+                              <div className='logout' style={{ marginTop: '0rem' }}>
                                 <Link to={'/play'}>
                                   <Button autoLogin={false}>Jugar!</Button>
                                 </Link>

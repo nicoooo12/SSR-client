@@ -16,9 +16,9 @@ const App = ({ user, history, catalogo, socket })=> {
   const [colorS, setColorS] = useState('#ED2E7E');
   const [titulo, setTitulo] = useState('-');
   const [premio, setPremio] = useState('-');
-  const [ultimaA, setUltimaA] = useState('-');
-  const [ultimaB, setUltimaB] = useState('-');
-  const [setUltimaC] = useState('-');
+  // const [ultimaA, setUltimaA] = useState('-');
+  // const [ultimaB, setUltimaB] = useState('-');
+  // const [setUltimaC] = useState('-');
   const [reCount, setReCount] = useState(0);
   const bg = '#F7F7FC';
 
@@ -49,10 +49,6 @@ const App = ({ user, history, catalogo, socket })=> {
           return index === lanzadosFiltrado[numeroAleatorio].index ? 1 : e;
         });
         await sleep(1000);
-        setUltimaC(ultimaB);
-        setUltimaC2(ultimaB2);
-        setUltimaB(ultimaA);
-        setUltimaB2(ultimaA2);
         let ult2;
         if ((lanzadosFiltrado[numeroAleatorio].index + 1) <= 15) {
           ult2 = 'B';
@@ -65,12 +61,11 @@ const App = ({ user, history, catalogo, socket })=> {
         } else {
           ult2 = 'O';
         }
-        setUltimaA2(ult2);
-        setUltimaA(lanzadosFiltrado[numeroAleatorio].index + 1);
-        setRecuento([...recuento, `${ult2}${(lanzadosFiltrado[numeroAleatorio].index + 1)}`]);
+        colorear(change.indexOf(1) + 1);
+        setRecuento([`${ult2}${(lanzadosFiltrado[numeroAleatorio].index + 1)}`, ...recuento].slice(0, 3));
       }
     }
-    // console.log(change);
+    console.log(change);
     setRestantes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     setLanzados(change);
     socket.emit('Lanzado', change);
@@ -80,27 +75,6 @@ const App = ({ user, history, catalogo, socket })=> {
     n = n - 1;
     const current = lanzados;
     current[n] = lanzados[n] === 0 ? 1 : 0;
-    let ult2;
-    if ((n + 1) <= 15) {
-      ult2 = 'B';
-    } else if ((n + 1) <= 30) {
-      ult2 = 'I';
-    } else if ((n + 1) <= 45) {
-      ult2 = 'N';
-    } else if ((n + 1) <= 60) {
-      ult2 = 'G';
-    } else {
-      ult2 = 'O';
-    }
-    // console.log(UltimasC);
-//     UltimasC.current.innerText = UltimasB.current.innerText;
-//     UltimasB.current.innerText = UltimasA.current.innerText;
-//     UltimasA.current.innerText = `${ult2}${(n + 1)}`;
-    // setUltimaC(ultimaB);
-    // setUltimaB(ultimaA);
-    // setUltimaA(`${ult2}${(n + 1)}`);
-    // console.log(recuento);
-    // setRecuento([recuento[1], recuento[2], `${ult2}${(n + 1)}`]);
     setLanzados(current);
     setRestantes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   };
@@ -115,7 +89,7 @@ const App = ({ user, history, catalogo, socket })=> {
     });
   }, [socket]);
   useEffect(()=>{
-    // socket.removeAllListeners();
+    socket.removeAllListeners();
     // console.log('hi world');
     socket.on('init', async (serie, numPremio)=>{
       const play = catalogo.filter((e)=>{return e.serie === serie;})[0];
@@ -324,30 +298,19 @@ const App = ({ user, history, catalogo, socket })=> {
                   </div>
                 </td>
               </tr>
-              <tr style={{ top: '30%', height: '155px', width: '720px' }}>
-                <td className='td-ult fw-light' style={{ top: '80px', width: '200px', background: bg }}>
-                  <div className='my-3'>
-                    {/* <span id='numeroLanzadoA'>{recuento[recuento.length - 1]}</span> */}
-                    <span ref={UltimasA} id='numeroLanzadoB'>-</span>
-                  </div>
-                </td>
-              </tr>
-              <tr style={{ top: '30%', height: '155px', width: '720px' }}>
-                <td className='td-ult fw-light' style={{ top: '268px', width: '200px', background: bg }}>
-                  <div className='my-3'>
-                    {/* <span id='numeroLanzadoA'>{recuento[recuento.length - 2]}</span> */}
-                    <span ref={UltimasB} id='numeroLanzado2B'>-</span>
-                  </div>
-                </td>
-              </tr>
-              <tr style={{ top: '30%', height: '155px', width: '720px' }}>
-                <td className='td-ult fw-light' style={{ top: '456px', width: '200px', background: bg }}>
-                  <div className='my-3'>
-                    {/* <span id='numeroLanzadoA'>{recuento[recuento.length - 3]}</span> */}
-                    <span ref={UltimasC} id='numeroLanzado3B' >-</span>
-                  </div>
-                </td>
-              </tr>
+              {
+                recuento.map((a)=>{
+                  return (<>
+                    <tr style={{ top: '30%', height: '155px', width: '720px' }}>
+                      <td className='td-ult fw-light' style={{ top: '80px', width: '200px', background: bg }}>
+                        <div className='my-3'>
+                          <span>{a}</span>
+                        </div>
+                      </td>
+                    </tr>
+                  </>);
+                })
+              }
             </tbody>
           </table>
         </div>
