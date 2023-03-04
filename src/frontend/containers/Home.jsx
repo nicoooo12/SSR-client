@@ -276,6 +276,9 @@ const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logou
                                       <a href={varsBingo.zoom} target='_blank' rel='noopener noreferrer'>
                                         <Button autoLogin={false} disabled={false} color={'#005BD4'}>Zoom</Button>
                                       </a>
+                                  
+                                      <p>ID de reunión: 826 9805 1494 </br> Código de acceso: bingo</p>
+                                  
                                     </> :
                                     <>
                                       <Button autoLogin={false} disabled={true} color={'#005BD4'}>Zoom</Button>
