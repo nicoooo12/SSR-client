@@ -129,6 +129,7 @@ const Play = ({ user, cartones, socket, catalogo, play, changeEstadoPLay, change
             <Button autoLogin={false} size={'small'} typebutton={'secondary'} onClick={()=>{confirm('seguro que quieres mandar tu estado ?') ? socket.emit('SendState', lanzados) : false;}} >Send State</Button>
             <Button autoLogin={false} size={'small'} typebutton={'secondary'} onClick={()=>{confirm('seguro que quieres restaurar todo ?') ? socket.emit('Reset') : false;}} >Reset</Button>
             <Button autoLogin={false} size={'small'} typebutton={'secondary'} onClick={()=>{socket.emit('End');}} >Finish</Button>
+            <Button autoLogin={false} size={'small'} typebutton={'secondary'} onClick={()=>{socket.emit('Lanzar');}} >lanzar</Button>
             <br />
             <br />
             <hr />
