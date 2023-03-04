@@ -8,11 +8,11 @@
     "url": "https://github.com/nicoooo12/SSR-client"
   },
   "scripts": {
-    "prestart": "npm run build",
     "build": "NODE_ENV=production webpack-cli --config webpack.config.js",
     "start": "NODE_ENV=production node src/server/index.js",
     "dev": "DEBUG=app:* nodemon src/server/index",
     "dev:debug": "DEBUG=express:*app:* nodemon src/server/index",
+    "prestart": "npm run build",
     "debug": "DEBUG=express:*app:* node src/server/index"
   },
   "engines": {
