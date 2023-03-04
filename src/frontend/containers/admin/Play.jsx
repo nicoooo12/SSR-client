@@ -52,6 +52,7 @@ const Play = ({ user, cartones, socket, catalogo, play, changeEstadoPLay, change
 
     document.addEventListener('keydown', (e)=>{
       if (e.key === 'ArrowLeft') {
+        console.log('hi');
         socket.emit('Lanzar');
       }
     });
