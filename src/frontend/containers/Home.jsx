@@ -277,7 +277,7 @@ const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logou
                                         <Button autoLogin={false} disabled={false} color={'#005BD4'}>Zoom</Button>
                                       </a>
                                   
-                                      <p>ID de reunión: 826 9805 1494 </br> Código de acceso: bingo</p>
+                                      <p>ID de reunión: 826 9805 1494 <br/> Código de acceso: bingo</p>
                                   
                                     </> :
                                     <>
