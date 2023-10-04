@@ -6,6 +6,7 @@ module.exports = function (app, socket) {
   app.use('/sockets', router);
 
   router.post('/updateInfo', async function (req, res, next) {
+    socket.to('admin').emit('change');
     socket.emit('change');
     res.json({
       message: 'ok',
@@ -13,7 +14,15 @@ module.exports = function (app, socket) {
   });
 
   router.post('/updateInfo/:user', async function (req, res, next) {
+    socket.to('admin').emit('change');
     socket.emit([req.params.user]);
+    res.json({
+      message: 'ok',
+    });
+  });
+
+  router.post('/updateInfo/entradas', async function (req, res, next) {
+    socket.emit('entradas');
     res.json({
       message: 'ok',
     });
@@ -26,12 +35,15 @@ module.exports = function (app, socket) {
     io.on('soyBingo', ()=>{
       io.join('bingo');
     });
+    io.on('colorear_', (n)=>{
+      socket.emit('colorear', n);
+    });
     io.on('connectPlay', async ()=>{
       // const play = await PlayService.getPlay();
       // socket.to(io.id).emit('connected', play.estado, play.serieJuego);
     });
     io.on('play', async (estado, serie)=>{
-      console.log('change', estado, serie);
+      // console.log('change', estado, serie);
       // await PlayService.updatePlay({ estado, serieJuego: serie });
       socket.emit('Play', estado, serie);
       socket.emit('change');

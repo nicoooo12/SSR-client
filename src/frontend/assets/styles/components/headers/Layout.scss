@@ -15,7 +15,14 @@
   height: 15rem;
   color: white;
 }
-
+.layout_base_message {
+  &>a{
+    color: #FCFCFC;
+  }
+  &>div{
+    color: #FCFCFC;
+  }
+}
 .layout_main_title-content{
   display: flex;
   align-items: center;

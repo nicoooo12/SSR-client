@@ -8,10 +8,12 @@ import Icon from '../components/display/Icon';
 import { Link } from 'react-router-dom';
 
 import numberWithCommas from '../utils';
+import { setStatusCarrito } from '../actions';
 
 import '../assets/styles/containers/Catalogo.scss';
+// import _1 from '../assets/images/auspicio.png';
 
-const Catalogo = ({ catalogos, carrito, varsBingo, history }) => {
+const Catalogo = ({ setStatusCarrito, catalogos, carrito, varsBingo, history }) => {
 
   let totalCarrito = 0;
   let totalPrecio = 0;
@@ -20,12 +22,24 @@ const Catalogo = ({ catalogos, carrito, varsBingo, history }) => {
     totalPrecio += (element.precio * element.cantidad);
   });
 
+  const typePremio = ['Carton Completo', 'Letra', 'Linea'];
+
   return (
     <>
       <Layout title='Catalogo' to='/' >
+        {/* <img src={_1} alt='' className='img' /> */}
         {
           <>
-            {catalogos.filter((e)=>{
+            {catalogos.sort(function (a, b) {
+              if (a.serie > b.serie) {
+                return 1;
+              }
+              if (a.serie < b.serie) {
+                return -1;
+              }
+              // a must be equal to b
+              return 0;
+            }).filter((e)=>{
               return e.enVenta === true;
             }).map(
               (item, index)=>
@@ -36,10 +50,27 @@ const Catalogo = ({ catalogos, carrito, varsBingo, history }) => {
                     subTitle={item.subTitulo}
                     precio={item.precio}
                     serie={item.serie}
-                    premios={item.premios.map((e, i)=>i === 0 ? `${e.nombre} ` : `~ ${e.nombre}`)}
+                    mensaje={item?.mensaje}
+                    premios={item.premios.filter((e)=>e.nombre !== ' ').map((e, i)=>{
+                      if (item.serie === 0) {
+                        if (e.nombre) {
+                          return i === 0 ? `${e.nombre} ` : `~ ${e.nombre}`;
+                        }
+                        return '';
+                      }
+                      if (e.nombre === '-' || e.nombre === ' ' || e.nombre === '' || e.nombre === undefined || e.nombre === null) {
+                        return '';
+                      }
+                      if (i === 0) {
+                        return <span key={i}><b>{typePremio[i]}:</b> {e.nombre}</span>;
+                      }
+                      return <span key={i}><br/><b>{typePremio[i]}:</b> {e.nombre}</span>;
+
+                    })}
                   />
                 ),
             )
+
             }
           </>
         }
@@ -54,8 +85,8 @@ const Catalogo = ({ catalogos, carrito, varsBingo, history }) => {
                     <div className='bubble'>{totalCarrito}</div>
                   </div>
                 </div>
-                <div className='payText' >{varsBingo.pago.simbolo + numberWithCommas(totalPrecio) + ' ' + varsBingo.pago.moneda}</div>
-                <Link to='/test'>
+                <div className='payText' >{varsBingo.simbolo + numberWithCommas(totalPrecio * varsBingo.cambio) + ' ' + varsBingo.moneda}</div>
+                <Link to='/compra' onClick={()=>{setStatusCarrito(0);}}>
                   <div className='pagar'>
                     <span>Pagar</span>
                     <div>
@@ -75,7 +106,7 @@ const Catalogo = ({ catalogos, carrito, varsBingo, history }) => {
   );
 };
 
-const mapDispatchToProps = (state)=>{
+const mapStateToProps = (state)=>{
   return {
     carrito: state.carrito,
     catalogos: state.catalogos,
@@ -83,4 +114,8 @@ const mapDispatchToProps = (state)=>{
   };
 };
 
-export default connect(mapDispatchToProps)(Catalogo);
+const mapDispatchToProps = {
+  setStatusCarrito,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Catalogo);

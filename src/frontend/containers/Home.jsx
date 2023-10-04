@@ -13,11 +13,17 @@ import varsHome from '../varsBingo';
 
 import Img1 from '../assets/images/B.png';
 
+import '../assets/styles/components/Header.scss';
 import '../assets/styles/containers/menu.scss';
 import '../assets/styles/containers/Home.scss';
 
-const App = ({ load, varsBingo, pedidos, play, user, updateState, logoutRequest })=> {
+const App = ({ load, varsBingo, pedidos, play, user, entrada, updateState, logoutRequest })=> {
   const [first, setFirst] = useState(true);
+  const fecha = varsBingo.fecha_;
+  const [zoom, setZoom] = useState((new Date(fecha) - 900000 < (new Date())));
+  const [inicio, setInicio] = useState((new Date(fecha) < new Date()));
+  const [view, setView] = useState((new Date(fecha) - 86400000 < new Date()));
+
   useEffect(()=>{
     if (first) {
       setFirst(false);
@@ -34,16 +40,67 @@ const App = ({ load, varsBingo, pedidos, play, user, updateState, logoutRequest 
       setFocusHeader(true);
     }
   };
+  // ----
+  useEffect(()=>{
+
+    //===
+    // VARIABLES
+    //===
+    const DATE_TARGET = new Date(fecha);
+    // DOM for render
+    const SPAN_DAYS = document.querySelector('span#days');
+    const SPAN_HOURS = document.querySelector('span#hours');
+    const SPAN_MINUTES = document.querySelector('span#minutes');
+    const SPAN_SECONDS = document.querySelector('span#seconds');
+    // Milliseconds for the calculations
+    const MILLISECONDS_OF_A_SECOND = 1000;
+    const MILLISECONDS_OF_A_MINUTE = MILLISECONDS_OF_A_SECOND * 60;
+    const MILLISECONDS_OF_A_HOUR = MILLISECONDS_OF_A_MINUTE * 60;
+    const MILLISECONDS_OF_A_DAY = MILLISECONDS_OF_A_HOUR * 24;
+
+    //===
+    // FUNCTIONS
+    //===
+
+    /**
+ * Method that updates the countdown and the sample
+ */
+    function updateCountdown() {
+    // Calcs
+      const NOW = new Date();
+      const DURATION = DATE_TARGET - NOW;
+      const REMAINING_DAYS = Math.floor(DURATION / MILLISECONDS_OF_A_DAY);
+      const REMAINING_HOURS = Math.floor((DURATION % MILLISECONDS_OF_A_DAY) / MILLISECONDS_OF_A_HOUR);
+      const REMAINING_MINUTES = Math.floor((DURATION % MILLISECONDS_OF_A_HOUR) / MILLISECONDS_OF_A_MINUTE);
+      const REMAINING_SECONDS = Math.floor((DURATION % MILLISECONDS_OF_A_MINUTE) / MILLISECONDS_OF_A_SECOND);
+      // Thanks Pablo Monteserín (https://pablomonteserin.com/cuenta-regresiva/)
+      setZoom((new Date(fecha) - 900000 < (new Date())));
+      setInicio((new Date(fecha) < new Date()));
+      setView((new Date(fecha) - 86400000 < new Date()));
+      // Render
+      if (!menu && (new Date(fecha) > new Date())) {
+        SPAN_DAYS.textContent = REMAINING_DAYS;
+        SPAN_HOURS.textContent = REMAINING_HOURS;
+        SPAN_MINUTES.textContent = REMAINING_MINUTES;
+        SPAN_SECONDS.textContent = REMAINING_SECONDS;
+      }
+    }
+
+    //===
+    // INIT
+    //===
+    updateCountdown();
+    // Refresh every second
+    setInterval(updateCountdown, MILLISECONDS_OF_A_SECOND);
+  });
+
+  // ----
 
   const clickHandler = ()=>{
     document.querySelector('#react').scrollTo(0, document.querySelector('header').offsetHeight);
   };
 
   const logoutHandler = ()=>{
-    document.cookie = 'token=';
-    document.cookie = 'email=';
-    document.cookie = 'name=';
-    document.cookie = 'id=';
     logoutRequest();
     setMenu(false);
     setFocusHeader(true);
@@ -64,14 +121,20 @@ const App = ({ load, varsBingo, pedidos, play, user, updateState, logoutRequest 
               {
                 user.id ?
                   <>
-                    {/* <li>
-                      Cuenta
-                      <div style={{ transform: 'rotate(180deg)' }}>
-                        <Link to='/cuenta'>
-                          <ButtonIcon size='small' typebutton='subtle' />
-                        </Link>
-                      </div>
-                    </li> */}
+                    {
+                      user.admin ? (
+                        <>
+                          <li>
+                      admin
+                            <div style={{ transform: 'rotate(180deg)' }}>
+                              <Link to='/admin'>
+                                <ButtonIcon size='small' typebutton='subtle' />
+                              </Link>
+                            </div>
+                          </li>
+                        </>
+                      ) : (<></>)
+                    }
                     <li>
                       Jugar
                       <div style={{ transform: 'rotate(180deg)' }}>
@@ -103,6 +166,20 @@ const App = ({ load, varsBingo, pedidos, play, user, updateState, logoutRequest 
                         </Link>
                       </div>
                     </li>
+                    {
+                      entrada[0] ? (
+                        <>
+                          <li>
+                            Entrada
+                            <div style={{ transform: 'rotate(180deg)' }}>
+                              <Link to='/entrada'>
+                                <ButtonIcon size='small' typebutton='subtle' />
+                              </Link>
+                            </div>
+                          </li>
+                        </>
+                      ) : <></>
+                    }
                     <li>
                       Ayuda
                       <div style={{ transform: 'rotate(180deg)' }}>
@@ -151,23 +228,68 @@ const App = ({ load, varsBingo, pedidos, play, user, updateState, logoutRequest 
                 <div className='banner'> </div>
                 <div className='content'>
                   <h1>Bingoloteando</h1>
-                  <div className='lastIcon' onClick={menuHandler}>
-                    <Icon type='list' width='24' height='24'/>
+                  <div className='userName'>
+                    <h1>{user.name}</h1>
+                    <div className='lastIcon' onClick={menuHandler}>
+                      <Icon type='list' width='24' height='24'/>
+                    </div>
                   </div>
                 </div>
                 <div className='info'>
                   <h1>{varsBingo.title}</h1>
                   <p>{varsBingo.subTitle}</p>
                   <Card>
-                    <Link to={play.estado !== 0 ? '/play' : ''}>
-                      <div className='circule' >
-                        <div style={{ background: play.estado !== 0 ? 'linear-gradient(114.44deg, #EB0055 0%, #FFFA80 100%)' : 'transparent' }}>
-                          <div>
-                            <img src={Img1}/>
+                    <div>
+                      <Link to={play.estado !== 0 ? '/play' : ''}>
+                        <div className='circule' >
+                          <div style={{ background: play.estado !== 0 ? 'linear-gradient(114.44deg, #EB0055 0%, #FFFA80 100%)' : 'transparent' }}>
+                            <div>
+                              <img src={Img1}/>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </Link>
+                      </Link>
+                    </div>
+                    {
+                      (
+                        <>
+                          <div className='countDown' style={{ display: user.id ? 'block' : 'none' }}>
+                            <p style={{ marginBottom: '25px', marginTop: '20px' }}>{varsBingo.fecha}</p>
+                            <p style={{ marginTop: '10px' }}>
+                              {
+                                inicio ? <>Ya empezamos!</> :
+                                  <div className={!view ? 'disNone' : ''}>
+                                    <span id='days' /> días / <span id='hours' /> horas / <span id='minutes' /> minutos / <span id='seconds' /> segundos
+                                  </div>
+                              }
+                            </p>
+                          </div>
+                          {
+                            user.id && view ? <>
+                              <div className='logout' style={{ marginTop: '0rem' }}>
+                                <Link to={'/play'}>
+                                  <Button autoLogin={false}>Jugar!</Button>
+                                </Link>
+                                {
+                                  zoom ?
+                                    <>
+                                      <a href={varsBingo.zoom} target='_blank' rel='noopener noreferrer'>
+                                        <Button autoLogin={false} disabled={false} color={'#005BD4'}>Zoom</Button>
+                                      </a>
+                                  
+                                      <p>ID de reunión: 826 9805 1494 <br/> Código de acceso: bingo</p>
+                                  
+                                    </> :
+                                    <>
+                                      <Button autoLogin={false} disabled={true} color={'#005BD4'}>Zoom</Button>
+                                    </>
+                                }
+                              </div>
+                            </> : <></>
+                          }
+                        </>
+                      )
+                    }
                     {
                       load ?
                         <>
@@ -213,13 +335,13 @@ const App = ({ load, varsBingo, pedidos, play, user, updateState, logoutRequest 
                                   </Link>
                                 </div>
 
-                                <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', position: 'initial !important', margin: '15px', width: '52px' }}>
+                                <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', position: 'initial !important', margin: '15px', width: '100%' }}>
                                   <Icon type='forward' width='45' height='45'/>
                                 </div>
                               </> :
                               <>
-                                <p>Para comprar tus cartones y poder jugar debes primero tener una cuenta.</p>
-                                <div>
+                                <p id='p-home'>Para comprar tus cartones y poder jugar debes primero tener una cuenta.</p>
+                                <div className='logout'>
                                   <Link to='/sign-up'>
                                     <Button>Registrarme</Button>
                                   </Link>
@@ -228,7 +350,7 @@ const App = ({ load, varsBingo, pedidos, play, user, updateState, logoutRequest 
                                   </Link>
                                 </div>
 
-                                <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', margin: '15px', width: '52px' }}>
+                                <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', margin: '15px', width: '100%' }}>
                                   <Icon type='forward' width='45' height='45'/>
                                 </div>
                               </>
@@ -260,7 +382,7 @@ const App = ({ load, varsBingo, pedidos, play, user, updateState, logoutRequest 
                               </div>
                             </Link>
                           </div>
-                          <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', margin: '15px', width: '52px' }}>
+                          <div onClick={clickHandler} style={{ transform: 'rotate(-90deg)', margin: '15px', width: '100%' }}>
                             <Icon type='forward' width='45' height='45'/>
                           </div>
                         </>
@@ -284,6 +406,7 @@ const mapSateToProps = (state)=>{
     play: state.play,
     load: state.load,
     varsBingo: state.vars,
+    entrada: [],
   };
 };
 

@@ -15,6 +15,7 @@ module.exports = function (app) {
     passport.authenticate('basic', function (error, data) {
       try {
         if (error || !data) {
+          // console.log(error);
           return next(boom.unauthorized());
         }
         return req.login(data, { session: false }, async function (error) {
@@ -23,14 +24,11 @@ module.exports = function (app) {
           }
 
           const { token, ...user } = data;
+          // console.log(data);
           res.cookie('token', token, {
-            httpOnly: !config.dev,
-            secure: !config.dev,
-          });
-
-          res.cookie('isAdmin', user.user.isAdmin, {
-            httpOnly: !config.dev,
-            secure: !config.dev,
+            httpOnly: true,
+            secure: true,
+            path: '/',
           });
 
           return res.json(user).status(200);
@@ -42,8 +40,14 @@ module.exports = function (app) {
   });
 
   router.get('/logout', (req, res, next) => {
-    res.cookie('token', '');
-    res.cookie('isAdmin', '');
+    res.clearCookie('token');
+    // res.cookie('token', '', {
+    //   httpOnly: true,
+    //   // secure: true,
+    //   path: '/',
+    // });
+    // console.log('logout');
+
     res.json({
       message: 'ok',
     }).status(200);

@@ -22,6 +22,7 @@ const Cartones = ({ cartones, catalogo }) => {
                   title={catalogo.filter((o)=>{return o.serie === e.serie;})[0].titulo}
                   data={e.data}
                   serie={e.serie}
+                  code={e.code}
                 />
               );
             }) :

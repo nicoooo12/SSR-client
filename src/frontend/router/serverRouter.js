@@ -10,7 +10,16 @@ import Contacto from '../containers/Contacto';
 import Ayuda from '../containers/Ayuda';
 import Admin from '../containers/admin/Index';
 import Tests from '../containers/Tests';
-
+import Canjear from '../containers/Canjear';
+import CanjearByCode from '../containers/CanjearByCode';
+import AdminPlay from '../containers/admin/Play';
+import AdminMetrics from '../containers/admin/Metrics';
+import AdminOrden from '../containers/admin/Orden';
+import AdminCartones from '../containers/admin/Cartones';
+import Entrada from '../containers/Entrada';
+import Password from '../containers/Password';
+import PasswordRecupera from '../containers/Password-Recupera';
+import View from '../containers/admin/View';
 // import pay from '../containers/pagoPrueba';
 import NotFound from '../containers/NotFound';
 
@@ -48,6 +57,16 @@ const routers = (isLogged)=>{
     },
     {
       exact: true,
+      path: '/password',
+      component: Password,
+    },
+    {
+      exact: true,
+      path: '/password/:email/:code',
+      component: PasswordRecupera,
+    },
+    {
+      exact: true,
       path: '/sign-up',
       component: SignUp,
     },
@@ -68,13 +87,48 @@ const routers = (isLogged)=>{
     },
     {
       exact: true,
+      path: '/entrada',
+      component: Entrada,
+    },
+    {
+      exact: true,
       path: '/admin',
       component: Admin,
     },
     {
       exact: true,
       path: '/admin/play',
-      component: Admin,
+      component: AdminPlay,
+    },
+    {
+      exact: true,
+      path: '/admin/cartones',
+      component: AdminCartones,
+    },
+    {
+      exact: true,
+      path: '/admin/view',
+      component: View,
+    },
+    {
+      exact: true,
+      path: '/admin/metrics',
+      component: AdminMetrics,
+    },
+    {
+      exact: true,
+      path: '/admin/metrics/:id',
+      component: AdminOrden,
+    },
+    {
+      exact: true,
+      path: '/canjear/:code',
+      component: CanjearByCode,
+    },
+    {
+      exact: true,
+      path: '/canjear',
+      component: Canjear,
     },
     {
       exact: true,

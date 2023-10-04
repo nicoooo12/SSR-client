@@ -1,4 +1,4 @@
-@import './Vars.scss';
+@import './Index.scss';
 *{
   font-family: 'Poppins', sans-serif;
   border: 0;
@@ -36,4 +36,57 @@ body{
 
 hr{
   border-top: solid 2px $greyscale_input;
+}
+
+.copy{
+  -webkit-touch-callout: text; /* iOS Safari */
+  -webkit-user-select: text; /* Safari */
+   -khtml-user-select: text; /* Konqueror HTML */
+     -moz-user-select: text; /* Old versions of Firefox */
+      -ms-user-select: text; /* Internet Explorer/Edge */
+          user-select: text; /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
+}
+
+a {
+  cursor: pointer;
+  &>*{
+    cursor: pointer;
+  }
+}
+
+button {
+  cursor: pointer;
+  &>*{
+    cursor: pointer;
+  }
+}
+
+.select{
+  -webkit-touch-callout: text; /* iOS Safari */
+    -webkit-user-select: text; /* Safari */
+     -khtml-user-select: text; /* Konqueror HTML */
+       -moz-user-select: text; /* Old versions of Firefox */
+        -ms-user-select: text; /* Internet Explorer/Edge */
+            user-select: text; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.img{
+  width: 75%;
+  height: auto;
+  border-radius: 20px;
+  margin-bottom: 1rem;;
+}
+
+@media (max-width: $mediaWidth1){
+  .img{
+    width: 100%;
+  } 
+}
+
+.title {
+  text-align: center;
+  margin: 2rem;
+  @extend %Typography-text-DS;
 }

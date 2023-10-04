@@ -5,8 +5,8 @@ const App = ({ style, color, children, size, type = 'button', typebutton, state 
 
   const [loading, setLoading] = useState(state);
 
-  const ok = ()=>{
-    setLoading(state);
+  const ok = (_state = state)=>{
+    setLoading(_state);
   };
 
   const onClickHandle = ()=>{
@@ -22,7 +22,7 @@ const App = ({ style, color, children, size, type = 'button', typebutton, state 
       className='button'
       style={{ ...style, background: color ? color : '' }}
       type={type}
-      disabled={disabled}
+      disabled={loading === 'loading' ? true : disabled}
       typebutton={typebutton ? typebutton : 'primary'}
       sizebutton={size ? size : 'large'}
     >

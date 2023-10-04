@@ -112,8 +112,13 @@ const Play = ({ user, history, play, misCartones, catalogos, socket }) => {
   };
 
   useEffect(()=>{
-    socket.removeAllListeners();
+    // socket.removeAllListeners();
+    console.log(socket);
     curiosityMessage();
+    socket.on(user?.id ? user.id : 'change-noSignIn', ()=>{
+      updateState();
+      socket.emit('ok');
+    });
     socket.on('connected', (estado, serie)=>{
       setKey(estado);
       setSerie(serie);
@@ -138,7 +143,7 @@ const Play = ({ user, history, play, misCartones, catalogos, socket }) => {
       setColor2(catalogos.filter((e)=>e.serie === play.serieJuego)[0].color);
       setFirst(false);
     }
-  }, []);
+  }, [socket]);
 
   switch (key) {
     case 0:
@@ -180,7 +185,7 @@ const Play = ({ user, history, play, misCartones, catalogos, socket }) => {
         );
       }
       return (
-        <Layout to='/' >
+        <Layout to='/' title='' >
           <div className='play' >
             <div className='carton'>
               <div className='carton__title-content'>
@@ -551,7 +556,7 @@ const Play = ({ user, history, play, misCartones, catalogos, socket }) => {
                             </table>
                             <div className='foot'>
                               <Button size='small' color={color1} onClick={(o)=>{socket.emit('Bingo', user.name, e.data, index); socket.on('bingoReject', (e)=>{if (e === index) {o(); alert('Ups! Parece que no :C No te rindas, revisa bien tus cartones y suerte para la proxima!!');}}); socket.on('resetAllBingo', ()=>{o();});}} >Bingo!</Button>
-                              <Badges>Numero: {index} </Badges>
+                              <Badges>Código: {e.code} </Badges>
                             </div>
                           </div>);
                       }).filter((e)=>{
@@ -939,7 +944,7 @@ const Play = ({ user, history, play, misCartones, catalogos, socket }) => {
                             </table>
                             <div className='foot'>
                               <Button size='small' color={color1} onClick={(o)=>{socket.emit('Bingo', user.name, e.data, index); socket.on('bingoReject', (e)=>{if (e === index) {o(); alert('Ups! Parece que no :C\nNo te rindas, revisa bien tus cartones y suerte para la proxima!!');}}); socket.on('resetAllBingo', ()=>{o();});}} >Bingo!</Button>
-                              <Badges>Numero: {index} </Badges>
+                              <Badges>Código: 000000 </Badges>
                             </div>
                           </div>);
                       }).filter((e)=>{

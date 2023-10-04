@@ -21,13 +21,13 @@ const setResponse = (html, preloadedState, nonce) => (`
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
-    <link rel="stylesheet" href="main.css">
-  
+    <link rel="stylesheet" href="/main.css">
+    <link rel="icon" type="image/png" href="/assets/B.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <title>Beta</title>
+    <title>Bingoloteando</title>
   </head>
   <body>
     <div id="react">${html}</div>
@@ -35,7 +35,7 @@ const setResponse = (html, preloadedState, nonce) => (`
     <script id="preloadedState" nonce='${nonce}'>
       window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
     </script>
-    <script script src="bundle.js" type="text/javascript"></script>
+    <script script src="/bundle.js" type="text/javascript"></script>
     </body>
     </html>
     
@@ -57,6 +57,20 @@ const renderApp = async (req, res) => {
       url: `${config.apiUrl}/api/initialState`,
     });
 
+    if (initialStateServer.data.vars.internacional) {
+      // console.log(initialStateServer.data.user, initialStateServer.data.vars);
+      initialStateServer.data.user = { ...initialStateServer.data.user };
+      const nacion = initialStateServer.data.vars.naciones.findIndex((e)=>e.name === initialStateServer.data.user.pais);
+      // console.log(initialStateServer.data.user);
+      initialStateServer.data.vars = {
+        ...initialStateServer.data.vars,
+        pago: initialStateServer.data.vars.naciones[nacion].pago,
+        moneda: initialStateServer.data.vars.naciones[nacion].moneda,
+        simbolo: initialStateServer.data.vars.naciones[nacion].simbolo,
+        cambio: initialStateServer.data.vars.naciones[nacion].cambio,
+      };
+    }
+
     initialState = {
       'user': { ...initialStateServer.data.user },
       'redirect': '',
@@ -73,7 +87,7 @@ const renderApp = async (req, res) => {
         data: [],
       },
       'vars': {
-        api: config.apiUrl,
+        // api: config.apiUrl,
         ...initialStateServer.data.vars,
       },
       'load': true,
@@ -99,7 +113,7 @@ const renderApp = async (req, res) => {
         data: [],
       },
       'vars': {
-        api: config.apiUrl,
+        // api: config.apiUrl,
       },
       'load': false,
     };

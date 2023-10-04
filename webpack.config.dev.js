@@ -29,6 +29,10 @@ module.exports = {
         },
       },
       {
+        test: /\.(wav|mp3)$/,
+        loader: 'file',
+      },
+      {
         test: /\.(s*)css$/,
         use: [
           {

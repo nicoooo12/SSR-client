@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import { singIn, setRedirect } from '../actions';
@@ -6,19 +6,14 @@ import Input from '../components/forms/Input';
 import Button from '../components/forms/Button';
 import Layout from '../components/layouts/Layout';
 
+import { Link } from 'react-router-dom';
+
 import '../assets/styles/containers/signIn-up.scss';
+import { useLocation } from 'react-router-dom';
 
-const App = ({ singIn, history, redirect, setRedirect, notRedirect, socket })=> {
-  const [first, setFirst] = useState(true);
-  useEffect(()=>{
-    if (first) {
-      setFirst(false);
-      document.querySelector('#react').scrollTo(0, 0);
-    }
-  }, []);
+const App = ({ singIn, history, redirect, setRedirect, socket })=> {
+  const query = new URLSearchParams(useLocation().search);
 
-  // console.log(redirect);
-  // const email = useRef('');
   const email = React.createRef(email);
   const password = React.createRef(password);
 
@@ -31,6 +26,7 @@ const App = ({ singIn, history, redirect, setRedirect, notRedirect, socket })=> 
 
   const updateInput = (event) => {
     if (event.target.name === 'email') {
+      event.target.value = event.target.value.toLocaleLowerCase();
       email.current.className = 'input';
     }
     if (event.target.name === 'password') {
@@ -59,14 +55,12 @@ const App = ({ singIn, history, redirect, setRedirect, notRedirect, socket })=> 
       return 'nop';
     }
     setErrComponent('');
-    singIn(form, (user)=>{
-      // socket.emit('holaMundo', user.id);
-      if (!notRedirect) {
-        if (redirect) {
-          history.push(redirect);
-        } else {
-          history.push('/');
-        }
+    return singIn(form, (user)=>{
+      console.log(query.get('redirect'));
+      if (query.get('redirect')) {
+        history.push(`${query.get('redirect')}`);
+      } else {
+        history.push('/');
       }
     }, (err)=>{
       document.querySelector('#react').scrollTo(0, 0);
@@ -79,7 +73,7 @@ const App = ({ singIn, history, redirect, setRedirect, notRedirect, socket })=> 
           setErrComponent(<h1>Lo sentimos, hubo un error interno. Inténtalo más tarde.</h1>);
           break;
       }
-    });
+    }, socket);
   };
 
   return (
@@ -90,7 +84,13 @@ const App = ({ singIn, history, redirect, setRedirect, notRedirect, socket })=> 
           <Input Ref={email} type='text' placeholder='Email' name='email' onChange={updateInput}/>
           <Input Ref={password} type='password' autoComplete='false' placeholder='Contraseña' name='password' onChange={updateInput} current-password />
           <p>
-            No tienes cuenta ? Crear una <Button onClick={()=>{history.push('/sign-up');}} typebutton='text' >Aquí</Button>
+            <Link to='/password'>
+              Olvide mi contraseña
+            </Link>
+          </p>
+          <br />
+          <p>
+            No tienes cuenta ? Crear una <Button onClick={()=>{history.push(`/sign-up${query.get('redirect') ? '?redirect=' + query.get('redirect') : ''}`);}} typebutton='text' >Aquí</Button>
           </p>
           <Button type='submit' onClick={clickHandler} >Iniciar sesión</Button>
         </form>
@@ -103,7 +103,7 @@ const App = ({ singIn, history, redirect, setRedirect, notRedirect, socket })=> 
 
 const mapSateToProps = (state)=>{
   return {
-    redirect: state.redirect,
+    redirect: state,
   };
 };
 

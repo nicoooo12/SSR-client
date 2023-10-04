@@ -6,6 +6,11 @@
 //   position: relative;
 // }
 
+#p-home {
+  width: inherit!important;
+  margin-bottom: 80px!important;
+}
+
 .headerA{
   top: 0px;
 }
@@ -154,16 +159,32 @@
     // top: 20px;
     @extend %Typography-text-LL;
   }
-  &>.lastIcon{
-    // margin-right: 10px;
-    transition: 1s all;
-    width: 42px;
-    display: inline-block;
-    z-index: 1000000000000000000;
-    position: relative;
-    // top: 20px;
-    color: $greyscale_off-white;
+}
+.userName{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: $greyscale_off-white;
+  overflow: hidden;
+  &>h1{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    @extend %Typography-text-TS;
+    margin-right: 1.5rem;
+    margin-left: 1.5rem;
   }
+}
+
+.lastIcon{
+  // margin-right: 10px;
+  transition: 1s all;
+  width: 42px;
+  display: inline-block;
+  z-index: 1000000000000000000;
+  position: relative;
+  // top: 20px;
+  color: $greyscale_off-white;
 }
 
 // .header{
@@ -251,6 +272,7 @@
 .headerHome{
   top:0;
   &>.contentHeaderHome{
+    position: relative;
     &>.banner{
       position:absolute;
       width: 100%;
@@ -308,6 +330,7 @@
         @extend %Typography-text-DL;
         font-size: 35px;
       }
+
       p{
         text-align: center;
         width: 60%;
@@ -329,14 +352,38 @@
         background: $greyscale_input;
         box-shadow: 0px 52px 118px rgba(0, 0, 0, 0.12);
         text-align: center;
-        text-align: -webkit-center;
-        &>a{
+        // text-align: -webkit-center;
+        
+        &>.countDown>p{
+          color: black;
+          top: -15px;
+          width: 100%;
+        }
+        &>.buttons{
+          margin: 3rem;
+        }
+
+        &>.logout{
+          display: flex;
+          flex-wrap: wrap;      
+          &>a{
+            width: auto!important;
+            height: auto!important;
+          }
+        }
+        &>div{
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          top: -90px!important;
+          text-align: unset;
+          &>a{
+          z-index: 1000;
           width: 170px;
           height: 170px;
-          top: -90px;
-          display: block;
           position: relative;
           text-decoration: none;
+          text-align: unset;
           &>.circule{
             // top: -90px;
             position: relative;
@@ -344,32 +391,43 @@
             width: 170px;
             height: 170px;
             border-radius: 100%;
+            text-align: unset;
             &>div{
-              top: 5px;
+              top:5px;
+              left: 5px;
               position: relative;
               transition: all 5s;
               background: linear-gradient(114.44deg, #EB0055 0%, #FFFA80 100%);
               width: 160px;
               height: 160px;
+              // margin: 5px;
               border-radius: 100%;
+              text-align: unset;
               &>div{
-                top: 7.5px;
+                top:10px;
+                left: 10px;
+                // margin: 7.5px;
                 position: relative;
                 background: $greyscale_input;
-                width: 145px;
-                height: 145px;
+                width: 140px;
+                height: 140px;
                 border-radius: 100%;
                 overflow: hidden;
+                text-align: unset;
                 &>img{
-                  top: 0px;
+                  text-align: unset;
+                  top:5px;
+                  // left: 5px;
                   // top: 5px;
                   position: relative;
-                  width: 145px;
-                  height: 145px;
+                  width: 130px;
+                  height: 130px;
+                  // margin: 5px;
                 }
               }
             }
           }
+        }
         }
         &>p{
           top: -40px;

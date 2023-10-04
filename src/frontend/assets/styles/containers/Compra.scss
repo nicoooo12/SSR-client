@@ -13,6 +13,9 @@
   caption-side: bottom;
   border-collapse: collapse;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   &>thead{
     width: 100%;
     vertical-align: bottom;
@@ -40,7 +43,7 @@
     }
   }
   &>tfoot{
-    margin-top: 10px;
+    margin: 10px 0;
     border-top: solid 3px $greyscale_input;
     &>tr>td{
       padding: .5rem .5rem;

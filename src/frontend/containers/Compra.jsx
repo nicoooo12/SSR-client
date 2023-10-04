@@ -1,25 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 import { connect } from 'react-redux';
 
-import Header from '../components/Header';
-import Pageination from '../components/forms/Pageination';
-import { statusNextCarrito, setStatusCarrito, setRedirect, createOrden } from '../actions';
+import Layout from '../components/layouts/Layout';
+// import { Link } from 'react-router-dom';
 import Button from '../components/forms/Button';
+// import Badges from '../components/display/Badges';
 import Icon from '../components/display/Icon';
-import numberWithCommas from '../utils';
+import Carrito from '../components/Carrito';
+// import Accordion from '../components/forms/Accordion';
+import Pagination from '../components/forms/Pagination';
+// import Input from '../components/forms/Input';
+import Copy from '../components/forms/Input-copy';
 
-import Auth from './SignIn';
+import numberWithCommas from '../utils';
+import { statusNextCarrito, setStatusCarrito, createOrden } from '../actions';
 import '../assets/styles/containers/Compra.scss';
 
-const App = ({ misOrdenes, history, varsBingo, createOrden, user, carrito, setStatusCarrito, statusNextCarrito, setRedirect })=> {
+const Compra = ({ misOrdenes, history, varsBingo, createOrden, carrito, setStatusCarrito, statusNextCarrito }) => {
+  useEffect(()=>{
+    if (misOrdenes.estado <= 1) {
+      history.push('/ordenes');
+    }
+  }, [misOrdenes]);
 
   const nextHandler = (num)=>{
     if (num || num === 0) {
-      setStatusCarrito(num + 1);
+      setStatusCarrito(carrito.state + num);
     } else {
       statusNextCarrito();
     }
   };
+  const [option, setOption] = useState(0);
+  const [referido, setReferido] = useState(0);
 
   const startPay = ()=>{
     if (!misOrdenes.user) {
@@ -27,18 +40,19 @@ const App = ({ misOrdenes, history, varsBingo, createOrden, user, carrito, setSt
       let totalPago = 0;
       const carro = carrito.data.map((e)=>{
         totalPago += (e.precio * e.cantidad);
+        if (e.serie === 0) {
+          return { serie: e.serie, cantidad: e.cantidad, promo: e.promo };
+        }
         return { serie: e.serie, cantidad: e.cantidad };
+
       });
-      createOrden(carro, totalPago);
+      createOrden(carro, referido, totalPago);
+      setStatusCarrito(2);
     }
   };
 
   const endHandler = (event)=>{
     history.push('ordenes');
-  };
-
-  const handleOnLoad = ()=>{
-    setRedirect('');
   };
 
   let contentHeader;
@@ -47,89 +61,170 @@ const App = ({ misOrdenes, history, varsBingo, createOrden, user, carrito, setSt
       if (!carrito.data[0]) {
         history.push('/catalogo');
       }
+      contentHeader = (
+        <>
+          <Layout to='/catalogo' title='Pago'>
+            <Carrito setReferido={setReferido} history={history} />
+          </Layout>
+        </>
+      );
+      break;
+    case 1:
       if (!misOrdenes['user']) {
-        contentHeader = (<>
-          <h1>Pago con Transferencia.</h1>
-          <p>Para realizar el pago deberá realizar una transferencia electrónica (Datos de la transacción se presentarán a continuación) y posteriormente mandarnos un comprobante de esta transacción. Sus cartones sólo serán liberados una vez que nos envíe este comprobante.</p>
-          <Button onClick={statusNextCarrito}>Iniciar Pago</Button>
-        </>);
+        contentHeader = (
+          <Layout to='/catalogo' title='Pago'>
+            <div className='noTengo'>
+              <h1>Pago con Transferencia.</h1>
+              <p>
+                Para realizar el pago deberá realizar una transferencia
+                electrónica (Datos de la transacción se presentarán a
+                continuación) y posteriormente, comprobaremos tu transferencia con
+                el comprobante que tendrás que subir. Asegúrate que el comprobante muestre claramente
+                el monto, la fecha y el numero de cuenta al cual se hizo la trasferencia.
+                {/* <br /> */}
+                {/* Escribe tu Rut para comprobar la transferencia una vez esta se realice. */}
+                {/* <br /> */}
+                {/* De no poder realizar la comprobación, se te notificará y tendrás
+                que subir un comprobante de manera manual. */}
+                <br />
+                Sus cartones sólo serán liberados
+                una vez que se compruebe la transferencia.
+              </p>
+              <br />
+              {/* <Input type='text' placeholder='R.U.T' name='rut'/> */}
+              <br />
+              <Button onClick={startPay}>Iniciar Pago</Button>
+            </div>
+          </Layout>
+        );
       } else {
         nextHandler();
       }
       break;
-    case 1:
-      contentHeader = (<>
-        <h1>Datos<br/>bancarios.</h1>
-        { startPay() }
-        <table className='bank__table'>
-          <thead>
-            {/* <tr>
-              <th className='th__start'>Correo </th>
-              <th className='th__end'>example@example.com</th>
-            </tr> */}
-          </thead>
-          <tbody>
-            <tr>
-              <td className='td__start'>Numero de cuenta:</td>
-              <td className='td__end'>{varsBingo.pago.numCuenta}</td>
-            </tr>
-            <tr>
-              <td className='td__start'>Rut:</td>
-              <td className='td__end'>{varsBingo.pago.rut}</td>
-            </tr>
-            <tr>
-              <td className='td__start'>Titular:</td>
-              <td className='td__end'>{varsBingo.pago.titular}</td>
-            </tr>
-            <tr>
-              <td className='td__start'>Banco:</td>
-              <td className='td__end'>{varsBingo.pago.banco}</td>
-            </tr>
-            <tr>
-              <td className='td__start'>Correo:</td>
-              <td className='td__end correoTable' style={{ width: '100%', wordBreak: 'break-word' }}>{varsBingo.pago.correo}</td>
-            </tr>
-            <tr>
-              <td className='td__start'>Motivo de la transferencia:</td>
-              <td className='td__end'>{varsBingo.pago.motivo}</td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td className='td__start'>Monto a Pagar: </td>
-              <td className='td__end'>
-                {varsBingo.pago.simbolo}{
-                  misOrdenes['totalPago'] ?
-                    <>{numberWithCommas(misOrdenes.totalPago)}</> :
-                    <>Cargando ...</>
-                } {varsBingo.pago.moneda}
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-        <Pageination content={['Datos bancarios.', 'Subir Comprobante.']} btn={true} pag={0} nextHandler={nextHandler} />
-      </>);
-      break;
     case 2:
       contentHeader = (<>
-        <h1>Subir<br/>Comprobante.</h1>
-        <div className='subirArchivo'>
-          {
-            misOrdenes['code'] ?
-              <a href={`https://docs.google.com/forms/d/e/1FAIpQLScjQezMOW9VhCldbPmnxNNqUqkDuEskgmOfm_1pzf3NVoyiLA/viewform?entry.1086376657=${misOrdenes.code}`} target='_blank' rel='noopener noreferrer'>
-                <Icon type='upLoad' height='40' width='40' />
-                Subir Archivo
-              </a> : <>Espera un momento<br/>Estamos procesado tu compra.</>
-          }
-        </div>
-        <p>
-          {
-            misOrdenes['code'] ?
-              <>Tu código de compra es: {misOrdenes.code}</> :
-              <>Cargando ...</>
-          }
-        </p>
-        <Pageination content={['Datos bancarios.', 'Subir Comprobante.']} btn={true} pag={1} nextHandler={nextHandler} end={endHandler} />
+        <Layout to='/catalogo' title='Pago'>
+          <div className='noTengo'>
+
+            <h1>Datos<br/>bancarios.</h1>
+            <table className='bank__table'>
+              <thead>
+                {/* <tr>
+                  <th className='th__start'>Correo </th>
+                  <th className='th__end'>example@example.com</th>
+                </tr> */}
+                <div style={{ textAlign: 'center' }}>
+                  {
+                    varsBingo.pago[0] ?
+                      <>
+                        {
+                          varsBingo.pago.map((e, i)=>{
+                            return (
+                              <Button
+                                key={i}
+                                typebutton='subtle'
+                                size='small'
+                                autoLogin={false}
+                                onClick={()=> {setOption(i);}}
+                              >{varsBingo.pago[i].title}</Button>);
+                          })
+                        }
+                        {/* <Button typebutton='subtle' size='small' autoLogin={false}>Opción 2</Button> */}
+                      </> : <></>
+                  }
+                </div>
+              </thead>
+              <tbody>
+                <tr>
+                  {
+                    varsBingo.pago[0] ?
+                      <>
+                        <h1 className='title'>{varsBingo.pago[option].title}</h1>
+                        <Copy placeholder='Numero de cuenta:'>
+                          {varsBingo.pago[option].numCuenta}
+                        </Copy>
+                        <Copy placeholder='Rut:'>
+                          {varsBingo.pago[option].rut}
+                        </Copy>
+                        <Copy placeholder='Titular:'>
+                          {varsBingo.pago[option].titular}
+                        </Copy>
+                        <Copy placeholder='Banco:'>
+                          {varsBingo.pago[option].banco}
+                        </Copy>
+                        <Copy placeholder='Correo:'>
+                          {varsBingo.pago[option].correo}
+                        </Copy>
+                        {/* <Copy placeholder='Referido:'>
+                          {misOrdenes.referido}
+                        </Copy> */}
+                      </> :
+                      <>
+                        <Copy placeholder='Numero de cuenta:'>
+                          {varsBingo.pago.numCuenta}
+                        </Copy>
+                        <Copy placeholder='Rut:'>
+                          {varsBingo.pago.rut}
+                        </Copy>
+                        <Copy placeholder='Titular:'>
+                          {varsBingo.pago.titular}
+                        </Copy>
+                        <Copy placeholder='Banco:'>
+                          {varsBingo.pago.banco}
+                        </Copy>
+                        <Copy placeholder='Correo:'>
+                          {varsBingo.pago.correo}
+                        </Copy>
+                        {/* <Copy placeholder='Referido:'>
+                          {misOrdenes.referido}
+                        </Copy> */}
+
+                      </>
+                  }
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td className='td__start'>Monto a Pagar: </td>
+                  <td className='td__end'>
+                    {varsBingo.simbolo}{
+                      misOrdenes['totalPago'] ?
+                        <>{numberWithCommas(misOrdenes.totalPago * varsBingo.cambio)}</> :
+                        <>Cargando ...</>
+                    } {varsBingo.moneda}
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+            <Pagination content={['Datos bancarios.', 'Subir Comprobante.']} btn={true} pag={0} nextHandler={nextHandler} />
+          </div>
+        </Layout>
+      </>);
+      break;
+    case 3:
+      contentHeader = (<>
+        <Layout to='/catalogo' title='Pago'>
+          <div className='noTengo'>
+            <h1>Subir<br/>Comprobante.</h1>
+            <div className='subirArchivo'>
+              {
+                misOrdenes['code'] ?
+                  <a href={`https://docs.google.com/forms/d/e/1FAIpQLScjQezMOW9VhCldbPmnxNNqUqkDuEskgmOfm_1pzf3NVoyiLA/viewform?entry.1086376657=${misOrdenes.code}`} target='_blank' rel='noopener noreferrer'>
+                    <Icon type='upLoad' height='40' width='40' />
+                    Subir Archivo
+                  </a> : <>Espera un momento<br/>Estamos procesado tu compra.</>
+              }
+            </div>
+            <p>
+              {
+                misOrdenes['code'] ?
+                  <>Tu código de compra es: <span className='copy'>{misOrdenes.code}</span></> :
+                  <>Cargando ...</>
+              }
+            </p>
+            <Pagination content={['Datos bancarios.', 'Subir Comprobante.']} btn={true} pag={1} nextHandler={nextHandler} end={endHandler} />
+          </div>
+        </Layout>
       </>);
       break;
     default:
@@ -142,24 +237,14 @@ const App = ({ misOrdenes, history, varsBingo, createOrden, user, carrito, setSt
 
   return (
     <>
-      {
-        carrito.state >= 1 & !user.id ?
-          <Auth history={history} notRedirect /> :
-          <div className='compras' onLoad={handleOnLoad}>
-            <Header title='Pagar' to='catalogo' >
-              {contentHeader}
-            </Header>
-          </div>
-      }
+      {contentHeader}
     </>
   );
-
 };
 
 const mapStateToProps = (state)=>{
   return {
     carrito: state.carrito,
-    user: state.user,
     misOrdenes: state.ordenes.enProgreso,
     varsBingo: state.vars,
   };
@@ -169,7 +254,6 @@ const mapDispatchToProps = {
   createOrden,
   statusNextCarrito,
   setStatusCarrito,
-  setRedirect,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(Compra);

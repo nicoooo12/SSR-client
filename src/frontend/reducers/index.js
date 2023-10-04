@@ -14,6 +14,14 @@ const reducer = (state, action) => {
             [{ ...action.payload, cantidad: 1 }],
         },
       };
+    case 'ADD_REFERIDO_TO_CARRITO':
+      return {
+        ...state,
+        carrito: {
+          ...state.carrito,
+          referido: action.payload,
+        },
+      };
     case 'REMOVE_ITEM_TO_CARRITO':
       return {
         ...state,

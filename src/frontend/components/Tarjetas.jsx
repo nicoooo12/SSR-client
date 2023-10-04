@@ -1,13 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Button from './forms/IncrementStepper';
+// import Button2 from './forms/Button';
 import Badges from './display/Badges';
 import numberWithCommas from '../utils';
+// import { Link } from 'react-router-dom';
 
 import { addItemToCarrito, removeItemToCarrito } from '../actions';
 
 import '../assets/styles/components/Tarjetas.scss';
-const App = ({ title, subTitle, precio, serie, premios, addItemToCarrito, removeItemToCarrito, carrito, varsBingo })=> {
+const App = ({ title, subTitle, precio, serie, premios, mensaje, addItemToCarrito, removeItemToCarrito, carrito, varsBingo })=> {
 
   const addCarritoHandle = (serie, cantidad)=>{
     addItemToCarrito({ serie, title, precio: precio });
@@ -22,17 +24,30 @@ const App = ({ title, subTitle, precio, serie, premios, addItemToCarrito, remove
       <div className='tarjeta__content'>
         <div className='tarjeta__title'>
           <h1 >{title}</h1>
-          <Badges>{varsBingo.pago.simbolo + numberWithCommas(precio) + ' ' + varsBingo.pago.moneda}</Badges>
+          <Badges>{varsBingo.simbolo + numberWithCommas(precio * varsBingo.cambio) + ' ' + varsBingo.moneda}</Badges>
         </div>
         <div className='tarjeta__premios'>
-          <small>
+          <p>
             { premios }
-          </small>
+          </p>
         </div>
-        <p className='tarjeta__subTitle'>{subTitle}</p>
+        <small className='tarjeta__subTitle'>{subTitle}</small>
         <div className='tarjeta__componentsGroup'>
-          <span className='tarjeta-info'>Ultimas Compras</span>
-          <Button idHandler={serie} setStartCount={carrito.data.filter((e)=>{return e.serie === serie;})[0] ? carrito.data.filter((e)=>{return e.serie === serie;})[0].cantidad : 0} handlerAdd={addCarritoHandle} handlerSubtract={subtractCarritoHandle} />
+          <span className='tarjeta-info'>{mensaje}</span>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+            {/* {
+              serie === 0 ?
+                (
+                  <>
+                    <Link to='/canjear'>
+                      <Button2 typebutton='secondary' size='small' autoLogin={false} >Canjear</Button2>
+                    </Link>
+                  </>
+                ) :
+                (<></>)
+            } */}
+            <Button idHandler={serie} setStartCount={carrito.data.filter((e)=>{return e.serie === serie;})[0] ? carrito.data.filter((e)=>{return e.serie === serie;})[0].cantidad : 0} handlerAdd={addCarritoHandle} handlerSubtract={subtractCarritoHandle} />
+          </div>
         </div>
       </div>
     </div>

@@ -276,7 +276,7 @@ const App = (props)=> {
               Imprimir
             </button> */}
             <Badges>
-              serie: {props.serie}
+              Código: {props.code}
             </Badges>
           </div>
         </div>
